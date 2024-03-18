@@ -17,12 +17,14 @@
     <hr class="sidebar-divider">
 
     <!-- Heading --> 
+    @if(Auth::user()->role == 'admin')
     <div class="sidebar-heading">
         Data Master
     </div>
     <li class="nav-item">
-        <a class="nav-link {{ (request()->is('user')) ? 'active' : ''}}" href="">
+      <a class="nav-link {{ (request()->is('guru')) ? 'active' : ''}}" href="{{ route('guru.index') }}">
             <i class="fa-duotone fa-user" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
+             
             <span>Data Guru</span></a>
     </li>
     <li class="nav-item">
@@ -30,12 +32,6 @@
             <i class="fa-duotone fa-user" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
             <span>Data Siswa</span></a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link {{ (request()->is('material')) ? 'active' : ''}}" href="">
-            <i class="fa-duotone fa-user" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
-            <span>Data Tagihan</span></a>
-    </li>
-
     <!-- Divider -->
     <hr class="sidebar-divider">
 
@@ -94,7 +90,7 @@
             <span>Laporan Dana BOS</span></a>
     </li>
 
-
+    @endif
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 
