@@ -10,7 +10,7 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item {{ (request()->is('/')) ? 'active' : ''}}">
-        <a class="nav-link" href=""><i class="fas fa-fw fa-tachometer-alt"></i><span>Dashboard</span></a>
+        <a class="nav-link {{ (request()->is('dashboard')) ? 'active' : ''}}" href="{{ route('dashboard') }}"><i class="fas fa-fw fa-tachometer-alt"></i><span>Dashboard</span></a>
     </li>
 
     <!-- Divider -->
@@ -28,7 +28,7 @@
             <span>Data Guru</span></a>
     </li>
     <li class="nav-item">
-        <a class="nav-link {{ (request()->is('material')) ? 'active' : ''}}" href="">
+      <a class="nav-link {{ (request()->is('siswa')) ? 'active' : ''}}" href="{{ route('siswa.index') }}">
             <i class="fa-duotone fa-user" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
             <span>Data Siswa</span></a>
     </li>

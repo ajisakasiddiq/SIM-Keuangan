@@ -29,5 +29,6 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::resource('guru', 'App\Http\Controllers\GuruController')->middleware('auth');
+Route::resource('siswa', 'App\Http\Controllers\SiswaController')->middleware('auth');
 
 require __DIR__ . '/auth.php';
