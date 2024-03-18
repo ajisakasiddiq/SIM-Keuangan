@@ -22,15 +22,20 @@
         Data Master
     </div>
     <li class="nav-item">
-      <a class="nav-link {{ (request()->is('guru')) ? 'active' : ''}}" href="{{ route('guru.index') }}">
+      <a class="nav-link {{ (request()->is('data-guru')) ? 'active' : ''}}" href="{{ route('data-guru.index') }}">
             <i class="fa-duotone fa-user" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
              
             <span>Data Guru</span></a>
     </li>
     <li class="nav-item">
-      <a class="nav-link {{ (request()->is('siswa')) ? 'active' : ''}}" href="{{ route('siswa.index') }}">
+      <a class="nav-link {{ (request()->is('data-siswa')) ? 'active' : ''}}" href="{{ route('data-siswa.index') }}">
             <i class="fa-duotone fa-user" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
             <span>Data Siswa</span></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link {{ (request()->is('data-tagihan')) ? 'active' : ''}}" href="{{ route('data-tagihan.index') }}">
+            <i class="fa-duotone fa-user" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
+            <span>Data Tagihan</span></a>
     </li>
     <!-- Divider -->
     <hr class="sidebar-divider">

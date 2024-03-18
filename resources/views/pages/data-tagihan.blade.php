@@ -8,7 +8,7 @@
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Data Siswa</h1>
+        <h1 class="h3 mb-0 text-gray-800">Data Tagihan</h1>
     </div>
 
     <!-- Content Row -->
@@ -22,23 +22,19 @@
                                 + Tambah Data
                             </a>
                             <div class="table-responsive">
-                                <table id="UserDataSiswa" class="display" style="width:100%">
+                                <table id="UserDataTagihan" class="display" style="width:100%">
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Roles</th>
+                                            <th>Name</th>>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($user as $data) 
+                                        @foreach ($tagihan as $data) 
                                         <tr>
                                             <td>{{ $no++ }}</td>
                                             <td>{{ $data->name }}</td>
-                                            <td>{{ $data->email }}</td>
-                                            <td>{{ $data->role }}</td>
                                             <td>
                                                 <div class="dropdown">
                                                     <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -63,24 +59,12 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('data-siswa.update',$data->id) }}" method="POST">
+                <form action="{{ route('data-tagihan.update',$data->id) }}" method="POST">
                     @csrf
                     @method('PUT')
                     <div class="mb-3">
-                      <label for="exampleInputEmail1" class="form-label">Email address</label>
-                      <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $data->email }}" required autocomplete="email">
-                    </div>
-                    <div class="mb-3">
                       <label for="exampleInputEmail1" class="form-label">Name</label>
                       <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $data->name }}" required autocomplete="name" autofocus>
-                    </div>
-                    <div class="mb-3">
-                      <select id="pilihan" class="option form-control" placeholder="Pilih User Sebagai" class="form-control form-select" name="role" id="OptionLevel">
-                        <option value="admin" {{ $data->role == 'admin' ? 'selected' : '' }}>Admin</option>
-                        <option value="siswa" {{ $data->role == 'siswa' ? 'selected' : '' }}>Siswa</option>
-                        <option value="guru" {{ $data->role == 'guru' ? 'selected' : '' }}>Guru</option>
-                    </select>
-                    
                     </div>
             </div>
             <div class="modal-footer">
@@ -102,7 +86,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-          <form action="{{ route('data-siswa.destroy', $data->id) }}" method="POST">
+          <form action="{{ route('data-tagihan.destroy', $data->id) }}" method="POST">
               @csrf
               @method('DELETE')
               <p>Anda Yakin akan menghapus data {{ $data->name }}?</p>
@@ -125,8 +109,6 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Roles</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </tfoot>
@@ -149,28 +131,12 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('data-siswa.store') }}" method="POST">
+                <form action="{{ route('data-tagihan.store') }}" method="POST">
                     @csrf
                     @method('POST')
                     <div class="mb-3">
-                      <label for="exampleInputEmail1" class="form-label">Email address</label>
-                      <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-                    </div>
-                    <div class="mb-3">
                       <label for="exampleInputEmail1" class="form-label">Name</label>
                       <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-                    </div>
-                    <div class="mb-3">
-                      <label for="password" class="form-label">Password</label>
-                      <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-                    </div>
-                    <div class="mb-3">
-                        <select  id="pilihan" class="option form-control" placeholder="Pilih User Sebagai" class="form-control  form-select" name="role" id="OptionLevel">
-                            <option>Daftar sebagai</option>
-                            <option value="admin">Admin</option>
-                            <option value="guru">Guru</option>
-                            <option value="siswa">Siswa</option>
-                        </select>
                     </div>
             </div>
             <div class="modal-footer">
@@ -186,7 +152,7 @@
 @push('addon-script')
 <script type="text/javascript">
   $(document).ready(function() {
-        $('#UserDataSiswa').DataTable();
+        $('#UserDataTagihan').DataTable();
     });
     </script>
 @endpush

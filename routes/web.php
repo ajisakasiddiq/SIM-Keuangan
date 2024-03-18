@@ -29,8 +29,9 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::resource('siswa', 'App\Http\Controllers\SiswaController')->middleware('auth');
-Route::resource('guru', 'App\Http\Controllers\GuruController')->middleware('auth');
+Route::resource('data-siswa', 'App\Http\Controllers\SiswaController')->middleware('auth');
+Route::resource('data-guru', 'App\Http\Controllers\GuruController')->middleware('auth');
+Route::resource('data-tagihan', 'App\Http\Controllers\TagihanController')->middleware('auth');
 
 
 require __DIR__ . '/auth.php';

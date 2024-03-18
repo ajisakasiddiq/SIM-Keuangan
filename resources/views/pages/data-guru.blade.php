@@ -63,7 +63,7 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('guru.update',$data->id) }}" method="POST">
+                <form action="{{ route('data-guru.update',$data->id) }}" method="POST">
                     @csrf
                     @method('PUT')
                     <div class="mb-3">
@@ -102,7 +102,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-          <form action="{{ route('guru.destroy', $data->id) }}" method="POST">
+          <form action="{{ route('data-guru.destroy', $data->id) }}" method="POST">
               @csrf
               @method('DELETE')
               <p>Anda Yakin akan menghapus data {{ $data->name }}?</p>
@@ -149,7 +149,7 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('guru.store') }}" method="POST">
+                <form action="{{ route('data-guru.store') }}" method="POST">
                     @csrf
                     @method('POST')
                     <div class="mb-3">
