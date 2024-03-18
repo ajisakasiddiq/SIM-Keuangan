@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\tagihan;
 use Illuminate\Http\Request;
 
-class TagihanController extends Controller
+class JenisTagihanController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -39,7 +39,7 @@ class TagihanController extends Controller
             return redirect()->route('data-tagihan.index')->with('success', 'Data berhasil disimpan.');
         } catch (\Exception $e) {
             // Tangkap pengecualian dan tampilkan pesan kesalahan
-            return redirect()->route('data-tagihan.index')->with('error', 'Key yang anda masukkan tidak ada di saldo mon');
+            return redirect()->route('data-jenis-tagihan.index')->with('error', 'Key yang anda masukkan tidak ada di saldo mon');
         }
     }
 
@@ -67,7 +67,7 @@ class TagihanController extends Controller
         $data = $request->all();
         $item = tagihan::findOrFail($id);
         $item->update($data);
-        return redirect()->route('data-tagihan.index')->with('success', 'Data berhasil diperbarui.');
+        return redirect()->route('data-jenis-tagihann.index')->with('success', 'Data berhasil diperbarui.');
     }
 
     /**
@@ -78,6 +78,6 @@ class TagihanController extends Controller
         $data = tagihan::findOrFail($id);
         $data->delete();
 
-        return redirect()->route('data-tagihan.index');
+        return redirect()->route('data-jenis-tagihan.index');
     }
 }

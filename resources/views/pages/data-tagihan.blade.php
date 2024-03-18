@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-    Dashboard | Data Siswa
+    Dashboard | Data Jenis Tagihan
 @endsection
 
 @section('content')
@@ -8,7 +8,7 @@
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Data Tagihan</h1>
+        <h1 class="h3 mb-0 text-gray-800">Data Jenis Tagihan</h1>
     </div>
 
     <!-- Content Row -->
@@ -59,7 +59,7 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('data-tagihan.update',$data->id) }}" method="POST">
+                <form action="{{ route('data-jenis-tagihan.update',$data->id) }}" method="POST">
                     @csrf
                     @method('PUT')
                     <div class="mb-3">
@@ -86,7 +86,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-          <form action="{{ route('data-tagihan.destroy', $data->id) }}" method="POST">
+          <form action="{{ route('data-jenis-tagihan.destroy', $data->id) }}" method="POST">
               @csrf
               @method('DELETE')
               <p>Anda Yakin akan menghapus data {{ $data->name }}?</p>
@@ -131,7 +131,7 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('data-tagihan.store') }}" method="POST">
+                <form action="{{ route('data-jenis-tagihan.store') }}" method="POST">
                     @csrf
                     @method('POST')
                     <div class="mb-3">
