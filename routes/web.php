@@ -27,6 +27,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+
 Route::resource('siswa', 'App\Http\Controllers\SiswaController')->middleware('auth');
 Route::resource('guru', 'App\Http\Controllers\GuruController')->middleware('auth');
 
