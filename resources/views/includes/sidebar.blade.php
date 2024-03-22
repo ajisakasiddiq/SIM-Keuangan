@@ -44,14 +44,11 @@
     <div class="sidebar-heading">
         Data Keuangan
     </div>
-    <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-         Data Tagihan
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Pembayaran SPP</a>
-          <a class="dropdown-item" href="#">Pembayaran Buku</a>
-        </div>
+
+      <li class="nav-item">
+        <a class="nav-link {{ (request()->is('data-siswa')) ? 'active' : ''}}" href="{{ route('data-siswa.index') }}">
+              <i class="fa-money-check-alt" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
+              <span>Tagihan</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link {{ (request()->is('data-siswa')) ? 'active' : ''}}" href="{{ route('data-siswa.index') }}">

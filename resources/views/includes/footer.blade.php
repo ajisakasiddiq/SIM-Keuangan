@@ -1,7 +1,7 @@
 <footer class="sticky-footer bg-white">
     <div class="container my-auto">
         <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Sistem Informasi Scanner Barang 2023</span>
+            <span>Copyright &copy; Sistem Informasi Manajemen Keuangan Sekolah 2024 By AjisakaSiddiq</span>
         </div>
     </div>
 </footer>

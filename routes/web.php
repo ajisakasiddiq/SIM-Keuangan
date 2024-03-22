@@ -29,7 +29,7 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::resource('data-siswa', 'App\Http\Controllers\SiswaController')->middleware('auth');
+Route::resource('data-siswa', 'App\Http\Controllers\SiswaController')->middleware('auth', 'checkRole:admin-tu');
 Route::resource('data-guru', 'App\Http\Controllers\GuruController')->middleware('auth');
 Route::resource('data-jenis-tagihan', 'App\Http\Controllers\JenisTagihanController')->middleware('auth');
 
