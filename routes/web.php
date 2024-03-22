@@ -28,10 +28,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-
-Route::resource('data-siswa', 'App\Http\Controllers\SiswaController')->middleware('auth', 'checkRole:admin-tu');
-Route::resource('data-guru', 'App\Http\Controllers\GuruController')->middleware('auth');
-Route::resource('data-jenis-tagihan', 'App\Http\Controllers\JenisTagihanController')->middleware('auth');
-
+Route::middleware('auth', 'checkRole:admin-tu')->group(function () {
+    Route::resource('data-siswa', 'App\Http\Controllers\SiswaController');
+    Route::resource('data-guru', 'App\Http\Controllers\GuruController');
+    Route::resource('data-jenis-tagihan', 'App\Http\Controllers\JenisTagihanController');
+});
+Route::middleware('auth', 'checkRole:admin-keuangan')->group(function () {
+    Route::resource('Tagihan', 'App\Http\Controllers\TagihanController');
+});
 
 require __DIR__ . '/auth.php';

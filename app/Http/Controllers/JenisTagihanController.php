@@ -14,7 +14,7 @@ class JenisTagihanController extends Controller
     {
         $no = 1;
         $tagihan = tagihan::get();
-        return view('pages.data-tagihan', compact(
+        return view('pages.data-jenis-tagihan', compact(
             'tagihan',
             'no'
         ));
