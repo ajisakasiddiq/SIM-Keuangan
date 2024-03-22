@@ -17,7 +17,7 @@
     <hr class="sidebar-divider">
 
     <!-- Heading --> 
-    @if(Auth::user()->role == 'admin')
+    @if(Auth::user()->role == 'admin-tu')
     <div class="sidebar-heading">
         Data Master
     </div>
@@ -39,7 +39,7 @@
     </li>
     <!-- Divider -->
     <hr class="sidebar-divider">
-
+    @elseif(Auth::user()->role == 'admin-keuangan')
     <!-- Heading -->
     <div class="sidebar-heading">
         Data Keuangan
@@ -53,23 +53,15 @@
           <a class="dropdown-item" href="#">Pembayaran Buku</a>
         </div>
       </li>
-    <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Pendapatan
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Product 1</a>
-          <a class="dropdown-item" href="#">Product 2</a>
-        </div>
+      <li class="nav-item">
+        <a class="nav-link {{ (request()->is('data-siswa')) ? 'active' : ''}}" href="{{ route('data-siswa.index') }}">
+              <i class="fa-money-check-alt" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
+              <span>Pendapatan</span></a>
       </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Pengeluaran
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Product 1</a>
-          <a class="dropdown-item" href="#">Product 2</a>
-        </div>
+      <li class="nav-item">
+        <a class="nav-link {{ (request()->is('data-siswa')) ? 'active' : ''}}" href="{{ route('data-siswa.index') }}">
+              <i class="fa-duotone fa-user" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
+              <span>Pengeluaran</span></a>
       </li>
          <!-- Divider -->
     <hr class="sidebar-divider">
@@ -81,23 +73,32 @@
     <div class="sidebar-heading">
         Laporan Keuangan
     </div>
-    <li class="nav-item">
-        <a class="nav-link {{ (request()->is('transaksi')) ? 'active' : ''}}" href="">
-            <i class="fa-duotone fa-user" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
-            <span>Laporan Dana BOS</span></a>
-    <li class="nav-item">
-        <a class="nav-link {{ (request()->is('transaksi')) ? 'active' : ''}}" href="">
-            <i class="fa-duotone fa-user" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
-            <span>Laporan Dana BOS</span></a>
-    <li class="nav-item">
-        <a class="nav-link {{ (request()->is('transaksi')) ? 'active' : ''}}" href="">
-            <i class="fa-duotone fa-user" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
-            <span>Laporan Dana BOS</span></a>
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+       Laporan
+      </a>
+      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <a class="dropdown-item" href="#">Buku Besar</a>
+        <a class="dropdown-item" href="#">Laba Rugi</a>
+      </div>
     </li>
 
+    <hr class="sidebar-divider d-none d-md-block">
+
+    @elseif(Auth::user()->role == 'siswa')
+    <li class="nav-item">
+      <a class="nav-link {{ (request()->is('data-guru')) ? 'active' : ''}}" href="{{ route('data-guru.index') }}">
+            <i class="fa-duotone fa-user" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
+             
+            <span>Tagihan</span></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link {{ (request()->is('data-siswa')) ? 'active' : ''}}" href="{{ route('data-siswa.index') }}">
+            <i class="fa-duotone fa-user" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
+            <span>Riwayat Pembayaran</span></a>
+    </li>
     @endif
     <!-- Divider -->
-    <hr class="sidebar-divider d-none d-md-block">
 
     <!-- Sidebar Toggler (Sidebar) -->
     <div class="text-center d-none d-md-inline">
