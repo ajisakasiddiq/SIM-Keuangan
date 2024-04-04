@@ -29,7 +29,6 @@ class SiswaController extends Controller
                         data-name="' . $item->name . '" 
                         data-email="' . $item->email . '" 
                         data-toggle="modal" data-target="#editModal">Edit</button>
-                        <a href="' . route('data-siswa.index', $item->id) . '" class="dropdown-item">Cetak</a>
                           <form action="' . route('data-siswa.destroy', $item->id) . '" method="POST">
                           ' . method_field('delete') . csrf_field() . '
                           <button type="submit" class="dropdown-item text-danger">Hapus</button>

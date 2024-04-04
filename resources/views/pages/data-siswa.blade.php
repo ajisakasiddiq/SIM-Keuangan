@@ -28,20 +28,31 @@
                                             <th>No</th>
                                             <th>Name</th>
                                             <th>Email</th>
+                                            <th>NIK</th>
+                                            <th>No HP</th>
+                                            <th>Alamat</th>
+                                            <th>Tempat Lahir</th>
+                                            <th>Tanggal Lahir</th>
+                                            <th>Jenis Kelamin</th>
+                                            <th>Kelas</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                      
+                                      <tbody>
                                       </tbody>
-</div>
-
-                                    
+                                    </div>                              
                                     <tfoot>
                                         <tr>
-                                            <th>No</th>
-                                            <th>Name</th>
-                                            <th>Email</th>
+                                          <th>No</th>
+                                          <th>Name</th>
+                                          <th>Email</th>
+                                          <th>NIK</th>
+                                          <th>No HP</th>
+                                          <th>Alamat</th>
+                                          <th>Tempat Lahir</th>
+                                          <th>Tanggal Lahir</th>
+                                          <th>Jenis Kelamin</th>
+                                          <th>Kelas</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </tfoot>
@@ -51,7 +62,6 @@
                     </div>
                 </div>
             </div>
-        
         </div>
     {{-- </div> --}}
     <div class="modal fade" id="editModal" tabindex="1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -70,12 +80,47 @@
                           <label for="exampleInputEmail1" class="form-label">Nama</label>
                           <input type="text" name="name" class="form-control" id="name"
                               aria-describedby="emailHelp">
-                          <input type="text" name="id" class="form-control" id="id"
+                          <input type="hidden" name="id" class="form-control" id="id"
                               aria-describedby="emailHelp">
                       </div>
                       <div class="mb-3">
                           <label for="exampleInputEmail1" class="form-label">Email</label>
                           <input type="text" name="email" class="form-control" id="email"
+                              aria-describedby="emailHelp">
+                      </div>
+                      <div class="mb-3">
+                          <label for="exampleInputEmail1" class="form-label">NIK</label>
+                          <input type="text" name="nik" class="form-control" id="nik"
+                              aria-describedby="emailHelp">
+                      </div>
+                      <div class="mb-3">
+                          <label for="exampleInputEmail1" class="form-label">NO HP</label>
+                          <input type="text" name="no_hp" class="form-control" id="no_hp"
+                              aria-describedby="emailHelp">
+                      </div>
+                      <div class="mb-3">
+                          <label for="exampleInputEmail1" class="form-label">Alamat</label>
+                          <input type="text" name="alamat" class="form-control" id="alamat"
+                              aria-describedby="emailHelp">
+                      </div>
+                      <div class="mb-3">
+                          <label for="exampleInputEmail1" class="form-label">Tempat Lahir</label>
+                          <input type="text" name="tempat_lahir" class="form-control" id="tempat_lahir"
+                              aria-describedby="emailHelp">
+                      </div>
+                      <div class="mb-3">
+                          <label for="exampleInputEmail1" class="form-label">Tanggal Lahir</label>
+                          <input type="text" name="tgl_lahir" class="form-control" id="tgl_lahir"
+                              aria-describedby="emailHelp">
+                      </div>
+                      <div class="mb-3">
+                          <label for="exampleInputEmail1" class="form-label">Jenis Kelamin</label>
+                          <input type="text" name="jk" class="form-control" id="jk"
+                              aria-describedby="emailHelp">
+                      </div>
+                      <div class="mb-3">
+                          <label for="exampleInputEmail1" class="form-label">Kelas</label>
+                          <input type="text" name="kelas" class="form-control" id="kelas"
                               aria-describedby="emailHelp">
                       </div>
               </div>
@@ -111,6 +156,40 @@
                       <label for="password" class="form-label">Password</label>
                       <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
                       <input id="role" type="hidden" value="siswa" class="form-control @error('password') is-invalid @enderror" name="role" required autocomplete="new-password">
+                    </div> <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">NIK</label>
+                        <input type="text" name="nik" class="form-control" id="nik"
+                            aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">NO HP</label>
+                        <input type="text" name="no_hp" class="form-control" id="no_hp"
+                            aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Alamat</label>
+                        <input type="text" name="alamat" class="form-control" id="alamat"
+                            aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Tempat Lahir</label>
+                        <input type="text" name="tempat_lahir" class="form-control" id="tempat_lahir"
+                            aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Tanggal Lahir</label>
+                        <input type="text" name="tgl_lahir" class="form-control" id="tgl_lahir"
+                            aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Jenis Kelamin</label>
+                        <input type="text" name="jk" class="form-control" id="jk"
+                            aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Kelas</label>
+                        <input type="text" name="kelas" class="form-control" id="kelas"
+                            aria-describedby="emailHelp">
                     </div>
             </div>
             <div class="modal-footer">
@@ -145,6 +224,34 @@
               {
                   data: 'email',
                   name: 'email'
+              },
+              {
+                  data: 'nik',
+                  name: 'NIK'
+              },
+              {
+                  data: 'no_hp',
+                  name: 'No HP'
+              },
+              {
+                  data: 'alamat',
+                  name: 'alamat'
+              },
+              {
+                  data: 'tempat_lahir',
+                  name: 'Tempat Lahir'
+              },
+              {
+                  data: 'tgl_lahir',
+                  name: 'tanggal Lahir'
+              },
+              {
+                  data: 'jk',
+                  name: 'Jenis Kelamin'
+              },
+              {
+                  data: 'kelas',
+                  name: 'Kelas'
               },
               {
                   data: 'action',
