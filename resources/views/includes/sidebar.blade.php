@@ -28,11 +28,6 @@
             <span>Data Guru</span></a>
     </li>
     <li class="nav-item">
-      <a class="nav-link {{ (request()->is('data-siswa')) ? 'active' : ''}}" href="{{ route('data-siswa.index') }}">
-            <i class="fa-duotone fa-user" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
-            <span>Data Siswa</span></a>
-    </li>
-    <li class="nav-item">
       <a class="nav-link {{ (request()->is('data-jenis-tagihan')) ? 'active' : ''}}" href="{{ route('data-jenis-tagihan.index') }}">
             <i class="fa-duotone fa-user" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
             <span>Data Jenis Tagihan</span></a>
@@ -42,14 +37,23 @@
     @elseif(Auth::user()->role == 'admin-keuangan')
     <!-- Heading -->
     <div class="sidebar-heading">
+        Data Master
+    </div>
+    <li class="nav-item">
+      <a class="nav-link {{ (request()->is('data-siswa')) ? 'active' : ''}}" href="{{ route('data-siswa.index') }}">
+            <i class="fa-duotone fa-user" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
+            <span>Data Siswa</span></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link {{ (request()->is('data-siswa')) ? 'active' : ''}}" href="{{ route('data-jenis-tagihan.index') }}">
+            <i class="fa-money-check-alt" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
+            <span>Kategori Keuangan</span></a>
+    </li>
+    <div class="sidebar-heading">
         Data Keuangan
     </div>
 
-      <li class="nav-item">
-        <a class="nav-link {{ (request()->is('data-siswa')) ? 'active' : ''}}" href="{{ route('data-siswa.index') }}">
-              <i class="fa-money-check-alt" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
-              <span>Tagihan</span></a>
-      </li>
+  
       <li class="nav-item">
         <a class="nav-link {{ (request()->is('data-siswa')) ? 'active' : ''}}" href="{{ route('data-siswa.index') }}">
               <i class="fa-money-check-alt" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>

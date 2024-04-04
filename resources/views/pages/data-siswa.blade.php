@@ -22,111 +22,26 @@
                                 + Tambah Data
                             </a>
                             <div class="table-responsive">
-                                <table id="UserDataSiswa" class="display" style="width:100%">
+                              <table class="table-hover scroll-horizontal-vertical w-100" id="material">
                                     <thead>
                                         <tr>
                                             <th>No</th>
                                             <th>Name</th>
                                             <th>Email</th>
-                                            <th>Roles</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($user as $data) 
-                                        <tr>
-                                            <td>{{ $no++ }}</td>
-                                            <td>{{ $data->name }}</td>
-                                            <td>{{ $data->email }}</td>
-                                            <td>{{ $data->role }}</td>
-                                            <td>
-                                                <div class="dropdown">
-                                                    <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                     Aksi
-                                                    </button>
-                                                    <ul class="dropdown-menu">
-                                                    <li><a data-bs-toggle="modal" data-bs-target="#editUser{{ $data->id }}" class="dropdown-item">Edit</a></li>
-                                                    <li><a data-bs-toggle="modal" data-bs-target="#deletedata{{$data->id}}" class="dropdown-item text-danger">Hapus</a></li>
-                
-                                                    </ul>
-                                                  </div>
-                                            </td>
-                                        </tr>
-                                        
-                                        
-                                        {{-- modal edit --}}
-    <div class="modal fade" id="editUser{{ $data->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-3" id="exampleModalLabel">{{ __('Edit User') }}</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form action="{{ route('data-siswa.update',$data->id) }}" method="POST">
-                    @csrf
-                    @method('PUT')
-                    <div class="mb-3">
-                      <label for="exampleInputEmail1" class="form-label">Email address</label>
-                      <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $data->email }}" required autocomplete="email">
-                    </div>
-                    <div class="mb-3">
-                      <label for="exampleInputEmail1" class="form-label">Name</label>
-                      <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $data->name }}" required autocomplete="name" autofocus>
-                    </div>
-                    <div class="mb-3">
-                      <select id="pilihan" class="option form-control" placeholder="Pilih User Sebagai" class="form-control form-select" name="role" id="OptionLevel">
-                        <option value="admin" {{ $data->role == 'admin' ? 'selected' : '' }}>Admin</option>
-                        <option value="siswa" {{ $data->role == 'siswa' ? 'selected' : '' }}>Siswa</option>
-                        <option value="guru" {{ $data->role == 'guru' ? 'selected' : '' }}>Guru</option>
-                    </select>
-                    
-                    </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary">Save changes</button>
-            </form>
-            </div>
-          </div>
-        </div>
-      </div>
+                                      
+                                      </tbody>
 </div>
 
-{{-- modal delete --}}
-<div class="modal fade" id="deletedata{{ $data->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Hapus Data</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-          <form action="{{ route('data-siswa.destroy', $data->id) }}" method="POST">
-              @csrf
-              @method('DELETE')
-              <p>Anda Yakin akan menghapus data {{ $data->name }}?</p>
-          
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
-        <button type="submit" class="btn btn-primary">Hapus</button>
-      </form>
-
-      </div>
-    </div>
-  </div>
-</div>
-
-
-@endforeach 
-                                    </tbody>
+                                    
                                     <tfoot>
                                         <tr>
                                             <th>No</th>
                                             <th>Name</th>
                                             <th>Email</th>
-                                            <th>Roles</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </tfoot>
@@ -139,7 +54,39 @@
         
         </div>
     {{-- </div> --}}
-
+    <div class="modal fade" id="editModal" tabindex="1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h1 class="modal-title fs-3" id="exampleModalLabel">Edit Transaksi
+                  </h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <form id="editTaskForm" method="POST">
+                      @csrf
+                      @method('PUT')
+                      <div class="mb-3">
+                          <label for="exampleInputEmail1" class="form-label">Nama</label>
+                          <input type="text" name="name" class="form-control" id="name"
+                              aria-describedby="emailHelp">
+                          <input type="text" name="id" class="form-control" id="id"
+                              aria-describedby="emailHelp">
+                      </div>
+                      <div class="mb-3">
+                          <label for="exampleInputEmail1" class="form-label">Email</label>
+                          <input type="text" name="email" class="form-control" id="email"
+                              aria-describedby="emailHelp">
+                      </div>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="submit" id="btn-edit"  class="btn btn-primary">Save changes</button>
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div>
     {{-- modal add --}}
     <div class="modal fade" id="adduser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -163,14 +110,7 @@
                     <div class="mb-3">
                       <label for="password" class="form-label">Password</label>
                       <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-                    </div>
-                    <div class="mb-3">
-                        <select  id="pilihan" class="option form-control" placeholder="Pilih User Sebagai" class="form-control  form-select" name="role" id="OptionLevel">
-                            <option>Daftar sebagai</option>
-                            <option value="admin">Admin</option>
-                            <option value="guru">Guru</option>
-                            <option value="siswa">Siswa</option>
-                        </select>
+                      <input id="role" type="hidden" value="siswa" class="form-control @error('password') is-invalid @enderror" name="role" required autocomplete="new-password">
                     </div>
             </div>
             <div class="modal-footer">
@@ -181,12 +121,82 @@
           </div>
         </div>
       </div>
+{{-- end modal add --}}
+
 </div>
 @endsection
 @push('addon-script')
 <script type="text/javascript">
+  // crud
   $(document).ready(function() {
-        $('#UserDataSiswa').DataTable();
-    });
-    </script>
+    var table=  $('#material').DataTable({
+          processing: true,
+          serverSide: true,
+          ajax: '{{ url()->current() }}',
+          columns: [
+              {
+                  data: 'no',
+                  name: 'no'
+              },
+              {
+                  data: 'name',
+                  name: 'name'
+              },
+              {
+                  data: 'email',
+                  name: 'email'
+              },
+              {
+                  data: 'action',
+                  name: 'action',
+                  orderable: false,
+                  searcable: false,
+                  width: '15%'
+              },
+          ]
+      });
+  
+  
+      // Edit Task Modal
+      $('#editModal').on('show.bs.modal', function(event) {
+          var button = $(event.relatedTarget); // Button that triggered the modal
+          var id = button.data('id'); // Extract info from data-* attributes
+          var name = button.data('name');
+          var email = button.data('email');
+          var modal = $(this);
+          modal.find('#id').val(id);
+          modal.find('#name').val(name);
+          modal.find('#email').val(email);
+      });
+  
+      // Submit Edit Task Form
+      $('#editTaskForm').on('submit', function(e) {
+      e.preventDefault();
+  
+      // Tambahkan validasi di sini (misalnya, pastikan semua field yang diperlukan diisi)
+  
+      // Tampilkan konfirmasi kepada pengguna
+      var confirmation = confirm('Anda yakin ingin menyimpan perubahan?');
+  
+      if (confirmation) {
+          var formData = $(this).serialize();
+          var transaksi_id = $('#id').val();
+  
+          $.ajax({
+              url: '/data-siswa/' + transaksi_id,
+              type: 'POST',
+              data: formData,
+              success: function(data) {
+                  alert('Data Berhasil Di ubah',data);
+                  window.location.href = '/data-siswa';
+              },
+              error: function(data) {
+                  alert('Error',data);
+                  window.location.href = '/data-siswa';
+              }
+          });
+      }
+  });
+  });
+  </script>
 @endpush

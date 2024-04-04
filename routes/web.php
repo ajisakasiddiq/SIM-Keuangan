@@ -28,12 +28,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware('auth', 'checkRole:admin-tu')->group(function () {
+Route::middleware('auth')->group(function () {
     Route::resource('data-siswa', 'App\Http\Controllers\SiswaController');
     Route::resource('data-guru', 'App\Http\Controllers\GuruController');
     Route::resource('data-jenis-tagihan', 'App\Http\Controllers\JenisTagihanController');
 });
-Route::middleware('auth', 'checkRole:admin-keuangan')->group(function () {
+Route::middleware('auth')->group(function () {
     Route::resource('Tagihan', 'App\Http\Controllers\TagihanController');
 });
 
