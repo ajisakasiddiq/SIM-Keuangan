@@ -32,6 +32,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('data-siswa', 'App\Http\Controllers\SiswaController');
     Route::resource('data-guru', 'App\Http\Controllers\GuruController');
     Route::resource('data-jenis-tagihan', 'App\Http\Controllers\JenisTagihanController');
+    Route::resource('data-rincian-tagihan', 'App\Http\Controllers\RincianTagihanController');
 });
 Route::middleware('auth')->group(function () {
     Route::resource('Tagihan', 'App\Http\Controllers\TagihanController');

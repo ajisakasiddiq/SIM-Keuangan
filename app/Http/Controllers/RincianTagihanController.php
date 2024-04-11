@@ -2,20 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Rincian;
+use App\Models\tagihan;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
-class SiswaController extends Controller
+class RincianTagihanController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $id)
     {
-
+        // $no = 1;
+        $tagihan = tagihan::get();
         if (request()->ajax()) {
-            $query = User::where('role', 'siswa');
+            $query = Rincian::query();
             return DataTables::of($query)
                 ->addColumn('action', function ($item) {
                     // $barcode = DNS1D::getBarcodeHTML($item->id, 'C128', 2, 50);
@@ -52,9 +54,7 @@ class SiswaController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        // $no = 1;
-        // $user = User::where('role', 'siswa')->get();
-        return view('pages.data-siswa');
+        return view('pages.data-rincian-tagihan', compact('tagihan'));
     }
 
     /**
@@ -72,11 +72,11 @@ class SiswaController extends Controller
     {
         try {
             // Simpan data ke database
-            User::create($request->all());
-            return redirect()->route('data-siswa.index')->with('success', 'Data berhasil disimpan.');
+            Rincian::create($request->all());
+            return redirect()->route('data-rincian-tagihan.index')->with('success', 'Data berhasil disimpan.');
         } catch (\Exception $e) {
             // Tangkap pengecualian dan tampilkan pesan kesalahan
-            return redirect()->route('data-siswa.index')->with('error', 'Key yang anda masukkan tidak ada di saldo mon');
+            return redirect()->route('data-rincian-tagihan.index')->with('error', 'Key yang anda masukkan tidak ada di saldo mon');
         }
     }
 
@@ -101,10 +101,7 @@ class SiswaController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $data = $request->all();
-        $item = User::findOrFail($id);
-        $item->update($data);
-        return redirect()->route('data-siswa.index')->with('success', 'Data berhasil diperbarui.');
+        //
     }
 
     /**
@@ -112,9 +109,9 @@ class SiswaController extends Controller
      */
     public function destroy(string $id)
     {
-        $data = User::findOrFail($id);
+        $data = Rincian::findOrFail($id);
         $data->delete();
 
-        return redirect()->route('data-siswa.index');
+        return redirect()->route('data-rincian-tagihan.index');
     }
 }

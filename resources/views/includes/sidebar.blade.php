@@ -47,7 +47,12 @@
     <li class="nav-item">
       <a class="nav-link {{ (request()->is('data-siswa')) ? 'active' : ''}}" href="{{ route('data-jenis-tagihan.index') }}">
             <i class="fa-money-check-alt" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
-            <span>Kategori Keuangan</span></a>
+            <span>Kategori Tagihan Siswa</span></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link {{ (request()->is('data-rincian-tagihan')) ? 'active' : ''}}" href="{{ route('data-rincian-tagihan.index') }}">
+            <i class="fa-money-check-alt" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
+            <span>Rincian Tagihan Siswa</span></a>
     </li>
     <div class="sidebar-heading">
         Data Keuangan
@@ -57,12 +62,7 @@
       <li class="nav-item">
         <a class="nav-link {{ (request()->is('data-siswa')) ? 'active' : ''}}" href="{{ route('data-siswa.index') }}">
               <i class="fa-money-check-alt" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
-              <span>Pendapatan</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link {{ (request()->is('data-siswa')) ? 'active' : ''}}" href="{{ route('data-siswa.index') }}">
-              <i class="fa-duotone fa-user" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
-              <span>Pengeluaran</span></a>
+              <span>Data Transaksi</span></a>
       </li>
          <!-- Divider -->
     <hr class="sidebar-divider">
@@ -74,14 +74,10 @@
     <div class="sidebar-heading">
         Laporan Keuangan
     </div>
-    <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-       Laporan
-      </a>
-      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <a class="dropdown-item" href="#">Buku Besar</a>
-        <a class="dropdown-item" href="#">Laba Rugi</a>
-      </div>
+    <li class="nav-item">
+      <a class="nav-link {{ (request()->is('data-siswa')) ? 'active' : ''}}" href="{{ route('data-siswa.index') }}">
+            <i class="fa-money-check-alt" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
+            <span>Laporan</span></a>
     </li>
 
     <hr class="sidebar-divider d-none d-md-block">

@@ -22,7 +22,7 @@
                                 + Tambah Data
                             </a>
                             <div class="table-responsive">
-                              <table class="table-hover scroll-horizontal-vertical w-100" id="material">
+                              <table class="table-hover scroll-horizontal-vertical w-100" id="siswa">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -208,7 +208,7 @@
 <script type="text/javascript">
   // crud
   $(document).ready(function() {
-    var table=  $('#material').DataTable({
+    var table=  $('#siswa').DataTable({
           processing: true,
           serverSide: true,
           ajax: '{{ url()->current() }}',
@@ -270,10 +270,24 @@
           var id = button.data('id'); // Extract info from data-* attributes
           var name = button.data('name');
           var email = button.data('email');
+          var nik = button.data('nik');
+          var no_hp = button.data('no_hp');
+          var alamat = button.data('alamt');
+          var tempat_lahir = button.data('tempat_lahir');
+          var tgl_lahir = button.data('tgl_lahir');
+          var jk = button.data('jk');
+          var kelas = button.data('kelas');
           var modal = $(this);
           modal.find('#id').val(id);
           modal.find('#name').val(name);
           modal.find('#email').val(email);
+          modal.find('#nik').val(nik);
+          modal.find('#no_hp').val(no_hp);
+          modal.find('#alamat').val(alamat);
+          modal.find('#tempat_lahir').val(tempat_lahir);
+          modal.find('#tgl_lahir').val(tgl_lahir);
+          modal.find('#jk').val(jk);
+          modal.find('#kelas').val(kelas);
       });
   
       // Submit Edit Task Form
