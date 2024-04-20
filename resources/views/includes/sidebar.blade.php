@@ -60,7 +60,7 @@
 
   
       <li class="nav-item">
-        <a class="nav-link {{ (request()->is('data-siswa')) ? 'active' : ''}}" href="{{ route('data-siswa.index') }}">
+        <a class="nav-link {{ (request()->is('data-transaksi')) ? 'active' : ''}}" href="{{ route('data-transaksi.index') }}">
               <i class="fa-money-check-alt" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
               <span>Data Transaksi</span></a>
       </li>

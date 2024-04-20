@@ -8,19 +8,31 @@
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Data Siswa</h1>
+        <h1 class="h3 mb-0 text-gray-800">Data Transaksi</h1>
     </div>
 
     <!-- Content Row -->
     {{-- <div class="row"> --}}
         <div class="dashboard-content mb-3">
             <div class="row">
+                
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
                             <a href="" class="btn btn-primary mb-3" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#adduser">
                                 + Tambah Data
                             </a>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label for="filter">Type Transaksi :</label>
+                                    <select id="filter-year" class="form-control">
+                                      <option value="">Pilih type</option>
+                                        <option value="option1">Pendapatan</option>
+                                        <option value="option2">Pengeluaran</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <br>
                             <div class="table-responsive">
                               <table class="table-hover scroll-horizontal-vertical w-100" id="siswa">
                                     <thead>

@@ -36,6 +36,14 @@
                                  
                               </div>
                               <div class="col-md-2">
+                                  <label for="filter">Semester :</label>
+                                  <select id="filter-year" class="form-control">
+                                    <option value="">Pilih Semester</option>
+                                      <option value="option1">Ganjil</option>
+                                      <option value="option2">Genap</option>
+                                  </select>
+                              </div>
+                              <div class="col-md-2">
                                   <label for="filter">Tahun Ajaran :</label>
                                   <select id="filter-year" class="form-control">
                                     <option value="">Pilih Tahun Ajaran</option>
@@ -191,6 +199,7 @@
     var table=  $('#rincian').DataTable({
           processing: true,
           serverSide: true,
+          paging: false,
           ajax: {
             url: '{{ url()->current() }}',
             data: function(d) {
@@ -219,6 +228,7 @@
                   width: '15%'
               },
           ]
+          // $('.dataTables_info').css('display', 'none');
       });
       $('#filter-category').on('change', function() {
         table.ajax.reload();
