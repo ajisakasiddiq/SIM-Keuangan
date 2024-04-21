@@ -2,22 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Rincian;
-use App\Models\tagihan;
+use App\Models\Transaksi;
 use Illuminate\Http\Request;
-use Yajra\DataTables\Facades\DataTables;
 
-class RincianTagihanController extends Controller
+class TransactionSiswaController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $id)
+    public function index()
     {
-        $no = 1;
-        $tagihan = tagihan::findOrFail($id);
-        $rincian = Rincian::where('tagihan_id', $tagihan);
-        return view('pages.data-rincian-tagihan', compact('no', 'tagihan', 'rincian'));
+        return view('pages.data-pembayaran');
     }
 
     /**
@@ -35,11 +30,11 @@ class RincianTagihanController extends Controller
     {
         try {
             // Simpan data ke database
-            Rincian::create($request->all());
-            return redirect()->route('data-rincian-tagihan.index')->with('success', 'Data berhasil disimpan.');
+            Transaksi::create($request->all());
+            return redirect()->route('data-transaksi.index')->with('success', 'Data berhasil disimpan.');
         } catch (\Exception $e) {
             // Tangkap pengecualian dan tampilkan pesan kesalahan
-            return redirect()->route('data-rincian-tagihan.index')->with('error', 'Key yang anda masukkan tidak ada di saldo mon');
+            return redirect()->route('data-transaksi.index')->with('error', 'Key yang anda masukkan tidak ada di saldo mon');
         }
     }
 
@@ -72,9 +67,6 @@ class RincianTagihanController extends Controller
      */
     public function destroy(string $id)
     {
-        $data = Rincian::findOrFail($id);
-        $data->delete();
-
-        return redirect()->route('data-rincian-tagihan.index');
+        //
     }
 }

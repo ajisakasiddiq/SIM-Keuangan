@@ -55,7 +55,7 @@
 
   
       <li class="nav-item">
-        <a class="nav-link {{ (request()->is('data-transaksi')) ? 'active' : ''}}" href="{{ route('data-transaksi.index') }}">
+        <a class="nav-link {{ (request()->is('data-tagihan')) ? 'active' : ''}}" href="{{ route('data-tagihan.index') }}">
               <i class="fa-money-check-alt" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
               <span>Data Pembayaran Siswa</span></a>
       </li>
