@@ -41,7 +41,7 @@
                                                      Aksi
                                                     </button>
                                                     <ul class="dropdown-menu">
-                                                    {{-- <li><a href="{{ route('data-rincian-tagihan.index', ['id' => $data->id]) }}" class="dropdown-item">Tambah Rincian</a></li> --}}
+                                                    <li><a href="{{ route('data-rincian-tagihan.index', ['id' => $data->id]) }}" class="dropdown-item">Tambah Rincian</a></li>
                                                     <li><a data-bs-toggle="modal" data-bs-target="#editUser{{ $data->id }}" class="dropdown-item">Edit</a></li>
                                                     <li><a data-bs-toggle="modal" data-bs-target="#deletedata{{$data->id}}" class="dropdown-item text-danger">Hapus</a></li>
                 

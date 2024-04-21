@@ -39,14 +39,14 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Name</th>
-                                            <th>Email</th>
-                                            <th>NIK</th>
-                                            <th>No HP</th>
-                                            <th>Alamat</th>
-                                            <th>Tempat Lahir</th>
-                                            <th>Tanggal Lahir</th>
-                                            <th>Jenis Kelamin</th>
-                                            <th>Kelas</th>
+                                            <th>keterangan</th>
+                                            <th>date_awal</th>
+                                            <th>date_akhir</th>
+                                            <th>Total</th>
+                                            <th>jenis_transaksi</th>
+                                            <th>bukti_transaksi</th>
+                                            <th>metode</th>
+                                            <th>status</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -55,16 +55,16 @@
                                     </div>                              
                                     <tfoot>
                                         <tr>
-                                          <th>No</th>
-                                          <th>Name</th>
-                                          <th>Email</th>
-                                          <th>NIK</th>
-                                          <th>No HP</th>
-                                          <th>Alamat</th>
-                                          <th>Tempat Lahir</th>
-                                          <th>Tanggal Lahir</th>
-                                          <th>Jenis Kelamin</th>
-                                          <th>Kelas</th>
+                                            <th>No</th>
+                                            <th>Name</th>
+                                            <th>keterangan</th>
+                                            <th>date_awal</th>
+                                            <th>date_akhir</th>
+                                            <th>Total</th>
+                                            <th>jenis_transaksi</th>
+                                            <th>bukti_transaksi</th>
+                                            <th>metode</th>
+                                            <th>status</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </tfoot>

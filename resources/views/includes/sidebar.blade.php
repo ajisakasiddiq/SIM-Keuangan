@@ -49,16 +49,16 @@
             <i class="fa-money-check-alt" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
             <span>Kategori Tagihan Siswa</span></a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link {{ (request()->is('data-rincian-tagihan')) ? 'active' : ''}}" href="{{ route('data-rincian-tagihan.index') }}">
-            <i class="fa-money-check-alt" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
-            <span>Rincian Tagihan Siswa</span></a>
-    </li>
     <div class="sidebar-heading">
         Data Keuangan
     </div>
 
   
+      <li class="nav-item">
+        <a class="nav-link {{ (request()->is('data-transaksi')) ? 'active' : ''}}" href="{{ route('data-transaksi.index') }}">
+              <i class="fa-money-check-alt" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
+              <span>Data Pembayaran Siswa</span></a>
+      </li>
       <li class="nav-item">
         <a class="nav-link {{ (request()->is('data-transaksi')) ? 'active' : ''}}" href="{{ route('data-transaksi.index') }}">
               <i class="fa-money-check-alt" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>

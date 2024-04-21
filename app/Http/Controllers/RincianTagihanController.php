@@ -14,47 +14,10 @@ class RincianTagihanController extends Controller
      */
     public function index(Request $id)
     {
-        // $no = 1;
-        $tagihan = tagihan::get();
-        if (request()->ajax()) {
-            $query = Rincian::query();
-            return DataTables::of($query)
-                ->addColumn('action', function ($item) {
-                    // $barcode = DNS1D::getBarcodeHTML($item->id, 'C128', 2, 50);
-                    return '
-                    <div class="btn-group">
-                      <div class="dropdown">
-                        <button class="btn btn-primary dropdown-toggle mr-1 mb-1" type="button" data-toggle="dropdown">Aksi</button>
-                        <div class="dropdown-menu">
-                        <button class="dropdown-item" 
-                        data-id="' . $item->id . '" 
-                        data-name="' . $item->name . '" 
-                        data-email="' . $item->email . '" 
-                        data-nik="' . $item->nik . '" 
-                        data-no_hp="' . $item->no_hp . '" 
-                        data-alamat="' . $item->alamat . '" 
-                        data-tempat_lahir="' . $item->tempat_lahir . '" 
-                        data-tgl_lahir="' . $item->tgl_lahir . '" 
-                        data-jk="' . $item->jk . '" 
-                        data-kelas="' . $item->kelas . '" 
-                        data-toggle="modal" data-target="#editModal">Edit</button>
-                          <form action="' . route('data-siswa.destroy', $item->id) . '" method="POST">
-                          ' . method_field('delete') . csrf_field() . '
-                          <button type="submit" class="dropdown-item text-danger">Hapus</button>
-                          </form>
-                        </div>
-                      </div>
-                    </div>
-                    ';
-                })
-                ->addColumn('no', function ($item) {
-                    static $counter = 1;
-                    return $counter++;
-                })
-                ->rawColumns(['action'])
-                ->make(true);
-        }
-        return view('pages.data-rincian-tagihan', compact('tagihan'));
+        $no = 1;
+        $tagihan = tagihan::findOrFail($id);
+        $rincian = Rincian::where('tagihan_id', $id)->get();
+        return view('pages.data-rincian-tagihan', compact('no', 'tagihan', 'rincian'));
     }
 
     /**
