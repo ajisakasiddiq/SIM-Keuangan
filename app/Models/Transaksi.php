@@ -19,10 +19,15 @@ class Transaksi extends Model
         'metode',
         'status',
         'tagihan_id',
-        'user_id'
+        'user_id',
+        'tgl_pembayaran'
     ];
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+    public function jenistagihan()
+    {
+        return $this->belongsTo(tagihan::class, 'tagihan_id', 'id');
     }
 }

@@ -147,7 +147,7 @@
                 <form action="{{ route('data-tagihan-Pendaftaran.store') }}" method="POST">
                     @csrf
                     @method('POST')
-                    <input type="text" name="tagihan_id" value="3">
+                    <input type="hidden" name="tagihan_id" value="3">
                     <div class="mb-3">
                         <label for="user_id" class="form-label">Nama Siswa</label>
                         <select class="form-control" name="user_id" id="user_id">
@@ -184,9 +184,9 @@
                         <label for="exampleInputEmail1" class="form-label">Total</label>
                         <input type="text" name="total" class="form-control" id="total"
                             aria-describedby="emailHelp">
-                        <input type="text" name="status" class="form-control" id="status"
+                        <input type="hidden" name="status" class="form-control" id="status"
                             aria-describedby="emailHelp" value="0">
-                        <input type="text" name="jenis_transaksi" class="form-control" id="jenis_transaksi"
+                        <input type="hidden" name="jenis_transaksi" class="form-control" id="jenis_transaksi"
                             aria-describedby="emailHelp" value="Pendapatan">
                     </div>
             </div>

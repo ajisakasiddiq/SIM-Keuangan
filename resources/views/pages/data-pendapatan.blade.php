@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-    Dashboard | Data Tagihan Siswa
+    Dashboard | Data Pendapatan
 @endsection
 
 @section('content')
@@ -8,7 +8,7 @@
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Data Tagihan Lainnya</h1>
+        <h1 class="h3 mb-0 text-gray-800">Data Pendapatan</h1>
     </div>
 
     <!-- Content Row -->
@@ -27,14 +27,10 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Nama Siswa</th>
-                                            <th>Kelas Siswa</th>
                                             <th>bukti_transaksi</th>
-                                            <th>date_awal</th>
-                                            <th>date_akhir</th>
-                                            <th>metode</th>
-                                            <th>Total</th>
                                             <th>keterangan</th>
+                                            <th>Tanggal Transaksi</th>
+                                            <th>Total</th>
                                             <th>status</th>
                                             <th>Aksi</th>
                                         </tr>
@@ -45,14 +41,10 @@
                                     <tfoot>
                                         <tr>
                                             <th>No</th>
-                                            <th>Nama Siswa</th>
-                                            <th>Kelas Siswa</th>
                                             <th>bukti_transaksi</th>
-                                            <th>date_awal</th>
-                                            <th>date_akhir</th>
-                                            <th>metode</th>
-                                            <th>Total</th>
                                             <th>keterangan</th>
+                                            <th>Tanggal Transaksi</th>
+                                            <th>Total</th>
                                             <th>status</th>
                                             <th>Aksi</th>
                                         </tr>
@@ -77,54 +69,35 @@
                 <form id="editTaskForm" method="POST">
                     @csrf
                     @method('PUT')
-                    <input type="hidden" name="tagihan_id" value="6" id="tagihan_id">
+                    <input type="hidden" name="tagihan_id"id="tagihan_id">
                     <input type="hidden" name="id" id="id">
-                    <div class="mb-3">
-                        <label for="user_id" class="form-label">Nama Siswa</label>
-                        <select class="form-control" name="user_id" id="user_id">
-                            <option value="">Pilih Siswa</option>
-                            @foreach ($siswa as $item)
-                            <option value="{{ $item->id }}">{{ $item->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    
+                    <input id="user_id" type="hidden" class="form-control" value="{{ Auth::User()->id }}" name="user_id">
+                    <input id="metode" type="hidden" class="form-control" value="cash" name="metode">
+
                     <div class="mb-3">
                       <label for="keterangan" class="form-label">Keterangan</label>
                       <input id="keterangan" type="text" class="form-control @error('name') is-invalid @enderror" name="keterangan" autofocus>
                     </div>
+                    
                     <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Awal Pembayaran</label>
-                        <input type="date" name="date_awal" class="form-control" id="date_awal"
+                        <label for="exampleInputEmail1" class="form-label">Tanggal Transaksi</label>
+                        <input type="date" name="tgl_pembayaran" class="form-control" id="tgl_pembayaran"
                             aria-describedby="emailHelp">
                     </div>
                     <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Batas Pembayaran</label>
-                        <input type="date" name="date_akhir" class="form-control" id="date_akhir"
+                        <label for="exampleInputEmail1" class="form-label">Nota/kwitansi(Opsional)</label>
+                        <input type="file" name="bukti_transaksi" class="form-control" id="bukti_transaksi"
                             aria-describedby="emailHelp">
                     </div>
+                    
                     <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Metode Pembayaran</label>
-                        <select class="form-control" name="metode" id="metode">
-                            <option value="cash">Tunai</option>
-                            <option value="cicil">Angsuran</option>
-                        </select>
-                    </div>     
-                    <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Total</label>
+                        <label for="exampleInputEmail1" class="form-label">Jumlah</label>
                         <input type="text" name="total" class="form-control" id="total"
                             aria-describedby="emailHelp">
+                        <input type="hidden" name="status" class="form-control" id="status"
+                            aria-describedby="emailHelp" value="2">
                         <input type="hidden" name="jenis_transaksi" class="form-control" id="jenis_transaksi"
-                            aria-describedby="emailHelp">
-                    </div>
-                         <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Status</label>
-                        <select class="form-control" name="status" id="status">
-                            <option value="">Pilih Status</option>
-                            <option value="o">Menunggu Pembayaran</option>
-                            <option value="1">Pending</option>
-                            <option value="2">Sudah Bayar</option>
-                        </select>
+                            aria-describedby="emailHelp" value="Pendapatan">
                     </div>
             </div>
             <div class="modal-footer">
@@ -144,48 +117,33 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('data-tagihan-lainnya.store') }}" method="POST">
+                <form action="{{ route('data-tagihan-spp.store') }}" method="POST">
                     @csrf
                     @method('POST')
                     <input type="hidden" name="tagihan_id" value="6">
                     <div class="mb-3">
-                        <label for="user_id" class="form-label">Nama Siswa</label>
-                        <select class="form-control" name="user_id" id="user_id">
-                            <option value="">Pilih Siswa</option>
-                            @foreach ($siswa as $item)
-                            <option value="{{ $item->id }}">{{ $item->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    
-                    <div class="mb-3">
                       <label for="keterangan" class="form-label">Keterangan</label>
                       <input id="keterangan" type="text" class="form-control @error('name') is-invalid @enderror" name="keterangan" autofocus>
+                      <input id="user_id" type="hidden" class="form-control" value="{{ Auth::User()->id }}" name="user_id">
+                      <input id="metode" type="hidden" class="form-control" value="cash" name="metode">
                     </div>
                     <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Awal Pembayaran</label>
-                        <input type="date" name="date_awal" class="form-control" id="date_awal"
+                        <label for="exampleInputEmail1" class="form-label">Tanggal Transaksi</label>
+                        <input type="date" name="tgl_pembayaran" class="form-control" id="tgl_pembayaran"
                             aria-describedby="emailHelp">
                     </div>
                     <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Batas Pembayaran</label>
-                        <input type="date" name="date_akhir" class="form-control" id="date_akhir"
+                        <label for="exampleInputEmail1" class="form-label">Nota/kwitansi(Opsional)</label>
+                        <input type="file" name="bukti_transaksi" class="form-control" id="bukti_transaksi"
                             aria-describedby="emailHelp">
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Metode Pembayaran</label>
-                        <select class="form-control" name="metode" id="metode">
-                            <option value="cash">Tunai</option>
-                            <option value="cicil">Angsuran</option>
-                        </select>
                     </div>
                     
                     <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Total</label>
+                        <label for="exampleInputEmail1" class="form-label">Jumlah</label>
                         <input type="text" name="total" class="form-control" id="total"
                             aria-describedby="emailHelp">
                         <input type="hidden" name="status" class="form-control" id="status"
-                            aria-describedby="emailHelp" value="0">
+                            aria-describedby="emailHelp" value="2">
                         <input type="hidden" name="jenis_transaksi" class="form-control" id="jenis_transaksi"
                             aria-describedby="emailHelp" value="Pendapatan">
                     </div>
@@ -215,39 +173,33 @@
                   data: 'no',
                   name: 'no'
               },
-              {
-                  data: 'user.name',
-                  name: 'Nama Siswa'
-              },
-              {
-                  data: 'user.kelas',
-                  name: 'Kelas Siswa'
-              },
+              
               {
                   data: 'bukti_transaksi',
                   name: 'bukti_transaksi'
               },
+              
+              { 
+            data: 'keterangan',
+            name: 'keterangan',
+            render: function(data, type, row) {
+                // Memeriksa nilai tagihan_id untuk menentukan nilai keterangan
+                if (row.tagihan_id === 6) {
+                    return row.keterangan; // Mengembalikan nilai keterangan jika tagihan_id adalah 6
+                } else {
+                    return row.jenistagihan.name.toString(); // Mengembalikan nilai tagihan_id sebagai string jika bukan 6
+                }
+            }
+        },
               {
-                  data: 'date_awal',
-                  name: 'date_awal'
-              },
-              {
-                  data: 'date_akhir',
-                  name: 'date_akhir'
-              },
-              {
-                  data: 'metode',
-                  name: 'metode'
+                  data: 'tgl_pembayaran',
+                  name: 'Tanggal Transaksi'
               },
               {
                   data: 'total',
                   name: 'total'
               },
               
-              {
-                  data: 'keterangan',
-                  name: 'keterangan'
-              },
               {
                   data: 'status',
                   name: 'status'
@@ -270,9 +222,7 @@
           var tagihan_id = button.data('tagihan_id'); // Extract info from data-* attributes
           var user_id = button.data('user_id');
           var keterangan = button.data('keterangan');
-          var date_awal = button.data('date_awal');
-          var date_akhir = button.data('date_akhir');
-          var metode = button.data('metode');
+          var tgl_pembayaran = button.data('tgl_pembayaran');
           var total = button.data('total');
           var status = button.data('status');
           var Pendapatan = button.data('Pendapatan');
@@ -281,9 +231,7 @@
           modal.find('#tagihan_id').val(tagihan_id);
           modal.find('#user_id').val(user_id);
           modal.find('#keterangan').val(keterangan);
-          modal.find('#date_awal').val(date_awal);
-          modal.find('#date_akhir').val(date_akhir);
-          modal.find('#metode').val(metode);
+          modal.find('#tgl_pembayaran').val(tgl_pembayaran);
           modal.find('#total').val(total);
           modal.find('#status').val(status);
           modal.find('#Pendapatan').val(Pendapatan);
@@ -303,12 +251,12 @@
           var transaksi_id = $('#id').val();
   
           $.ajax({
-              url: '/data-tagihan-lainnya/' + transaksi_id,
+              url: '/data-pendapatan/' + transaksi_id,
               type: 'POST',
               data: formData,
               success: function(data) {
                   alert('Data Berhasil Di ubah',data);
-                  window.location.href = '/data-tagihan-lainnya';
+                  window.location.href = '/data-pendapatan';
               },
               error: function(xhr, status, error) {
         // Tangkap pesan error yang lebih spesifik dari responseJSON
@@ -316,7 +264,7 @@
 
         // Tampilkan pesan error dalam alert atau console.log()
         alert('Terjadi Kesalahan: ' + errorMessage);
-                  window.location.href = '/data-tagihan-lainnya';
+                  window.location.href = '/data-pendapatan';
               }
           });
       }
