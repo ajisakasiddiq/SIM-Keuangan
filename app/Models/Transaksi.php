@@ -10,7 +10,6 @@ class Transaksi extends Model
     use HasFactory;
     protected $table = 'transaksi';
     protected $fillable = [
-        'name',
         'keterangan',
         'date_awal',
         'date_akhir',
@@ -22,4 +21,8 @@ class Transaksi extends Model
         'tagihan_id',
         'user_id'
     ];
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 }

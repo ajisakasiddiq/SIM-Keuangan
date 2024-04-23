@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('transaksi', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable();
             $table->string('keterangan')->nullable();
             $table->date('date_awal')->nullable();
             $table->date('date_akhir')->nullable();

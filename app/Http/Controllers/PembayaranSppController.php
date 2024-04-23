@@ -18,7 +18,7 @@ class PembayaranSppController extends Controller
         $tagihan = tagihan::get();
         $siswa = User::where('role', 'siswa')->get();
         if (request()->ajax()) {
-            $query = Transaksi::where('tagihan_id', '1');
+            $query = Transaksi::with('user')->where('tagihan_id', '1');
             return DataTables::of($query)
                 ->addColumn('action', function ($item) {
                     // $barcode = DNS1D::getBarcodeHTML($item->id, 'C128', 2, 50);
@@ -29,15 +29,15 @@ class PembayaranSppController extends Controller
                         <div class="dropdown-menu">
                         <button class="dropdown-item" 
                         data-id="' . $item->id . '" 
-                        data-name="' . $item->name . '" 
-                        data-email="' . $item->email . '" 
-                        data-nik="' . $item->nik . '" 
-                        data-no_hp="' . $item->no_hp . '" 
-                        data-alamat="' . $item->alamat . '" 
-                        data-tempat_lahir="' . $item->tempat_lahir . '" 
-                        data-tgl_lahir="' . $item->tgl_lahir . '" 
-                        data-jk="' . $item->jk . '" 
-                        data-kelas="' . $item->kelas . '" 
+                        data-tagihan_id="' . $item->tagihan_id . '" 
+                        data-user_id="' . $item->user_id . '" 
+                        data-keterangan="' . $item->keterangan . '" 
+                        data-date_awal="' . $item->date_awal . '" 
+                        data-date_akhir="' . $item->date_akhir . '" 
+                        data-metode="' . $item->metode . '" 
+                        data-total="' . $item->total . '" 
+                        data-status="' . $item->status . '" 
+                        data-Pendapatan="' . $item->Pendapatan . '" 
                         data-toggle="modal" data-target="#editModal">Edit</button>
                           <form action="' . route('data-tagihan-spp.destroy', $item->id) . '" method="POST">
                           ' . method_field('delete') . csrf_field() . '
@@ -92,7 +92,8 @@ class PembayaranSppController extends Controller
             return redirect()->route('data-tagihan-spp.index')->with('success', 'Data berhasil disimpan.');
         } catch (\Exception $e) {
             // Tangkap pengecualian dan tampilkan pesan kesalahan
-            return redirect()->route('data-tagihan-spp.index')->with('error', 'Key yang anda masukkan tidak ada di saldo mon');
+            dd($e); // Menampilkan informasi exception ke terminal
+            return redirect()->route('data-tagihan-spp.index')->with('error', 'Terjadi kesalahan saat menyimpan data.');
         }
     }
 
@@ -117,7 +118,10 @@ class PembayaranSppController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $data = $request->all();
+        $item = Transaksi::findOrFail($id);
+        $item->update($data);
+        return redirect()->route('data-tagihan-spp.index')->with('success', 'Data berhasil diperbarui.');
     }
 
     /**

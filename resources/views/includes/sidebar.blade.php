@@ -61,11 +61,11 @@
       <div id="pembayaran" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
               <h6 class="collapse-header">Data Pembayaran Siswa</h6>
-              {{-- <a class="collapse-item"  href="{{ route('data-tagihan-Pendaftaran.index') }}">Pendaftaran Kelas 7</a>
-              {{-- <a class="collapse-item"  href="{{ route('data-tagihan-kainSeragam.index') }}">Kain Seragam</a> --}}
+              <a class="collapse-item"  href="{{ route('data-tagihan-Pendaftaran.index') }}">Pendaftaran Kelas 7</a>
+              <a class="collapse-item"  href="{{ route('data-tagihan-kainSeragam.index') }}">Kain Seragam</a> 
               <a class="collapse-item"  href="{{ route('data-tagihan-spp.index') }}">SPP</a>
-              {{-- <a class="collapse-item"  href="{{ route('data-tagihan-DaftarUlang.index') }}">Daftar Ulang</a>
-              <a class="collapse-item"  href="{{ route('data-tagihan-lainnya.index') }}">Pembayaran Lain-Lainnya</a --}}
+              <a class="collapse-item"  href="{{ route('data-tagihan-DaftarUlang.index') }}">Daftar Ulang</a>
+              <a class="collapse-item"  href="{{ route('data-tagihan-lainnya.index') }}">Pembayaran Lain-Lainnya</a
           </div>
       </div>
   </li>

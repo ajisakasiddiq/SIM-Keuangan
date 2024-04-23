@@ -35,6 +35,10 @@ Route::middleware('auth')->group(function () {
     Route::resource('data-rincian-tagihan', 'App\Http\Controllers\RincianTagihanController');
     Route::resource('data-transaksi', 'App\Http\Controllers\TransactionController');
     Route::resource('data-tagihan-spp', 'App\Http\Controllers\PembayaranSppController');
+    Route::resource('data-tagihan-Pendaftaran', 'App\Http\Controllers\PembayaranPendaftaranController');
+    Route::resource('data-tagihan-kainSeragam', 'App\Http\Controllers\PembayaranKainSeragamController');
+    Route::resource('data-tagihan-DaftarUlang', 'App\Http\Controllers\PembayaranDaftarUlangController');
+    Route::resource('data-tagihan-lainnya', 'App\Http\Controllers\PembayaranLainnyaController');
 });
 
 require __DIR__ . '/auth.php';
