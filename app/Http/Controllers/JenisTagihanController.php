@@ -36,7 +36,7 @@ class JenisTagihanController extends Controller
         try {
             // Simpan data ke database
             tagihan::create($request->all());
-            return redirect()->route('data-tagihan.index')->with('success', 'Data berhasil disimpan.');
+            return redirect()->route('data-jenis-tagihan.index')->with('success', 'Data berhasil disimpan.');
         } catch (\Exception $e) {
             // Tangkap pengecualian dan tampilkan pesan kesalahan
             return redirect()->route('data-jenis-tagihan.index')->with('error', 'Key yang anda masukkan tidak ada di saldo mon');

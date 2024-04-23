@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->string('keterangan')->nullable();
-            $table->string('date_awal')->nullable();
-            $table->string('date_akhir')->nullable();
+            $table->date('date_awal')->nullable();
+            $table->date('date_akhir')->nullable();
             $table->string('total')->nullable();
-            $table->string('jenis_transaksi')->nullable();
+            $table->enum('jenis_transaksi', ['Pendapatan', 'Pengeluaran'])->nullable();
             $table->string('bukti_transaksi')->nullable();
             $table->enum('metode', ['cash', 'cicil'])->nullable();
             $table->enum('status', ['0', '1', '2'])->nullable();

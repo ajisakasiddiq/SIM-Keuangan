@@ -34,7 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('data-jenis-tagihan', 'App\Http\Controllers\JenisTagihanController');
     Route::resource('data-rincian-tagihan', 'App\Http\Controllers\RincianTagihanController');
     Route::resource('data-transaksi', 'App\Http\Controllers\TransactionController');
-    Route::resource('data-tagihan', 'App\Http\Controllers\TransactionSiswaController');
+    Route::resource('data-tagihan-spp', 'App\Http\Controllers\PembayaranSppController');
 });
 
 require __DIR__ . '/auth.php';

@@ -14,7 +14,7 @@ class Transaksi extends Model
         'keterangan',
         'date_awal',
         'date_akhir',
-        'date_total',
+        'total',
         'jenis_transaksi',
         'bukti_transaksi',
         'metode',

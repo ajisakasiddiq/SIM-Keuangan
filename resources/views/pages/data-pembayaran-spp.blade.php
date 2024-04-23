@@ -8,7 +8,7 @@
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Data Tagihan Siswa</h1>
+        <h1 class="h3 mb-0 text-gray-800">Data Tagihan SPP</h1>
     </div>
 
     <!-- Content Row -->
@@ -22,30 +22,18 @@
                             <a href="" class="btn btn-primary mb-3" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#adduser">
                                 + Tambah Data
                             </a>
-                            <div class="row">
-                                <div class="col-md-2">
-                                    <label for="filter">Kategori Pembayaran :</label>
-                                    <select id="filter-year" class="form-control">
-                                      <option value="">Pilih Kategori</option>
-                                        <option value="option1">Pendapatan</option>
-                                        <option value="option2">Pengeluaran</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <br>
                             <div class="table-responsive">
                               <table class="table-hover scroll-horizontal-vertical w-100" id="tagihan">
                                     <thead>
                                         <tr>
                                             <th>No</th>
+                                            <th>bukti_transaksi</th>
                                             <th>Name</th>
-                                            <th>keterangan</th>
                                             <th>date_awal</th>
                                             <th>date_akhir</th>
-                                            <th>Total</th>
-                                            <th>jenis_transaksi</th>
-                                            <th>bukti_transaksi</th>
                                             <th>metode</th>
+                                            <th>Total</th>
+                                            <th>keterangan</th>
                                             <th>status</th>
                                             <th>Aksi</th>
                                         </tr>
@@ -56,14 +44,13 @@
                                     <tfoot>
                                         <tr>
                                             <th>No</th>
+                                            <th>bukti_transaksi</th>
                                             <th>Name</th>
-                                            <th>keterangan</th>
                                             <th>date_awal</th>
                                             <th>date_akhir</th>
-                                            <th>Total</th>
-                                            <th>jenis_transaksi</th>
-                                            <th>bukti_transaksi</th>
                                             <th>metode</th>
+                                            <th>Total</th>
+                                            <th>keterangan</th>
                                             <th>status</th>
                                             <th>Aksi</th>
                                         </tr>
@@ -151,61 +138,63 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title bold fs-3" id="exampleModalLabel">{{ __('Tambah User') }}</h4>
+              <h4 class="modal-title bold fs-3" id="exampleModalLabel">{{ __('Tambah Tagihan') }}</h4>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('data-siswa.store') }}" method="POST">
+                <form action="{{ route('data-tagihan-spp.store') }}" method="POST">
                     @csrf
                     @method('POST')
                     <div class="mb-3">
-                      <label for="exampleInputEmail1" class="form-label">Email address</label>
-                      <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                        <label for="exampleInputEmail1" class="form-label">Jenis Tagihan</label>
+                        <select class="form-control" name="tagihan_id" id="tagihan_id">
+                            <option value="">Pilih Tagihan</option>
+                            @foreach ($tagihan as $item)
+                                
+                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select> 
                     </div>
                     <div class="mb-3">
-                      <label for="exampleInputEmail1" class="form-label">Name</label>
-                      <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-                    </div>
-                    <div class="mb-3">
-                      <label for="password" class="form-label">Password</label>
-                      <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-                      <input id="role" type="hidden" value="siswa" class="form-control @error('password') is-invalid @enderror" name="role" required autocomplete="new-password">
-                    </div> <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">NIK</label>
-                        <input type="text" name="nik" class="form-control" id="nik"
-                            aria-describedby="emailHelp">
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">NO HP</label>
-                        <input type="text" name="no_hp" class="form-control" id="no_hp"
-                            aria-describedby="emailHelp">
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Alamat</label>
-                        <input type="text" name="alamat" class="form-control" id="alamat"
-                            aria-describedby="emailHelp">
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Tempat Lahir</label>
-                        <input type="text" name="tempat_lahir" class="form-control" id="tempat_lahir"
-                            aria-describedby="emailHelp">
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Tanggal Lahir</label>
-                        <input type="text" name="tgl_lahir" class="form-control" id="tgl_lahir"
-                            aria-describedby="emailHelp">
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Jenis Kelamin</label>
-                        <select class="form-control" name="jk" id="">
-                            <option value="L">Laki - Laki</option>
-                            <option value="P">Perempuan</option>
+                        <label for="exampleInputEmail1" class="form-label">Nama Siswa</label>
+                        <select class="form-control" name="user_id " id="user_id ">
+                            <option value="">Pilih Siswa</option>
+                            @foreach ($siswa as $item)
+                                
+                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Kelas</label>
-                        <input type="text" name="kelas" class="form-control" id="kelas"
+                      <label for="exampleInputEmail1" class="form-label">Judul Pembayaran</label>
+                      <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Awal Pembayaran</label>
+                        <input type="date" name="date_awal" class="form-control" id="date_awal"
                             aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Batas Pembayaran</label>
+                        <input type="date" name="date_akhir" class="form-control" id="date_akhir"
+                            aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Metode Pembayaran</label>
+                        <select class="form-control" name="metode" id="metode">
+                            <option value="cash">Tunai</option>
+                            <option value="cicil">Angsuran</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Total</label>
+                        <input type="text" name="total" class="form-control" id="total"
+                            aria-describedby="emailHelp">
+                        <input type="text" name="status" class="form-control" id="status"
+                            aria-describedby="emailHelp" value="0">
+                        <input type="text" name="jenis_transaksi" class="form-control" id="jenis_transaksi"
+                            aria-describedby="emailHelp" value="Pendapatan">
                     </div>
             </div>
             <div class="modal-footer">
@@ -234,40 +223,37 @@
                   name: 'no'
               },
               {
+                  data: 'bukti_transaksi',
+                  name: 'bukti_transaksi'
+              },
+              {
                   data: 'name',
-                  name: 'name'
+                  name: 'Name'
               },
               {
-                  data: 'email',
-                  name: 'email'
+                  data: 'date_awal',
+                  name: 'date_awal'
               },
               {
-                  data: 'nik',
-                  name: 'NIK'
+                  data: 'date_akhir',
+                  name: 'date_akhir'
               },
               {
-                  data: 'no_hp',
-                  name: 'No HP'
+                  data: 'metode',
+                  name: 'metode'
               },
               {
-                  data: 'alamat',
-                  name: 'alamat'
+                  data: 'total',
+                  name: 'total'
+              },
+              
+              {
+                  data: 'keterangan',
+                  name: 'keterangan'
               },
               {
-                  data: 'tempat_lahir',
-                  name: 'Tempat Lahir'
-              },
-              {
-                  data: 'tgl_lahir',
-                  name: 'tanggal Lahir'
-              },
-              {
-                  data: 'jk',
-                  name: 'Jenis Kelamin'
-              },
-              {
-                  data: 'kelas',
-                  name: 'Kelas'
+                  data: 'status',
+                  name: 'status'
               },
               {
                   data: 'action',

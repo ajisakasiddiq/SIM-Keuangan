@@ -2,17 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Transaksi;
 use Illuminate\Http\Request;
 
-class TransactionSiswaController extends Controller
+class PembayaranPendaftaranController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('pages.data-pembayaran');
+        //
     }
 
     /**
@@ -28,14 +27,7 @@ class TransactionSiswaController extends Controller
      */
     public function store(Request $request)
     {
-        try {
-            // Simpan data ke database
-            Transaksi::create($request->all());
-            return redirect()->route('data-transaksi.index')->with('success', 'Data berhasil disimpan.');
-        } catch (\Exception $e) {
-            // Tangkap pengecualian dan tampilkan pesan kesalahan
-            return redirect()->route('data-transaksi.index')->with('error', 'Key yang anda masukkan tidak ada di saldo mon');
-        }
+        //
     }
 
     /**

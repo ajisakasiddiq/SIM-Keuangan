@@ -52,18 +52,38 @@
     <div class="sidebar-heading">
         Data Keuangan
     </div>
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pembayaran"
+          aria-expanded="true" aria-controls="collapseTwo">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Data Pembayaran Siswa</span>
+      </a>
+      <div id="pembayaran" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+              <h6 class="collapse-header">Data Pembayaran Siswa</h6>
+              {{-- <a class="collapse-item"  href="{{ route('data-tagihan-Pendaftaran.index') }}">Pendaftaran Kelas 7</a>
+              {{-- <a class="collapse-item"  href="{{ route('data-tagihan-kainSeragam.index') }}">Kain Seragam</a> --}}
+              <a class="collapse-item"  href="{{ route('data-tagihan-spp.index') }}">SPP</a>
+              {{-- <a class="collapse-item"  href="{{ route('data-tagihan-DaftarUlang.index') }}">Daftar Ulang</a>
+              <a class="collapse-item"  href="{{ route('data-tagihan-lainnya.index') }}">Pembayaran Lain-Lainnya</a --}}
+          </div>
+      </div>
+  </li>
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#transaksi"
+          aria-expanded="true" aria-controls="collapseTwo">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Data Transaksi</span>
+      </a>
+      <div id="transaksi" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+              <h6 class="collapse-header">Data Pembayaran Siswa</h6>
+              <a class="collapse-item" href="buttons.html">Pemasukan</a>
+              <a class="collapse-item" href="buttons.html">Pengeluaran</a>
+          </div>
+      </div>
+  </li>
 
-  
-      <li class="nav-item">
-        <a class="nav-link {{ (request()->is('data-tagihan')) ? 'active' : ''}}" href="{{ route('data-tagihan.index') }}">
-              <i class="fa-money-check-alt" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
-              <span>Data Pembayaran Siswa</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link {{ (request()->is('data-transaksi')) ? 'active' : ''}}" href="{{ route('data-transaksi.index') }}">
-              <i class="fa-money-check-alt" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
-              <span>Data Transaksi</span></a>
-      </li>
          <!-- Divider -->
     <hr class="sidebar-divider">
 
