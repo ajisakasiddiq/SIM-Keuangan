@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-    Dashboard | Data Pendapatan
+    Dashboard | Data Pengeluaran
 @endsection
 
 @section('content')
@@ -8,7 +8,7 @@
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Data Pendapatan</h1>
+        <h1 class="h3 mb-0 text-gray-800">Data Pengeluaran</h1>
     </div>
 
     <!-- Content Row -->
@@ -95,7 +95,7 @@
                         <input type="hidden" name="status" class="form-control" id="status"
                             aria-describedby="emailHelp" value="2">
                         <input type="hidden" name="jenis_transaksi" class="form-control" id="jenis_transaksi"
-                            aria-describedby="emailHelp" value="Pendapatan">
+                            aria-describedby="emailHelp" value="Pengeluaran">
                     </div>
             </div>
             <div class="modal-footer">
@@ -111,11 +111,11 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title bold fs-3" id="exampleModalLabel">{{ __('Tambah Tagihan') }}</h4>
+              <h4 class="modal-title bold fs-3" id="exampleModalLabel">{{ __('Tambah Data') }}</h4>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('data-pendapatan.store') }}" method="POST">
+                <form action="{{ route('data-pengeluaran.store') }}" method="POST">
                     @csrf
                     @method('POST')
                     <input type="hidden" name="tagihan_id" value="6">
@@ -143,7 +143,7 @@
                         <input type="hidden" name="status" class="form-control" id="status"
                             aria-describedby="emailHelp" value="2">
                         <input type="hidden" name="jenis_transaksi" class="form-control" id="jenis_transaksi"
-                            aria-describedby="emailHelp" value="Pendapatan">
+                            aria-describedby="emailHelp" value="Pengeluaran">
                     </div>
             </div>
             <div class="modal-footer">
@@ -244,12 +244,12 @@
           var transaksi_id = $('#id').val();
   
           $.ajax({
-              url: '/data-pendapatan/' + transaksi_id,
+              url: '/data-pengeluaran/' + transaksi_id,
               type: 'POST',
               data: formData,
               success: function(data) {
                   alert('Data Berhasil Di ubah',data);
-                  window.location.href = '/data-pendapatan';
+                  window.location.href = '/data-pengeluaran';
               },
               error: function(xhr, status, error) {
         // Tangkap pesan error yang lebih spesifik dari responseJSON
@@ -257,7 +257,7 @@
 
         // Tampilkan pesan error dalam alert atau console.log()
         alert('Terjadi Kesalahan: ' + errorMessage);
-                  window.location.href = '/data-pendapatan';
+                  window.location.href = '/data-pengeluaran';
               }
           });
       }

@@ -34,7 +34,14 @@
     </li>
     <!-- Divider -->
     <hr class="sidebar-divider">
-    @elseif(Auth::user()->role == 'admin-keuangan')
+
+
+
+
+
+
+
+    @elseif(Auth::user()->role == 'bendahara-excellent')
     <!-- Heading -->
     <div class="sidebar-heading">
         Data Master
@@ -56,11 +63,11 @@
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pembayaran"
           aria-expanded="true" aria-controls="collapseTwo">
           <i class="fas fa-fw fa-cog"></i>
-          <span>Data Pembayaran Siswa</span>
+          <span>Data keuangan Siswa</span>
       </a>
       <div id="pembayaran" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-              <h6 class="collapse-header">Data Pembayaran Siswa</h6>
+              <h6 class="collapse-header">Data keuangan Siswa</h6>
               <a class="collapse-item"  href="{{ route('data-tagihan-Pendaftaran.index') }}">Pendaftaran Kelas 7</a>
               <a class="collapse-item"  href="{{ route('data-tagihan-kainSeragam.index') }}">Kain Seragam</a> 
               <a class="collapse-item"  href="{{ route('data-tagihan-spp.index') }}">SPP</a>
@@ -79,7 +86,7 @@
           <div class="bg-white py-2 collapse-inner rounded">
               <h6 class="collapse-header">Data Pembayaran Siswa</h6>
               <a class="collapse-item" href="{{ route('data-pendapatan.index') }}">Pendapatan</a>
-              <a class="collapse-item" href="buttons.html">Pengeluaran</a>
+              <a class="collapse-item" href="{{ route('data-pengeluaran.index') }}">Pengeluaran</a>
           </div>
       </div>
   </li>
@@ -95,12 +102,98 @@
         Laporan Keuangan
     </div>
     <li class="nav-item">
-      <a class="nav-link {{ (request()->is('data-siswa')) ? 'active' : ''}}" href="{{ route('data-siswa.index') }}">
+      <a class="nav-link {{ (request()->is('data-siswa')) ? 'active' : ''}}" href="{{ route('Laporan-Keuangan.index') }}">
             <i class="fa-money-check-alt" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
             <span>Laporan</span></a>
     </li>
 
     <hr class="sidebar-divider d-none d-md-block">
+
+
+    @elseif(Auth::user()->role == 'bendahara-reguler')
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Data Master
+    </div>
+    <li class="nav-item">
+      <a class="nav-link {{ (request()->is('data-siswa')) ? 'active' : ''}}" href="{{ route('data-siswa.index') }}">
+            <i class="fa-duotone fa-user" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
+            <span>Data Siswa</span></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link {{ (request()->is('data-siswa')) ? 'active' : ''}}" href="{{ route('data-jenis-tagihan.index') }}">
+            <i class="fa-money-check-alt" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
+            <span>Kategori Tagihan Siswa</span></a>
+    </li>
+    <div class="sidebar-heading">
+        Data Keuangan
+    </div>
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pembayaran"
+          aria-expanded="true" aria-controls="collapseTwo">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Data keuangan Siswa</span>
+      </a>
+      <div id="pembayaran" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+              <h6 class="collapse-header">Data keuangan Siswa</h6>
+              <a class="collapse-item"  href="{{ route('data-tagihan-Pendaftaran.index') }}">Pendaftaran Kelas 7</a>
+              <a class="collapse-item"  href="{{ route('data-tagihan-kainSeragam.index') }}">Kain Seragam</a> 
+              <a class="collapse-item"  href="{{ route('data-tagihan-spp.index') }}">SPP</a>
+              <a class="collapse-item"  href="{{ route('data-tagihan-DaftarUlang.index') }}">Daftar Ulang</a>
+              <a class="collapse-item"  href="{{ route('data-tagihan-DaftarUlang.index') }}">Dana Bos</a>
+              <a class="collapse-item"  href="{{ route('data-tagihan-lainnya.index') }}">Pembayaran Lain-Lainnya</a
+          </div>
+      </div>
+  </li>
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#transaksi"
+          aria-expanded="true" aria-controls="collapseTwo">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Data Transaksi</span>
+      </a>
+      <div id="transaksi" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+              <h6 class="collapse-header">Data Pembayaran Siswa</h6>
+              <a class="collapse-item" href="{{ route('data-pendapatan.index') }}">Pendapatan</a>
+              <a class="collapse-item" href="{{ route('data-pengeluaran.index') }}">Pengeluaran</a>
+          </div>
+      </div>
+  </li>
+
+         <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        
+    </div>
+    <div class="sidebar-heading">
+        Laporan Keuangan
+    </div>
+    <li class="nav-item">
+      <a class="nav-link {{ (request()->is('data-siswa')) ? 'active' : ''}}" href="{{ route('Laporan-Keuangan.index') }}">
+            <i class="fa-money-check-alt" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
+            <span>Laporan</span></a>
+    </li>
+
+    <hr class="sidebar-divider d-none d-md-block">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @elseif(Auth::user()->role == 'siswa')
     <li class="nav-item">
@@ -115,6 +208,21 @@
             <span>Riwayat Pembayaran</span></a>
     </li>
     @endif
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <!-- Divider -->
 
     <!-- Sidebar Toggler (Sidebar) -->

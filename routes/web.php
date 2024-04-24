@@ -40,6 +40,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('data-tagihan-DaftarUlang', 'App\Http\Controllers\PembayaranDaftarUlangController');
     Route::resource('data-tagihan-lainnya', 'App\Http\Controllers\PembayaranLainnyaController');
     Route::resource('data-pendapatan', 'App\Http\Controllers\PendapatanController');
+    Route::resource('data-pengeluaran', 'App\Http\Controllers\PengeluaranController');
+    Route::resource('Laporan-Keuangan', 'App\Http\Controllers\LaporanKeuanganController');
 });
 
 require __DIR__ . '/auth.php';
