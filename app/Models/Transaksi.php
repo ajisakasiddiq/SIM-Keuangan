@@ -20,7 +20,8 @@ class Transaksi extends Model
         'status',
         'tagihan_id',
         'user_id',
-        'tgl_pembayaran'
+        'tgl_pembayaran',
+        'jurusan'
     ];
     public function user()
     {

@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\tagihan;
 use App\Models\User;
+use App\Models\tagihan;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
 class PembayaranSppController extends Controller
@@ -15,10 +16,17 @@ class PembayaranSppController extends Controller
      */
     public function index()
     {
+        if (Auth::user()->role == 'bendahara-excellent')
+            $jurusan = 'excellent';
+        else
+            $jurusan = 'reguler';
+
         $tagihan = tagihan::get();
         $siswa = User::where('role', 'siswa')->get();
         if (request()->ajax()) {
-            $query = Transaksi::with('user')->where('tagihan_id', '1');
+            $query = Transaksi::with('user')
+                ->where('tagihan_id', '1')
+                ->where('jurusan', $jurusan);
             return DataTables::of($query)
                 ->addColumn('action', function ($item) {
                     // $barcode = DNS1D::getBarcodeHTML($item->id, 'C128', 2, 50);
@@ -37,6 +45,7 @@ class PembayaranSppController extends Controller
                         data-metode="' . $item->metode . '" 
                         data-total="' . $item->total . '" 
                         data-status="' . $item->status . '" 
+                        data-jurusan="' . $item->jurusan . '" 
                         data-Pendapatan="' . $item->Pendapatan . '" 
                         data-toggle="modal" data-target="#editModal">Edit</button>
                           <form action="' . route('data-tagihan-spp.destroy', $item->id) . '" method="POST">

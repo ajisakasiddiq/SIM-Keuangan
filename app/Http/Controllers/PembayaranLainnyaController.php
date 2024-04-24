@@ -24,28 +24,29 @@ class PembayaranLainnyaController extends Controller
                     // $barcode = DNS1D::getBarcodeHTML($item->id, 'C128', 2, 50);
                     return '
                     <div class="btn-group">
-                      <div class="dropdown">
-                        <button class="btn btn-primary dropdown-toggle mr-1 mb-1" type="button" data-toggle="dropdown">Aksi</button>
-                        <div class="dropdown-menu">
-                        <button class="dropdown-item" 
-                        data-id="' . $item->id . '" 
-                        data-tagihan_id="' . $item->tagihan_id . '" 
-                        data-user_id="' . $item->user_id . '" 
-                        data-keterangan="' . $item->keterangan . '" 
-                        data-date_awal="' . $item->date_awal . '" 
-                        data-date_akhir="' . $item->date_akhir . '" 
-                        data-metode="' . $item->metode . '" 
-                        data-total="' . $item->total . '" 
-                        data-status="' . $item->status . '" 
-                        data-Pendapatan="' . $item->Pendapatan . '" 
-                        data-toggle="modal" data-target="#editModal">Edit</button>
-                          <form action="' . route('data-tagihan-lainnya.destroy', $item->id) . '" method="POST">
-                          ' . method_field('delete') . csrf_field() . '
-                          <button type="submit" class="dropdown-item text-danger">Hapus</button>
-                          </form>
-                        </div>
+                    <div class="dropdown">
+                      <button class="btn btn-primary dropdown-toggle mr-1 mb-1" type="button" data-toggle="dropdown">Aksi</button>
+                      <div class="dropdown-menu">
+                      <button class="dropdown-item" 
+                      data-id="' . $item->id . '" 
+                      data-tagihan_id="' . $item->tagihan_id . '" 
+                      data-user_id="' . $item->user_id . '" 
+                      data-keterangan="' . $item->keterangan . '" 
+                      data-date_awal="' . $item->date_awal . '" 
+                      data-date_akhir="' . $item->date_akhir . '" 
+                      data-metode="' . $item->metode . '" 
+                      data-total="' . $item->total . '" 
+                      data-status="' . $item->status . '" 
+                      data-jurusan="' . $item->jurusan . '" 
+                      data-Pendapatan="' . $item->Pendapatan . '" 
+                      data-toggle="modal" data-target="#editModal">Edit</button>
+                        <form action="' . route('data-tagihan-spp.destroy', $item->id) . '" method="POST">
+                        ' . method_field('delete') . csrf_field() . '
+                        <button type="submit" class="dropdown-item text-danger">Hapus</button>
+                        </form>
                       </div>
                     </div>
+                  </div>
                     ';
                 })
                 ->addColumn('no', function ($item) {

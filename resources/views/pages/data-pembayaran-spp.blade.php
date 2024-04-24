@@ -79,7 +79,7 @@
                     @method('PUT')
                     <input type="hidden" name="tagihan_id" value="1" id="tagihan_id">
                     <input type="hidden" name="id" value="1" id="id">
-                    <input type="hidden" name="jurusan" value="1" id="jurusan">
+                    <input type="hidden" name="jurusan" id="jurusan">
                     <div class="mb-3">
                         <label for="user_id" class="form-label">Nama Siswa</label>
                         <select class="form-control" name="user_id" id="user_id">
@@ -149,7 +149,11 @@
                     @csrf
                     @method('POST')
                     <input type="hidden" name="tagihan_id" value="1">
+                    @if(Auth::user()->role == 'bendahara-excellent')
                     <input type="hidden" name="jurusan" value="excellent">
+                    @else
+                    <input type="hidden" name="jurusan" value="reguler">
+                    @endif
                     <div class="mb-3">
                         <label for="user_id" class="form-label">Nama Siswa</label>
                         <select class="form-control" name="user_id" id="user_id">
@@ -277,6 +281,7 @@
           var metode = button.data('metode');
           var total = button.data('total');
           var status = button.data('status');
+          var jurusan = button.data('jurusan');
           var Pendapatan = button.data('Pendapatan');
           var modal = $(this);
           modal.find('#id').val(id);
@@ -288,6 +293,7 @@
           modal.find('#metode').val(metode);
           modal.find('#total').val(total);
           modal.find('#status').val(status);
+          modal.find('#jurusan').val(jurusan);
           modal.find('#Pendapatan').val(Pendapatan);
       });
   
