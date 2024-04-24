@@ -79,6 +79,7 @@
                     @method('PUT')
                     <input type="hidden" name="tagihan_id" value="1" id="tagihan_id">
                     <input type="hidden" name="id" value="1" id="id">
+                    <input type="hidden" name="jurusan" value="1" id="jurusan">
                     <div class="mb-3">
                         <label for="user_id" class="form-label">Nama Siswa</label>
                         <select class="form-control" name="user_id" id="user_id">
@@ -148,6 +149,7 @@
                     @csrf
                     @method('POST')
                     <input type="hidden" name="tagihan_id" value="1">
+                    <input type="hidden" name="jurusan" value="excellent">
                     <div class="mb-3">
                         <label for="user_id" class="form-label">Nama Siswa</label>
                         <select class="form-control" name="user_id" id="user_id">

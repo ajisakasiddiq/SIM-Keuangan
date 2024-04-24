@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         // ]);
         $this->call([
             UserSeeder::class,
+            KategoriTagihanSeeder::class,
             // Masukkan seeder lain jika ada
         ]);
     }
