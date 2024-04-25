@@ -44,4 +44,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('Laporan-Keuangan', 'App\Http\Controllers\LaporanKeuanganController');
 });
 
+Route::middleware('auth')->group(function () {
+    Route::resource('Tagihan-spp', 'App\Http\Controllers\Siswa\PembayaranSPPController');
+});
 require __DIR__ . '/auth.php';

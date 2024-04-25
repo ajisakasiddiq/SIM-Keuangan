@@ -51,11 +51,11 @@
             <i class="fa-duotone fa-user" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
             <span>Data Siswa</span></a>
     </li>
-    <li class="nav-item">
+    {{-- <li class="nav-item">
       <a class="nav-link {{ (request()->is('data-siswa')) ? 'active' : ''}}" href="{{ route('data-jenis-tagihan.index') }}">
             <i class="fa-money-check-alt" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
             <span>Kategori Tagihan Siswa</span></a>
-    </li>
+    </li> --}}
     <div class="sidebar-heading">
         Data Keuangan
     </div>
@@ -120,11 +120,11 @@
             <i class="fa-duotone fa-user" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
             <span>Data Siswa</span></a>
     </li>
-    <li class="nav-item">
+    {{-- <li class="nav-item">
       <a class="nav-link {{ (request()->is('data-siswa')) ? 'active' : ''}}" href="{{ route('data-jenis-tagihan.index') }}">
             <i class="fa-money-check-alt" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
             <span>Kategori Tagihan Siswa</span></a>
-    </li>
+    </li> --}}
     <div class="sidebar-heading">
         Data Keuangan
     </div>
@@ -197,10 +197,10 @@
 
     @elseif(Auth::user()->role == 'siswa')
     <li class="nav-item">
-      <a class="nav-link {{ (request()->is('data-guru')) ? 'active' : ''}}" href="{{ route('data-guru.index') }}">
+      <a class="nav-link {{ (request()->is('Tagihan-spp')) ? 'active' : ''}}" href="{{ route('Tagihan-spp.index') }}">
             <i class="fa-duotone fa-user" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
              
-            <span>Tagihan</span></a>
+            <span>Tagihan SPP</span></a>
     </li>
     <li class="nav-item">
       <a class="nav-link {{ (request()->is('data-siswa')) ? 'active' : ''}}" href="{{ route('data-siswa.index') }}">

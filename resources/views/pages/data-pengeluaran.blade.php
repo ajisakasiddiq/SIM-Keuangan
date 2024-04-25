@@ -27,7 +27,7 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>bukti_transaksi</th>
+                                            <th>Nota</th>
                                             <th>Jenis Keuangan</th>
                                             <th>Tanggal Transaksi</th>
                                             <th>Total</th>
@@ -40,7 +40,7 @@
                                     <tfoot>
                                         <tr>
                                             <th>No</th>
-                                            <th>bukti_transaksi</th>
+                                            <th>Nota</th>
                                             <th>Jenis Keuangan</th>
                                             <th>Tanggal Transaksi</th>
                                             <th>Total</th>
@@ -174,7 +174,7 @@
               
               {
                   data: 'bukti_transaksi',
-                  name: 'bukti_transaksi'
+                  name: 'Nota'
               },
               
               { 
