@@ -29,12 +29,7 @@
                                             <th>No</th>
                                             <th>Nama Siswa</th>
                                             <th>Kelas Siswa</th>
-                                            <th>bukti_transaksi</th>
-                                            <th>date_awal</th>
-                                            <th>date_akhir</th>
-                                            <th>metode</th>
                                             <th>Total</th>
-                                            <th>keterangan</th>
                                             <th>status</th>
                                             <th>Aksi</th>
                                         </tr>
@@ -47,12 +42,7 @@
                                             <th>No</th>
                                             <th>Nama Siswa</th>
                                             <th>Kelas Siswa</th>
-                                            <th>bukti_transaksi</th>
-                                            <th>date_awal</th>
-                                            <th>date_akhir</th>
-                                            <th>metode</th>
                                             <th>Total</th>
-                                            <th>keterangan</th>
                                             <th>status</th>
                                             <th>Aksi</th>
                                         </tr>
@@ -93,6 +83,10 @@
                     <div class="mb-3">
                       <label for="keterangan" class="form-label">Keterangan</label>
                       <input id="keterangan" type="text" class="form-control @error('name') is-invalid @enderror" name="keterangan" autofocus>
+                    </div>
+                    <div class="mb-3">
+                      <label for="tahunajar" class="form-label">Tahun Ajaran</label>
+                      <input id="tahunajar" type="text" class="form-control @error('tahunajar') is-invalid @enderror" name="tahunajar" autofocus>
                     </div>
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Awal Pembayaran</label>
@@ -169,6 +163,10 @@
                       <input id="keterangan" type="text" class="form-control @error('name') is-invalid @enderror" name="keterangan" autofocus>
                     </div>
                     <div class="mb-3">
+                        <label for="tahunajar" class="form-label">Tahun Ajaran</label>
+                        <input id="tahunajar" type="text" class="form-control @error('tahunajar') is-invalid @enderror" name="tahunajar" autofocus>
+                    </div>
+                    <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Awal Pembayaran</label>
                         <input type="date" name="date_awal" class="form-control" id="date_awal"
                             aria-describedby="emailHelp">
@@ -222,37 +220,16 @@
                   name: 'no'
               },
               {
-                  data: 'user.name',
+                  data: 'name',
                   name: 'Nama Siswa'
               },
               {
-                  data: 'user.kelas',
+                  data: 'kelas',
                   name: 'Kelas Siswa'
               },
               {
-                  data: 'bukti_transaksi',
-                  name: 'bukti_transaksi'
-              },
-              {
-                  data: 'date_awal',
-                  name: 'date_awal'
-              },
-              {
-                  data: 'date_akhir',
-                  name: 'date_akhir'
-              },
-              {
-                  data: 'metode',
-                  name: 'metode'
-              },
-              {
-                  data: 'total',
+                  data: 'total_sum',
                   name: 'total'
-              },
-              
-              {
-                  data: 'keterangan',
-                  name: 'keterangan'
               },
               {
                   data: 'status',
@@ -283,6 +260,7 @@
           var status = button.data('status');
           var jurusan = button.data('jurusan');
           var Pendapatan = button.data('Pendapatan');
+          var tahunajar = button.data('tahunajar');
           var modal = $(this);
           modal.find('#id').val(id);
           modal.find('#tagihan_id').val(tagihan_id);
@@ -295,6 +273,7 @@
           modal.find('#status').val(status);
           modal.find('#jurusan').val(jurusan);
           modal.find('#Pendapatan').val(Pendapatan);
+          modal.find('#tahunajar').val(tahunajar);
       });
   
       // Submit Edit Task Form

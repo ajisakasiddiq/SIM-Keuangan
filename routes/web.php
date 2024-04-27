@@ -42,9 +42,11 @@ Route::middleware('auth')->group(function () {
     Route::resource('data-pendapatan', 'App\Http\Controllers\PendapatanController');
     Route::resource('data-pengeluaran', 'App\Http\Controllers\PengeluaranController');
     Route::resource('Laporan-Keuangan', 'App\Http\Controllers\LaporanKeuanganController');
+    Route::resource('Detail-Pembayaran', 'App\Http\Controllers\DetailController');
 });
 
 Route::middleware('auth')->group(function () {
     Route::resource('Tagihan-spp', 'App\Http\Controllers\Siswa\PembayaranSPPController');
+    Route::resource('Tagihan-Pendaftaran', 'App\Http\Controllers\Siswa\PembayaranPendaftaranController');
 });
 require __DIR__ . '/auth.php';

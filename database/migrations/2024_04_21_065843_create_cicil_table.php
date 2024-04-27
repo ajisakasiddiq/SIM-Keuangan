@@ -14,8 +14,10 @@ return new class extends Migration
         Schema::create('cicil', function (Blueprint $table) {
             $table->id();
             $table->string('bukti_pembayaran');
-            $table->unsignedBigInteger('transaksi_id');
-            $table->foreign('transaksi_id')->references('id')->on('transaksi')->onDelete('cascade');
+            $table->unsignedBigInteger('tagihan_id');
+            $table->foreign('tagihan_id')->references('id')->on('jenistagihan')->onDelete('cascade');
+            $table->string('tgl')->nullable();
+            $table->string('total')->nullable();
             $table->timestamps();
         });
     }

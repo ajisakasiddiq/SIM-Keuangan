@@ -21,6 +21,7 @@ class Transaksi extends Model
         'tagihan_id',
         'user_id',
         'tgl_pembayaran',
+        'tahunajar',
         'jurusan'
     ];
     public function user()

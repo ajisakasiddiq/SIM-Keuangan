@@ -21,6 +21,9 @@ return new class extends Migration
             $table->string('bukti_transaksi')->nullable();
             $table->enum('metode', ['cash', 'cicil'])->nullable();
             $table->enum('status', ['0', '1', '2'])->nullable();
+            $table->string('tahunajar')->nullable();
+            $table->string('jurusan')->nullable();
+            $table->string('tgl_pembayaran')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('tagihan_id');
