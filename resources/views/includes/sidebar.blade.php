@@ -208,6 +208,24 @@
              
             <span>Tagihan SPP</span></a>
     </li>
+    <li class="nav-item">
+      <a class="nav-link {{ (request()->is('Tagihan-DaftarUlang')) ? 'active' : ''}}" href="{{ route('Tagihan-DaftarUlang.index') }}">
+            <i class="fa-duotone fa-user" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
+             
+            <span>Tagihan Daftar Ulang</span></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link {{ (request()->is('Tagihan-DaftarUlang')) ? 'active' : ''}}" href="{{ route('Tagihan-DaftarUlang.index') }}">
+            <i class="fa-duotone fa-user" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
+             
+            <span>Tagihan Kain Seragam(Belom selesai)</span></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link {{ (request()->is('Tagihan-DaftarUlang')) ? 'active' : ''}}" href="{{ route('Tagihan-DaftarUlang.index') }}">
+            <i class="fa-duotone fa-user" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
+             
+            <span>Tagihan Lainnya(Belom selesai)</span></a>
+    </li>
     @endif
 
 
