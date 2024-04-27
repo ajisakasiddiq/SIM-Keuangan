@@ -14,6 +14,7 @@ class Cicilan extends Model
         'total',
         'bukti_pembayaran',
         'tagihan_id',
+        'user_id',
     ];
     public function jenistagihan()
     {

@@ -73,8 +73,12 @@
                             <p>Kurang</p>
                         </div>
                         <div class="col-md-6">
-                            <p>Total Yang di Bayarkan</p>
-                            <p>Kurang</p>
+                            @foreach($total as $transaksi)
+                            @foreach($totalcicilan as $cicil)
+                                <p>:Rp. {{ $cicil->total_sum }}</p>
+                                <p>:Rp. {{ $transaksi->total_sum - $cicil->total_sum }}</p>
+                            @endforeach
+                        @endforeach
                             <a href="" class="btn btn-success" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bayar">
                                 Bayar
                             </a>
@@ -99,7 +103,8 @@
                                             <td>{{ $item->tgl }}</td>
                                             <td>{{ $item->total }}</td>
                                         </tr>
-                                        @endforeach
+                                    @endforeach
+                                    
                                     </tbody>
                                   </div>                              
                            
@@ -123,7 +128,8 @@
                 <form action="{{ route('Tagihan-Pendaftaran.store') }}" method="POST" enctype="multipart/form-data">
                     @method('POST')    
                     @csrf
-                  <input type="hidden" name="transaksi_id" value="3" id="tagihan_id">
+                  <input type="hidden" name="tagihan_id" value="3" id="tagihan_id">
+                  <input type="hidden" name="user_id" value="{{ Auth::user()->id }}" id="user_id">
                   <div class="mb-3">
                     <label for="total" class="form-label">Total yg Dibayarkan</label>
                     <input  type="text" name="total" id="total" class="form-control">
