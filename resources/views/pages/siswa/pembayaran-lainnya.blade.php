@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-Tagihan SPP
+     Tagihan Lainnya
 @endsection
 
 @section('content')
@@ -8,7 +8,7 @@ Tagihan SPP
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Tagihan SPP</h1>
+        <h1 class="h3 mb-0 text-gray-800">Tagihan Lainnya</h1>
     </div>
 
     <!-- Content Row -->
@@ -19,21 +19,11 @@ Tagihan SPP
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-2">
-                                    <label for="">Tahun Pelajaran :</label>
-                                    <select class="form-control" name="" id="">
-                                        <option value="">2022/2023</option>
-                                        <option value=""></option>
-                                    </select>
-                                </div>
-                            </div>
-                            <br><br>
                             <div class="table-responsive">
                               <table class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th>Bulan</th>
+                                            <th>Keterangan</th>
                                             <th>Nominal</th>
                                             <th>Aksi</th>
                                         </tr>
@@ -61,7 +51,7 @@ Tagihan SPP
                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            <form action="{{ route('Tagihan-spp.update', $item->id) }}" method="POST" enctype="multipart/form-data">
+                                                            <form action="{{ route('Tagihan-Lainnya.update', $item->id) }}" method="POST" enctype="multipart/form-data">
                                                                 @method('PUT')    
                                                                 @csrf
                                                               <input type="hidden" name="tagihan_id" value="{{ $item->tagihan_id }}" id="tagihan_id">

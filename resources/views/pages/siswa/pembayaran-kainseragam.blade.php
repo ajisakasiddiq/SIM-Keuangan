@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-Pembayaran Daftar Ulang
+Pembayaran Kain Seragam
 @endsection
 
 @section('content')
@@ -8,7 +8,7 @@ Pembayaran Daftar Ulang
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Pembayaran Daftar Ulang</h1>
+        <h1 class="h3 mb-0 text-gray-800">Pembayaran Kain Seragam</h1>
     </div>
 
     <!-- Content Row -->
@@ -20,7 +20,7 @@ Pembayaran Daftar Ulang
                     <div class="card">
                         <div class="row ml-2 mt-2">
                             <div class="col-md-6">
-                                <h5>Rincian Pembayaran Daftar Ulang</h5>
+                                <h5>Pembayaran Kain Seragam</h5>
                             </div>
                         </div>
                         <div class="table-responsive m-5">
@@ -135,7 +135,7 @@ Pembayaran Daftar Ulang
                 <form action="{{ route('Tagihan-Pendaftaran.store') }}" method="POST" enctype="multipart/form-data">
                     @method('POST')    
                     @csrf
-                  <input type="hidden" name="tagihan_id" value="2" id="tagihan_id">
+                  <input type="hidden" name="tagihan_id" value="3" id="tagihan_id">
                   <input type="hidden" name="user_id" value="{{ Auth::user()->id }}" id="user_id">
                   <div class="mb-3">
                     <label for="total" class="form-label">Total yg Dibayarkan</label>

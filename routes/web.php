@@ -49,5 +49,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('Tagihan-spp', 'App\Http\Controllers\Siswa\PembayaranSPPController');
     Route::resource('Tagihan-Pendaftaran', 'App\Http\Controllers\Siswa\PembayaranPendaftaranController');
     Route::resource('Tagihan-DaftarUlang', 'App\Http\Controllers\Siswa\PembayaranDaftarUlangController');
+    Route::resource('Tagihan-Lainnya', 'App\Http\Controllers\Siswa\PembayaranLainnyaController');
+    Route::resource('Tagihan-KainSeragam', 'App\Http\Controllers\Siswa\PembayaranKainSeragamController');
 });
 require __DIR__ . '/auth.php';

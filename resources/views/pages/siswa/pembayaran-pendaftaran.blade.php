@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-    Detail Pembayaran
+Pembayaran Pendaftaran
 @endsection
 
 @section('content')
@@ -77,11 +77,18 @@
                             @foreach($totalcicilan as $cicil)
                                 <p>:Rp. {{ $cicil->total_sum }}</p>
                                 <p>:Rp. {{ $transaksi->total_sum - $cicil->total_sum }}</p>
-                            @endforeach
-                        @endforeach
+                        
+                                @if($transaksi->total_sum - $cicil->total_sum == '0')
+                            <a href="" class="btn btn-secondary" type="button" class="btn btn-primary">
+                                Bayar
+                            </a>
+                            @else
                             <a href="" class="btn btn-success" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bayar">
                                 Bayar
                             </a>
+                            @endif
+                            @endforeach
+                            @endforeach
                         </div>
                     </div>
                 </div>
