@@ -32,7 +32,6 @@
                                             <th>bukti_transaksi</th>
                                             <th>date_awal</th>
                                             <th>date_akhir</th>
-                                            <th>metode</th>
                                             <th>Total</th>
                                             <th>keterangan</th>
                                             <th>status</th>
@@ -50,7 +49,6 @@
                                             <th>bukti_transaksi</th>
                                             <th>date_awal</th>
                                             <th>date_akhir</th>
-                                            <th>metode</th>
                                             <th>Total</th>
                                             <th>keterangan</th>
                                             <th>status</th>
@@ -103,14 +101,7 @@
                         <label for="exampleInputEmail1" class="form-label">Batas Pembayaran</label>
                         <input type="date" name="date_akhir" class="form-control" id="date_akhir"
                             aria-describedby="emailHelp">
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Metode Pembayaran</label>
-                        <select class="form-control" name="metode" id="metode">
-                            <option value="cash">Tunai</option>
-                            <option value="cicil">Angsuran</option>
-                        </select>
-                    </div>     
+                    </div>    
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Total</label>
                         <input type="text" name="total" class="form-control" id="total"
@@ -177,15 +168,7 @@
                         <label for="exampleInputEmail1" class="form-label">Batas Pembayaran</label>
                         <input type="date" name="date_akhir" class="form-control" id="date_akhir"
                             aria-describedby="emailHelp">
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Metode Pembayaran</label>
-                        <select class="form-control" name="metode" id="metode">
-                            <option value="cash">Tunai</option>
-                            <option value="cicil">Angsuran</option>
-                        </select>
-                    </div>
-                    
+                    </div>                    
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Total</label>
                         <input type="text" name="total" class="form-control" id="total"
@@ -242,10 +225,6 @@
                   name: 'date_akhir'
               },
               {
-                  data: 'metode',
-                  name: 'metode'
-              },
-              {
                   data: 'total',
                   name: 'total'
               },
@@ -278,7 +257,6 @@
           var keterangan = button.data('keterangan');
           var date_awal = button.data('date_awal');
           var date_akhir = button.data('date_akhir');
-          var metode = button.data('metode');
           var total = button.data('total');
           var status = button.data('status');
           var jurusan = button.data('jurusan');
@@ -290,7 +268,6 @@
           modal.find('#keterangan').val(keterangan);
           modal.find('#date_awal').val(date_awal);
           modal.find('#date_akhir').val(date_akhir);
-          modal.find('#metode').val(metode);
           modal.find('#total').val(total);
           modal.find('#status').val(status);
           modal.find('#jurusan').val(jurusan);
