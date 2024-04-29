@@ -135,7 +135,7 @@ Pembayaran Kain Seragam
                 <form action="{{ route('Tagihan-Pendaftaran.store') }}" method="POST" enctype="multipart/form-data">
                     @method('POST')    
                     @csrf
-                  <input type="hidden" name="tagihan_id" value="3" id="tagihan_id">
+                  <input type="hidden" name="tagihan_id" value="4" id="tagihan_id">
                   <input type="hidden" name="user_id" value="{{ Auth::user()->id }}" id="user_id">
                   <div class="mb-3">
                     <label for="total" class="form-label">Total yg Dibayarkan</label>

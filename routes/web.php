@@ -18,9 +18,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -29,6 +29,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
+    Route::resource('dashboard', 'App\Http\Controllers\DashboardController');
     Route::resource('data-siswa', 'App\Http\Controllers\SiswaController');
     Route::resource('data-guru', 'App\Http\Controllers\GuruController');
     Route::resource('data-jenis-tagihan', 'App\Http\Controllers\JenisTagihanController');

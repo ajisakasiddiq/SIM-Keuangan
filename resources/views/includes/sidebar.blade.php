@@ -10,7 +10,7 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item {{ (request()->is('/')) ? 'active' : ''}}">
-        <a class="nav-link {{ (request()->is('dashboard')) ? 'active' : ''}}" href="{{ route('dashboard') }}"><i class="fas fa-fw fa-tachometer-alt"></i><span>Dashboard</span></a>
+        <a class="nav-link {{ (request()->is('dashboard')) ? 'active' : ''}}" href="{{ route('dashboard.index') }}"><i class="fas fa-fw fa-tachometer-alt"></i><span>Dashboard</span></a>
     </li>
 
     <!-- Divider -->
@@ -197,35 +197,36 @@
 
     @elseif(Auth::user()->role == 'siswa')
     <li class="nav-item">
-      <a class="nav-link {{ (request()->is('Tagihan-Pendaftaran')) ? 'active' : ''}}" href="{{ route('Tagihan-Pendaftaran.index') }}">
+        <a class="nav-link {{ request()->is('Tagihan-Pendaftaran*') ? 'active' : '' }}" href="{{ route('Tagihan-Pendaftaran.index') }}">
             <i class="fa-duotone fa-user" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
-             
-            <span>Tagihan Pendaftaran</span></a>
+            <span>Tagihan Pendaftaran</span>
+        </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link {{ (request()->is('Tagihan-spp')) ? 'active' : ''}}" href="{{ route('Tagihan-spp.index') }}">
+        <a class="nav-link {{ request()->is('Tagihan-spp*') ? 'active' : '' }}" href="{{ route('Tagihan-spp.index') }}">
             <i class="fa-duotone fa-user" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
-             
-            <span>Tagihan SPP</span></a>
+            <span>Tagihan SPP</span>
+        </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link {{ (request()->is('Tagihan-DaftarUlang')) ? 'active' : ''}}" href="{{ route('Tagihan-DaftarUlang.index') }}">
+        <a class="nav-link {{ request()->is('Tagihan-DaftarUlang*') ? 'active' : '' }}" href="{{ route('Tagihan-DaftarUlang.index') }}">
             <i class="fa-duotone fa-user" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
-             
-            <span>Tagihan Daftar Ulang</span></a>
+            <span>Tagihan Daftar Ulang</span>
+        </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link {{ (request()->is('Tagihan-KainSeragam')) ? 'active' : ''}}" href="{{ route('Tagihan-KainSeragam.index') }}">
+        <a class="nav-link {{ request()->is('Tagihan-KainSeragam*') ? 'active' : '' }}" href="{{ route('Tagihan-KainSeragam.index') }}">
             <i class="fa-duotone fa-user" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
-             
-            <span>Tagihan Kain Seragam(Belom selesai)</span></a>
+            <span>Tagihan Kain Seragam</span>
+        </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link {{ (request()->is('Tagihan-Lainnya')) ? 'active' : ''}}" href="{{ route('Tagihan-Lainnya.index') }}">
+        <a class="nav-link {{ request()->is('Tagihan-Lainnya*') ? 'active' : '' }}" href="{{ route('Tagihan-Lainnya.index') }}">
             <i class="fa-duotone fa-user" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
-             
-            <span>Tagihan Lainnya</span></a>
+            <span>Tagihan Lainnya</span>
+        </a>
     </li>
+    
     @endif
 
 
