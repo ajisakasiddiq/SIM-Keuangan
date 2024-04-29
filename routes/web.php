@@ -28,25 +28,26 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware('auth')->group(function () {
-    Route::resource('dashboard', 'App\Http\Controllers\DashboardController');
-    Route::resource('data-siswa', 'App\Http\Controllers\SiswaController');
-    Route::resource('data-guru', 'App\Http\Controllers\GuruController');
-    Route::resource('data-jenis-tagihan', 'App\Http\Controllers\JenisTagihanController');
-    Route::resource('data-rincian-tagihan', 'App\Http\Controllers\RincianTagihanController');
-    Route::resource('data-transaksi', 'App\Http\Controllers\TransactionController');
-    Route::resource('data-tagihan-spp', 'App\Http\Controllers\PembayaranSppController');
-    Route::resource('data-tagihan-Pendaftaran', 'App\Http\Controllers\PembayaranPendaftaranController');
-    Route::resource('data-tagihan-kainSeragam', 'App\Http\Controllers\PembayaranKainSeragamController');
-    Route::resource('data-tagihan-DaftarUlang', 'App\Http\Controllers\PembayaranDaftarUlangController');
-    Route::resource('data-tagihan-lainnya', 'App\Http\Controllers\PembayaranLainnyaController');
-    Route::resource('data-pendapatan', 'App\Http\Controllers\PendapatanController');
-    Route::resource('data-pengeluaran', 'App\Http\Controllers\PengeluaranController');
-    Route::resource('Laporan-Keuangan', 'App\Http\Controllers\LaporanKeuanganController');
-    Route::resource('Detail-Pembayaran', 'App\Http\Controllers\DetailController');
-});
+Route::middleware('auth', 'role:bendahara-excellent,bendahara-reguler')
+    ->group(function () {
+        Route::resource('dashboard', 'App\Http\Controllers\DashboardController');
+        Route::resource('data-siswa', 'App\Http\Controllers\SiswaController');
+        Route::resource('data-guru', 'App\Http\Controllers\GuruController');
+        Route::resource('data-jenis-tagihan', 'App\Http\Controllers\JenisTagihanController');
+        Route::resource('data-rincian-tagihan', 'App\Http\Controllers\RincianTagihanController');
+        Route::resource('data-transaksi', 'App\Http\Controllers\TransactionController');
+        Route::resource('data-tagihan-spp', 'App\Http\Controllers\PembayaranSppController');
+        Route::resource('data-tagihan-Pendaftaran', 'App\Http\Controllers\PembayaranPendaftaranController');
+        Route::resource('data-tagihan-kainSeragam', 'App\Http\Controllers\PembayaranKainSeragamController');
+        Route::resource('data-tagihan-DaftarUlang', 'App\Http\Controllers\PembayaranDaftarUlangController');
+        Route::resource('data-tagihan-lainnya', 'App\Http\Controllers\PembayaranLainnyaController');
+        Route::resource('data-pendapatan', 'App\Http\Controllers\PendapatanController');
+        Route::resource('data-pengeluaran', 'App\Http\Controllers\PengeluaranController');
+        Route::resource('Laporan-Keuangan', 'App\Http\Controllers\LaporanKeuanganController');
+        Route::resource('Detail-Pembayaran', 'App\Http\Controllers\DetailController');
+    });
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth', 'role:siswa')->group(function () {
     Route::resource('Tagihan-spp', 'App\Http\Controllers\Siswa\PembayaranSPPController');
     Route::resource('Tagihan-Pendaftaran', 'App\Http\Controllers\Siswa\PembayaranPendaftaranController');
     Route::resource('Tagihan-DaftarUlang', 'App\Http\Controllers\Siswa\PembayaranDaftarUlangController');
