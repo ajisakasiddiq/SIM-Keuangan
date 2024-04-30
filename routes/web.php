@@ -28,12 +28,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::resource('dashboard', 'App\Http\Controllers\DashboardController');
 Route::middleware('auth', 'role:bendahara-excellent,bendahara-reguler')
     ->group(function () {
-        Route::resource('dashboard', 'App\Http\Controllers\DashboardController');
         Route::resource('data-siswa', 'App\Http\Controllers\SiswaController');
         Route::resource('data-guru', 'App\Http\Controllers\GuruController');
         Route::resource('data-jenis-tagihan', 'App\Http\Controllers\JenisTagihanController');
+        Route::resource('data-rekening', 'App\Http\Controllers\RekeningController');
         Route::resource('data-rincian-tagihan', 'App\Http\Controllers\RincianTagihanController');
         Route::resource('data-transaksi', 'App\Http\Controllers\TransactionController');
         Route::resource('data-tagihan-spp', 'App\Http\Controllers\PembayaranSppController');

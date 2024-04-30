@@ -12,6 +12,8 @@
 
   <!-- Page level plugins -->
   <script src="{{ asset('vendor/chart.js/Chart.min.js') }}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 
   <!-- Page level custom scripts -->
   <script src="{{ asset('js/demo/chart-area-demo.js') }}"></script>
