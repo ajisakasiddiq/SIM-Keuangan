@@ -135,11 +135,15 @@
                 <form action="{{ route('data-tagihan-Pendaftaran.store') }}" method="POST">
                     @csrf
                     @method('POST')
+                <input type="hidden" name="status" class="form-control" id="status"
+                    aria-describedby="emailHelp" value="0">
+                <input type="hidden" name="jenis_transaksi" class="form-control" id="jenis_transaksi"
+                    aria-describedby="emailHelp" value="Pendapatan">
                     <input type="hidden" name="tagihan_id" value="3">
                     @if(Auth::user()->role == 'bendahara-excellent')
-                    <input type="hidden" name="jurusan" value="excellent">
+                    <input type="hidden" name="jurusan" id="jurusan" value="excellent">
                     @else
-                    <input type="hidden" name="jurusan" value="reguler">
+                    <input type="hidden" name="jurusan" id="jurusan" value="reguler">
                     @endif
                     <div class="mb-3">
                         <label for="user_id" class="form-label">Nama Siswa</label>
@@ -149,15 +153,6 @@
                             <option value="{{ $item->id }}">{{ $item->name }}</option>
                             @endforeach
                         </select>
-                    </div>
-                    
-                    <div class="mb-3">
-                      <label for="keterangan" class="form-label">Keterangan</label>
-                      <input id="keterangan" type="text" class="form-control @error('name') is-invalid @enderror" name="keterangan" autofocus>
-                    </div>
-                    <div class="mb-3">
-                        <label for="tahunajar" class="form-label">Tahun Ajaran</label>
-                        <input id="tahunajar" type="text" class="form-control @error('tahunajar') is-invalid @enderror" name="tahunajar" autofocus>
                     </div>
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Awal Pembayaran</label>
@@ -170,14 +165,17 @@
                             aria-describedby="emailHelp">
                     </div>
                     <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Total</label>
-                        <input type="text" name="total" class="form-control" id="total"
+                        <label for="exampleInputEmail1" class="form-label">Tahun Ajaran</label>
+                        <input type="text" name="tahunajar" class="form-control" id="tahunajar"
                             aria-describedby="emailHelp">
-                        <input type="hidden" name="status" class="form-control" id="status"
-                            aria-describedby="emailHelp" value="0">
-                        <input type="hidden" name="jenis_transaksi" class="form-control" id="jenis_transaksi"
-                            aria-describedby="emailHelp" value="Pendapatan">
                     </div>
+                    <small>Macam Tagihan</small>
+                    <hr>
+                    <div id="entriesContainer">
+                        <!-- Container untuk field-field entri -->
+                    </div>
+                
+                    <button type="button" id="addEntryButton" class="btn btn-primary">+</button>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -187,12 +185,48 @@
           </div>
         </div>
       </div>
-{{-- end modal add --}}
 
 </div>
 @endsection
 @push('addon-script')
+
+
 <script type="text/javascript">
+
+$(document).ready(function() {
+        let inputIndex = 1;
+
+        $('#addEntryButton').click(function() {
+            const userId = $('#user_id').val();
+            const dateAwal = $('#date_awal').val();
+            const dateAkhir = $('#date_akhir').val();
+            const jurusan = $('#jurusan').val();
+            const tagihan_id = $('#tagihan_id').val();
+            const jenis_transaksi = $('#jenis_transaksi').val();
+            const status = $('#status').val();
+            const tahunajar = $('#tahunajar').val();
+
+            const inputHtml = `
+            <div class="row">
+                        <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="keterangan${inputIndex}" class="form-label">Keterangan</label>
+                    <input type="text" class="form-control" name="keterangan[]" id="keterangan${inputIndex}">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="total${inputIndex}" class="form-label">Nominal</label>
+                    <input type="text" class="form-control" name="total[]" id="total${inputIndex}">
+                </div>
+            </div>
+            `;
+
+            $('#entriesContainer').append(inputHtml);
+            inputIndex++;
+        });
+    });
+
   // crud
   $(document).ready(function() {
     var table=  $('#tagihan').DataTable({
