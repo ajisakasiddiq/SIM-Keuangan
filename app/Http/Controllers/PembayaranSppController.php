@@ -96,15 +96,59 @@ class PembayaranSppController extends Controller
     public function store(Request $request)
     {
         try {
-            // Simpan data ke database
-            Transaksi::create($request->all());
-            return redirect()->route('data-tagihan-spp.index')->with('success', 'Data berhasil disimpan.');
+            if ($request->has('kelas')) {
+                // Jika request memiliki parameter 'kelas', ambil pengguna (user) berdasarkan kelas
+                $users = User::where('kelas', $request['kelas'])->get();
+
+                // Iterasi setiap pengguna (user) dalam kelas tertentu
+                foreach ($users as $user) {
+                    foreach ($request['keterangan'] as $index => $keterangan) {
+                        $nominal = (string) $request['total'][$index];
+                        // Siapkan data transaksi untuk ditambahkan ke tabel 'transaksi'
+                        $data = [
+                            'user_id' => $user->id,
+                            'tagihan_id' => $request['tagihan_id'],
+                            'keterangan' => (string) $keterangan,
+                            'jenis_transaksi' => $request['jenis_transaksi'],
+                            'jurusan' => $request['jurusan'],
+                            'total' => $nominal, // Misalnya, total pembayaran SPP
+                            'date_awal' => $request['date_awal'], // Misalnya, total pembayaran SPP
+                            'date_akhir' => $request['date_akhir'], // Misalnya, total pembayaran SPP
+                            'tahunajar' => $request['tahunajar'], // Misalnya, total pembayaran SPP
+                            'status' => '0', // Status "Belum Dibayar"
+                        ];
+
+                        // Tambahkan data transaksi ke dalam tabel 'transaksi'
+                        Transaksi::create($data);
+                    }
+                }
+            } else {
+                // Jika tidak ada parameter 'kelas', tambahkan data transaksi berdasarkan request
+                foreach ($request['keterangan'] as $index => $keterangan) {
+                    $nominal = (string) $request['total'][$index];
+
+                    // Simpan ke database sesuai kebutuhan Anda
+                    Transaksi::create([
+                        'user_id' => $request['user_id'],
+                        'tagihan_id' => $request['tagihan_id'],
+                        'jurusan' => $request['jurusan'],
+                        'jenis_transaksi' => $request['jenis_transaksi'],
+                        'status' => $request['status'],
+                        'date_awal' => $request['date_awal'],
+                        'date_akhir' => $request['date_akhir'],
+                        'keterangan' => (string) $keterangan,
+                        'total' => $nominal,
+                    ]);
+                }
+            }
+
+            return response()->json(['message' => 'Data transaksi berhasil ditambahkan.']);
         } catch (\Exception $e) {
-            // Tangkap pengecualian dan tampilkan pesan kesalahan
-            dd($e); // Menampilkan informasi exception ke terminal
-            return redirect()->route('data-tagihan-spp.index')->with('error', 'Terjadi kesalahan saat menyimpan data.');
+            dd($e);
+            return response()->json(['message' => 'Terjadi kesalahan: ' . $e->getMessage()], 500);
         }
     }
+
 
     /**
      * Display the specified resource.

@@ -56,6 +56,11 @@
             <i class="fa-duotone fa-user" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
             <span>Data Rekening</span></a>
     </li>
+    <li class="nav-item">
+      <a class="nav-link {{ (request()->is('Tahun-Ajaran*')) ? 'active' : ''}}" href="{{ route('Tahun-Ajaran.index') }}">
+            <i class="fa-duotone fa-user" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
+            <span>Data Tahun Ajaran</span></a>
+    </li>
     {{-- <li class="nav-item">
       <a class="nav-link {{ (request()->is('data-siswa')) ? 'active' : ''}}" href="{{ route('data-jenis-tagihan.index') }}">
             <i class="fa-money-check-alt" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>

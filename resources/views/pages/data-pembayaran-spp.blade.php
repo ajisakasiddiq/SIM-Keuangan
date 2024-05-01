@@ -19,8 +19,11 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <a href="" class="btn btn-primary mb-3" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#adduser">
-                                + Tambah Data
+                            <a href="" class="btn btn-primary mb-3" type="button"  data-bs-toggle="modal" data-bs-target="#adduser">
+                                + Tagihan Berdasarkan Siswa
+                            </a>
+                            <a href="" class="btn btn-primary mb-3" type="button"  data-bs-toggle="modal" data-bs-target="#adduserkelas">
+                                + Tagihan Berdasarkan Kelas
                             </a>
                             <div class="table-responsive">
                               <table class="table-hover scroll-horizontal-vertical w-100" id="tagihan">
@@ -127,72 +130,268 @@
           </div>
       </div>
   </div>
-    {{-- modal add --}}
-    <div class="modal fade" id="adduser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title bold fs-3" id="exampleModalLabel">{{ __('Tambah Tagihan') }}</h4>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form action="{{ route('data-tagihan-spp.store') }}" method="POST">
-                    @csrf
-                    @method('POST')
-                    <input type="hidden" name="tagihan_id" value="1">
-                    @if(Auth::user()->role == 'bendahara-excellent')
-                    <input type="hidden" name="jurusan" value="excellent">
-                    @else
-                    <input type="hidden" name="jurusan" value="reguler">
-                    @endif
-                    <div class="mb-3">
-                        <label for="user_id" class="form-label">Nama Siswa</label>
-                        <select class="form-control" name="user_id" id="user_id" required>
-                            <option value="">Pilih Siswa</option>
-                            @foreach ($siswa as $item)
-                            <option value="{{ $item->id }}">{{ $item->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    
-                    <div class="mb-3">
-                      <label for="keterangan" class="form-label">Bulan</label>
-                      <input id="keterangan" type="text" class="form-control @error('name') is-invalid @enderror" name="keterangan" autofocus required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Awal Pembayaran</label>
-                        <input type="date" name="date_awal" class="form-control" id="date_awal"
-                            aria-describedby="emailHelp" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Batas Pembayaran</label>
-                        <input type="date" name="date_akhir" class="form-control" id="date_akhir"
-                            aria-describedby="emailHelp" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Total</label>
-                        <input type="text" name="total" class="form-control" id="total"
-                            aria-describedby="emailHelp" required>
+
+
+
+
+  {{-- modal add berdasarkan kelas --}}
+  <div class="modal fade bd-example-modal-lg" id="adduserkelas" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title bold fs-3" id="exampleModalLabel">{{ __('Tambah Tagihan') }}</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form action="{{ route('data-tagihan-spp.store') }}" method="POST">
+                @csrf
+                @method('POST')
+                <div class="row">
+                    <div class="col-md-6">
                         <input type="hidden" name="status" class="form-control" id="status"
-                            aria-describedby="emailHelp" value="0">
-                        <input type="hidden" name="jenis_transaksi" class="form-control" id="jenis_transaksi"
-                            aria-describedby="emailHelp" value="Pendapatan">
+                        aria-describedby="emailHelp" value="0">
+                    <input type="hidden" name="jenis_transaksi" class="form-control" id="jenis_transaksi"
+                        aria-describedby="emailHelp" value="Pendapatan">
+                        <input type="hidden" name="tagihan_id" value="1">
+                        @if(Auth::user()->role == 'bendahara-excellent')
+                        <input type="hidden" name="jurusan" id="jurusan" value="excellent">
+                        @else
+                        <input type="hidden" name="jurusan" id="jurusan" value="reguler">
+                        @endif
+                        <div class="mb-3">
+                            <label for="kelas" class="form-label">Kelas</label>
+                            <select class="form-control" name="kelas" id="kelas">
+                                <option value="VII">VII</option>
+                                <option value="VIII">VIII</option>
+                                <option value="IX">IX</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Awal Pembayaran</label>
+                            <input type="date" name="date_awal" class="form-control" id="date_awal"
+                                aria-describedby="emailHelp">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Batas Pembayaran</label>
+                            <input type="date" name="date_akhir" class="form-control" id="date_akhir"
+                                aria-describedby="emailHelp">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Tahun Ajaran</label>
+                            <input type="text" name="tahunajar" class="form-control" id="tahunajar"
+                                aria-describedby="emailHelp">
+                        </div>
                     </div>
+              
+                <div class="col-md-6">
+                    <small>Macam Tagihan</small>
+                    <hr>
+                    <div id="entriesContainer">
+                        <!-- Container untuk field-field entri -->
+                    </div>
+                
+                    <button type="button" id="addEntryButton" class="btn btn-primary">+</button>
+                </div>
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary">Save changes</button>
-            </form>
-            </div>
-          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </form>
         </div>
       </div>
-{{-- end modal add --}}
+    </div>
+  </div>
+  
+  {{-- modal add by siswa --}}
+  <div class="modal fade bd-example-modal-lg" id="adduser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title bold fs-3" id="exampleModalLabel">{{ __('Tambah Tagihan') }}</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form action="{{ route('data-tagihan-spp.store') }}" method="POST">
+                @csrf
+                @method('POST')
+                <div class="row">
+                    <div class="col-md-6">
+                        <input type="hidden" name="status" class="form-control" id="status"
+                        aria-describedby="emailHelp" value="0">
+                    <input type="hidden" name="jenis_transaksi" class="form-control" id="jenis_transaksi"
+                        aria-describedby="emailHelp" value="Pendapatan">
+                        <input type="hidden" name="tagihan_id" value="1">
+                        @if(Auth::user()->role == 'bendahara-excellent')
+                        <input type="hidden" name="jurusan" id="jurusan" value="excellent">
+                        @else
+                        <input type="hidden" name="jurusan" id="jurusan" value="reguler">
+                        @endif
+                        <div class="mb-3">
+                            <label for="user_id" class="form-label">Nama Siswa</label>
+                            <select class="form-control" name="user_id" id="user_id">
+                                <option value="">Pilih Siswa</option>
+                                @foreach ($siswa as $item)
+                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Awal Pembayaran</label>
+                            <input type="date" name="date_awal" class="form-control" id="date_awal"
+                                aria-describedby="emailHelp">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Batas Pembayaran</label>
+                            <input type="date" name="date_akhir" class="form-control" id="date_akhir"
+                                aria-describedby="emailHelp">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Tahun Ajaran</label>
+                            <input type="text" name="tahunajar" class="form-control" id="tahunajar"
+                                aria-describedby="emailHelp">
+                        </div>
+                    </div>
+              
+                <div class="col-md-6">
+                    <small>Macam Tagihan</small>
+                    <hr>
+                    <div id="entries">
+                        <!-- Container untuk field-field entri -->
+                    </div>
+                
+                    <button type="button" id="addEntry" class="btn btn-primary">+</button>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{{-- end modal add spp by siswa --}}
 
+{{-- modal details transaksi --}}
+<!-- Modal untuk menampilkan bukti transaksi -->
+<div class="modal fade" id="transaksiModal" tabindex="-1" role="dialog" aria-labelledby="transaksiModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="transaksiModalLabel">Bukti Transaksi</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <img id="buktiTransaksiImg" src="" alt="Bukti Transaksi" class="img-fluid">
+            </div>
+        </div>
+    </div>
+</div>
 </div>
 @endsection
 @push('addon-script')
 <script type="text/javascript">
+$(document).ready(function() {
+        let inputIndex = 1;
+
+        $('#addEntryButton').click(function() {
+            const userId = $('#user_id').val();
+            const dateAwal = $('#date_awal').val();
+            const dateAkhir = $('#date_akhir').val();
+            const jurusan = $('#jurusan').val();
+            const tagihan_id = $('#tagihan_id').val();
+            const jenis_transaksi = $('#jenis_transaksi').val();
+            const status = $('#status').val();
+            const tahunajar = $('#tahunajar').val();
+
+            const inputHtml = `
+            <div class="row">
+                        <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="keterangan${inputIndex}" class="form-label">Bulan</label>
+                    <input type="text" class="form-control" name="keterangan[]" id="keterangan${inputIndex}">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="total${inputIndex}" class="form-label">Nominal</label>
+                    <input type="text" class="form-control" name="total[]" id="total${inputIndex}">
+                </div>
+            </div>
+            `;
+
+            $('#entriesContainer').append(inputHtml);
+            inputIndex++;
+        });
+    });
+$(document).ready(function() {
+        let inputIndex = 1;
+
+        $('#addEntry').click(function() {
+            const userId = $('#user_id').val();
+            const dateAwal = $('#date_awal').val();
+            const dateAkhir = $('#date_akhir').val();
+            const jurusan = $('#jurusan').val();
+            const tagihan_id = $('#tagihan_id').val();
+            const jenis_transaksi = $('#jenis_transaksi').val();
+            const status = $('#status').val();
+            const tahunajar = $('#tahunajar').val();
+
+            const inputHtml = `
+            <div class="row">
+                        <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="keterangan${inputIndex}" class="form-label">Bulan</label>
+                    <input type="text" class="form-control" name="keterangan[]" id="keterangan${inputIndex}">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="total${inputIndex}" class="form-label">Nominal</label>
+                    <input type="text" class="form-control" name="total[]" id="total${inputIndex}">
+                </div>
+            </div>
+            `;
+
+            $('#entries').append(inputHtml);
+            inputIndex++;
+        });
+    });
+
+
+
+
+
+ $(document).ready(function() {
+        // Mengatur event click pada tautan view-transaksi
+        $('.view-transaksi').click(function(e) {
+            e.preventDefault();
+
+            // Mengambil ID transaksi dari atribut data-transaksi-id
+            var transaksiId = $(this).data('transaksi-id');
+
+            // Mengirim permintaan AJAX untuk mendapatkan URL gambar bukti transaksi
+            $.ajax({
+                url: '/get-transaksi-image/' + transaksiId,
+                type: 'GET',
+                success: function(response) {
+                    // Memperbarui atribut src gambar pada modal dengan URL gambar yang diterima
+                    $('#buktiTransaksiImg').attr('src', response.image_url);
+
+                    // Menampilkan modal
+                    $('#transaksiModal').modal('show');
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                    alert('Terjadi kesalahan saat memuat bukti transaksi.');
+                }
+            });
+        });
+    });
   // crud
   $(document).ready(function() {
     var table=  $('#tagihan').DataTable({

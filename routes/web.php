@@ -46,6 +46,7 @@ Route::middleware('auth', 'role:bendahara-excellent,bendahara-reguler')
         Route::resource('data-pengeluaran', 'App\Http\Controllers\PengeluaranController');
         Route::resource('Laporan-Keuangan', 'App\Http\Controllers\LaporanKeuanganController');
         Route::resource('Detail-Pembayaran', 'App\Http\Controllers\DetailController');
+        Route::resource('Tahun-Ajaran', 'App\Http\Controllers\TahunAjaranController');
     });
 
 Route::middleware('auth', 'role:siswa')->group(function () {

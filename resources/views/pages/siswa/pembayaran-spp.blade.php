@@ -22,9 +22,9 @@ Tagihan SPP
                             <div class="row">
                                 <div class="col-md-2">
                                     <label for="">Tahun Pelajaran :</label>
-                                    <select class="form-control" name="" id="">
-                                        <option value="">2022/2023</option>
-                                        <option value=""></option>
+                                    <select class="form-control" name="tahun_pelajaran" id="tahun_pelajaran">
+                                        <option value="2021/2022">2021/2022</option>
+                                        <option value="2022/2023">2022/2023</option>
                                     </select>
                                 </div>
                             </div>
@@ -39,6 +39,11 @@ Tagihan SPP
                                         </tr>
                                     </thead>
                                       <tbody>
+                                        @if ($transaksi->isEmpty())
+                                        <tr>
+                                            <td colspan="3" class="text-center">Tidak ada data untuk tahun ajaran ini.</td>
+                                        </tr>
+                                    @else
                                         @foreach ($transaksi as $item)
                                             <tr>
                                                 <td>{{ $item->keterangan }}</td>
@@ -81,6 +86,7 @@ Tagihan SPP
                                             </div>
 
                                         @endforeach
+                                        @endif
                                       </tbody>
                                     </div>                              
                                 </table>
@@ -93,4 +99,37 @@ Tagihan SPP
 </div>
 @endsection
 @push('addon-script')
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Ambil nilai tahun_pelajaran dari parameter URL jika ada
+        const urlParams = new URLSearchParams(window.location.search);
+        const selectedYear = urlParams.get('tahun_pelajaran');
+
+        // Cari elemen select berdasarkan ID
+        const selectElement = document.getElementById('tahun_pelajaran');
+
+        // Setel nilai opsi yang dipilih berdasarkan nilai tahun_pelajaran dari URL
+        if (selectedYear) {
+            // Loop melalui opsi dalam elemen select
+            for (let i = 0; i < selectElement.options.length; i++) {
+                if (selectElement.options[i].value === selectedYear) {
+                    // Setel opsi yang dipilih sesuai dengan nilai tahun_pelajaran dari URL
+                    selectElement.options[i].selected = true;
+                    break;
+                }
+            }
+        }
+
+        // Tambahkan event listener untuk mengubah tahun pelajaran
+        selectElement.addEventListener('change', function() {
+            const selectedYear = this.value;
+
+            // Redirect ke controller action dengan tahun_pelajaran sebagai parameter
+            window.location.href = "{{ route('Tagihan-spp.index') }}" + "?tahun_pelajaran=" + selectedYear;
+        });
+    });
+</script>
+
+
+
 @endpush

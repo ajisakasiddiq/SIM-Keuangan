@@ -15,71 +15,19 @@ class PembayaranSPPController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        // Ambil nilai tahun_pelajaran dari permintaan GET
+        $tahunajar = $request->query('tahun_pelajaran');
+
         $user = Auth::id();
         $tagihan = tagihan::get();
         $siswa = User::where('role', 'siswa')->get();
         $transaksi = Transaksi::with('user')
             ->where('tagihan_id', '1')
+            ->where('tahunajar', $tahunajar)
             ->where('user_id', $user)
             ->get();
-        // if (request()->ajax()) {
-        //     $query = Transaksi::with('user')
-        //         ->where('tagihan_id', '1')
-        //         ->where('user_id', $user);
-        //     return DataTables::of($query)
-        //         ->addColumn('action', function ($item) {
-        //             // $barcode = DNS1D::getBarcodeHTML($item->id, 'C128', 2, 50);
-        //             return '
-        //             <div class="btn-group">
-        //               <div class="dropdown">
-        //                 <button class="btn btn-primary dropdown-toggle mr-1 mb-1" type="button" data-toggle="dropdown">Aksi</button>
-        //                 <div class="dropdown-menu">
-        //                 <button class="dropdown-item" 
-        //                 data-id="' . $item->id . '" 
-        //                 data-tagihan_id="' . $item->tagihan_id . '" 
-        //                 data-user_id="' . $item->user_id . '" 
-        //                 data-keterangan="' . $item->keterangan . '" 
-        //                 data-date_awal="' . $item->date_awal . '" 
-        //                 data-date_akhir="' . $item->date_akhir . '" 
-        //                 data-metode="' . $item->metode . '" 
-        //                 data-total="' . $item->total . '" 
-        //                 data-status="' . $item->status . '" 
-        //                 data-jurusan="' . $item->jurusan . '" 
-        //                 data-Pendapatan="' . $item->Pendapatan . '" 
-        //                 data-toggle="modal" data-target="#editModal">Edit</button>
-        //                   <form action="' . route('data-tagihan-spp.destroy', $item->id) . '" method="POST">
-        //                   ' . method_field('delete') . csrf_field() . '
-        //                   <button type="submit" class="dropdown-item text-danger">Hapus</button>
-        //                   </form>
-        //                 </div>
-        //               </div>
-        //             </div>
-        //             ';
-        //         })
-        //         ->addColumn('no', function ($item) {
-        //             static $counter = 1;
-        //             return $counter++;
-        //         })
-        //         ->addColumn('status', function ($item) {
-        //             switch ($item->status) {
-        //                 case 0:
-        //                     return '<span class="badge badge-warning">Menunggu Pembayaran</span>';
-        //                     break;
-        //                 case 1:
-        //                     return '<span class="badge badge-info">Pending</span>';
-        //                     break;
-        //                 case 2:
-        //                     return '<span class="badge badge-success">Sukses</span>';
-        //                     break;
-        //                 default:
-        //                     return '<span class="badge badge-danger">Undefined</span>';
-        //             }
-        //         })
-        //         ->rawColumns(['status', 'action'])
-        //         ->make(true);
-        // }
         return view('pages.siswa.pembayaran-spp', compact('siswa', 'tagihan', 'transaksi'));
     }
 
