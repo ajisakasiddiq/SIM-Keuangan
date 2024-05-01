@@ -60,11 +60,11 @@ class PembayaranDaftarUlangController extends Controller
             $data = $request->all();
             $data['bukti_pembayaran'] = $request->file('bukti_pembayaran')->store('assets/bukti_transaksi', 'public');
             Cicilan::create($data);
-            return redirect()->route('Tagihan-Pendaftaran.index')->with('success', 'Data berhasil disimpan.');
+            return redirect()->route('Tagihan-DaftarUlang.index')->with('success', 'Data berhasil disimpan.');
         } catch (\Exception $e) {
             // Tangkap pengecualian dan tampilkan pesan kesalahan
             dd($e); // Menampilkan informasi exception ke terminal
-            return redirect()->route('Tagihan-Pendaftaran.index')->with('error', 'Terjadi kesalahan saat menyimpan data.');
+            return redirect()->route('Tagihan-DaftarUlang.index')->with('error', 'Terjadi kesalahan saat menyimpan data.');
         }
     }
 

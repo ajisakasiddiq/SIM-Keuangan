@@ -33,6 +33,12 @@ Pembayaran Pendaftaran
                                       </tr>
                                   </thead>
                                     <tbody>
+                                        @if ($cicilan->isEmpty())
+                                        <tr>
+                                            <td colspan="3" class="text-center">Tidak ada tagihan.</td>
+                                        </tr>
+                                      
+                                    @else
                                         @foreach ($transaksi as $item)
                                         <tr>
                                             <td>{{ $no++ }}</td>
@@ -40,12 +46,13 @@ Pembayaran Pendaftaran
                                             <td>{{ $item->total }}</td>
                                         </tr>
                                         @endforeach
-                                        @foreach($total as $item)
+                                        {{-- @foreach($total as $item) --}}
                                         <tr>
                                             <td colspan="2" class="text-right"><strong>Total:</strong></td>
-                                            <td><strong>{{ $item->total_sum }}</strong></td>
+                                            <td><strong>{{ $total->total_sum }}</strong></td>
                                         </tr>
-                                        @endforeach
+                                        {{-- @endforeach --}}
+                                        @endif
                                     </tbody>
                                   </div>                              
                            
@@ -73,22 +80,32 @@ Pembayaran Pendaftaran
                             <p>Kurang</p>
                         </div>
                         <div class="col-md-6">
-                            @foreach($total as $transaksi)
-                            @foreach($totalcicilan as $cicil)
-                                <p>:Rp. {{ $cicil->total_sum }}</p>
-                                <p>:Rp. {{ $transaksi->total_sum - $cicil->total_sum }}</p>
-                        
-                                @if($transaksi->total_sum - $cicil->total_sum == '0')
-                            <a href="" class="btn btn-secondary" type="button" class="btn btn-primary">
-                                Bayar
-                            </a>
+                            @if($transaksi->isEmpty())
+
+                            <p>: Rp. </p>
+                            <p>: Rp. </p>
                             @else
-                            <a href="" class="btn btn-success" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bayar">
-                                Bayar
-                            </a>
+                            {{-- @foreach($total as $transaksi) --}}
+                            @php
+                                $totalTransaksi = $total->total_sum;
+                                $totalCicilan = $totalcicilan->isNotEmpty() ? $totalcicilan->first()->total_sum : 0;
+                                $saldoSisa = $totalTransaksi - $totalCicilan;
+                            @endphp
+                            <p>: Rp. {{ $totalCicilan }}</p>
+                            <p>: Rp. {{ $saldoSisa }}</p>
+                        
+                            @if ($saldoSisa == 0)
+                                <!-- Jika saldo sisa sama dengan nol, tampilkan pesan atau konten sesuai kebutuhan -->
+                                <h4 class="text-success">Lunas.</h4>
+                            @else
+                                <!-- Jika masih ada saldo sisa, tampilkan tombol bayar -->
+                                <a href="" class="btn btn-success" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bayar">
+                                    Bayar
+                                </a>
                             @endif
-                            @endforeach
-                            @endforeach
+                            @endif
+                        {{-- @endforeach --}}
+                        
                         </div>
                     </div>
                 </div>
@@ -104,6 +121,12 @@ Pembayaran Pendaftaran
                                       </tr>
                                   </thead>
                                     <tbody>
+                                        @if ($cicilan->isEmpty())
+                                        <tr>
+                                            <td colspan="3" class="text-center">Anda belum melakukan pembayaran.</td>
+                                        </tr>
+                                      
+                                    @else
                                         @foreach ($cicilan as $item)
                                         <tr>
                                             <td>{{ $no++ }}</td>
@@ -111,7 +134,7 @@ Pembayaran Pendaftaran
                                             <td>{{ $item->total }}</td>
                                         </tr>
                                     @endforeach
-                                    
+                                    @endif
                                     </tbody>
                                   </div>                              
                            

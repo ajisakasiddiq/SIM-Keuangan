@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\tagihan;
+use App\Models\TahunAjaran;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,6 +23,7 @@ class PembayaranSppController extends Controller
             $jurusan = 'reguler';
 
         $tagihan = tagihan::get();
+        $tahun = TahunAjaran::where('status', 'Aktif')->get();
         $siswa = User::where('role', 'siswa')->get();
         if (request()->ajax()) {
             $query = Transaksi::with('user')
@@ -76,7 +78,7 @@ class PembayaranSppController extends Controller
                             return '<span class="badge badge-danger">Undefined</span>';
                     }
                 })
-                ->rawColumns(['status', 'action'])
+                ->rawColumns(['status', 'tahun', 'action'])
                 ->make(true);
         }
         return view('pages.data-pembayaran-spp', compact('siswa', 'tagihan'));

@@ -23,7 +23,7 @@ return new class extends Migration
             $table->enum('status', ['0', '1', '2'])->nullable();
             $table->string('tahunajar')->nullable();
             $table->string('jurusan')->nullable();
-            $table->string('tgl_pembayaran')->nullable();
+            $table->date('tgl_pembayaran')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('tagihan_id');

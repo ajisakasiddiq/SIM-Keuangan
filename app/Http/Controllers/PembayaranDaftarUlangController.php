@@ -96,8 +96,26 @@ class PembayaranDaftarUlangController extends Controller
     public function store(Request $request)
     {
         try {
+            // Simpan data ke dalam database
+            foreach ($request['keterangan'] as $index => $keterangan) {
+                $nominal = (string) $request['total'][$index];
+
+                // Simpan ke database sesuai kebutuhan Anda
+                Transaksi::create([
+                    'user_id' => $request['user_id'],
+                    'tagihan_id' => $request['tagihan_id'],
+                    'jurusan' => $request['jurusan'],
+                    'jenis_transaksi' => $request['jenis_transaksi'],
+                    'status' => $request['status'],
+                    'date_awal' => $request['date_awal'],
+                    'date_akhir' => $request['date_akhir'],
+                    'keterangan' => (string) $keterangan,
+                    'total' => $nominal,
+                ]);
+            }
+
             // Simpan data ke database
-            Transaksi::create($request->all());
+            // Transaksi::create($request->all());
             return redirect()->route('data-tagihan-DaftarUlang.index')->with('success', 'Data berhasil disimpan.');
         } catch (\Exception $e) {
             // Tangkap pengecualian dan tampilkan pesan kesalahan

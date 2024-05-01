@@ -124,8 +124,8 @@
       </div>
   </div>
     {{-- modal add --}}
-    <div class="modal fade" id="adduser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+    <div class="modal fade bd-example-modal-lg" id="adduser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog  modal-lg">
           <div class="modal-content">
             <div class="modal-header">
               <h4 class="modal-title bold fs-3" id="exampleModalLabel">{{ __('Tambah Tagihan') }}</h4>
@@ -135,47 +135,54 @@
                 <form action="{{ route('data-tagihan-DaftarUlang.store') }}" method="POST">
                     @csrf
                     @method('POST')
-                <input type="hidden" name="status" class="form-control" id="status"
-                    aria-describedby="emailHelp" value="0">
-                <input type="hidden" name="jenis_transaksi" class="form-control" id="jenis_transaksi"
-                    aria-describedby="emailHelp" value="Pendapatan">
-                    <input type="hidden" name="tagihan_id" value="2">
-                    @if(Auth::user()->role == 'bendahara-excellent')
-                    <input type="hidden" name="jurusan" id="jurusan" value="excellent">
-                    @else
-                    <input type="hidden" name="jurusan" id="jurusan" value="reguler">
-                    @endif
-                    <div class="mb-3">
-                        <label for="user_id" class="form-label">Nama Siswa</label>
-                        <select class="form-control" name="user_id" id="user_id">
-                            <option value="">Pilih Siswa</option>
-                            @foreach ($siswa as $item)
-                            <option value="{{ $item->id }}">{{ $item->name }}</option>
-                            @endforeach
-                        </select>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="hidden" name="status" class="form-control" id="status"
+                            aria-describedby="emailHelp" value="0">
+                        <input type="hidden" name="jenis_transaksi" class="form-control" id="jenis_transaksi"
+                            aria-describedby="emailHelp" value="Pendapatan">
+                            <input type="hidden" name="tagihan_id" value="2">
+                            @if(Auth::user()->role == 'bendahara-excellent')
+                            <input type="hidden" name="jurusan" id="jurusan" value="excellent">
+                            @else
+                            <input type="hidden" name="jurusan" id="jurusan" value="reguler">
+                            @endif
+                            <div class="mb-3">
+                                <label for="user_id" class="form-label">Nama Siswa</label>
+                                <select class="form-control" name="user_id" id="user_id">
+                                    <option value="">Pilih Siswa</option>
+                                    @foreach ($siswa as $item)
+                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Awal Pembayaran</label>
+                                <input type="date" name="date_awal" class="form-control" id="date_awal"
+                                    aria-describedby="emailHelp">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Batas Pembayaran</label>
+                                <input type="date" name="date_akhir" class="form-control" id="date_akhir"
+                                    aria-describedby="emailHelp">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Tahun Ajaran</label>
+                                <input type="text" name="tahunajar" class="form-control" id="tahunajar"
+                                    aria-describedby="emailHelp">
+                            </div>
+                        </div>
+                  
+                    <div class="col-md-6">
+                        <small>Macam Tagihan</small>
+                        <hr>
+                        <div id="entriesContainer">
+                            <!-- Container untuk field-field entri -->
+                        </div>
+                    
+                        <button type="button" id="addEntryButton" class="btn btn-primary">+</button>
                     </div>
-                    <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Awal Pembayaran</label>
-                        <input type="date" name="date_awal" class="form-control" id="date_awal"
-                            aria-describedby="emailHelp">
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Batas Pembayaran</label>
-                        <input type="date" name="date_akhir" class="form-control" id="date_akhir"
-                            aria-describedby="emailHelp">
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Tahun Ajaran</label>
-                        <input type="text" name="tahunajar" class="form-control" id="tahunajar"
-                            aria-describedby="emailHelp">
-                    </div>
-                    <small>Macam Tagihan</small>
-                    <hr>
-                    <div id="entriesContainer">
-                        <!-- Container untuk field-field entri -->
-                    </div>
-                
-                    <button type="button" id="addEntryButton" class="btn btn-primary">+</button>
+                </div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

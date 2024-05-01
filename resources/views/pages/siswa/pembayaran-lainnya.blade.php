@@ -29,6 +29,12 @@
                                         </tr>
                                     </thead>
                                       <tbody>
+                                        @if($transaksi->isEmpty())
+                                        <tr>
+                                            <td colspan="3" class="text-center">Tidak ada tagihan.</td>
+                                        </tr>
+                                       
+                                        @else
                                         @foreach ($transaksi as $item)
                                             <tr>
                                                 <td>{{ $item->keterangan }}</td>
@@ -71,6 +77,7 @@
                                             </div>
 
                                         @endforeach
+                                        @endif
                                       </tbody>
                                     </div>                              
                                 </table>
