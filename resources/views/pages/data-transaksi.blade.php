@@ -62,7 +62,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-2">
-                                    <a href="" class="btn btn-primary mb-3" type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#adduser">
+                                    <a href="" class="btn btn-primary" type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#adduser">
                                         Print
                                     </a>
                                 </div>
@@ -72,22 +72,31 @@
                               <table class="table-bordered text-center scroll-horizontal-vertical w-100">
                                     <thead>
                                         <tr>
-                                            <th>No</th>
-                                            <th>Name</th>
-                                            <th colspan="2">Jenis Transaksi</th> <!-- Gabungkan 3 kolom menjadi satu -->
-                                            <th>Total</th>
-                                            <th>Aksi</th>
+                                            <th rowspan="2">No</th>
+                                            <th rowspan="2">Name</th>
+                                            <th colspan="2">Total</th> 
                                         </tr>
                                         <tr>
-                                            <th></th>
-                                            <th></th>
+                                           
                                             <th class="bg-success text-light">Pemasukan</th> <!-- Warna hijau untuk Pemasukan -->
                                             <th class="bg-danger text-light">Pengeluaran</th> 
-                                            <th></th>
-                                            <th></th>
                                         </tr>
                                     </thead>
                                       <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>1</td>
+                                            <td class="bg-success text-light">1</td> <!-- Warna hijau untuk Pemasukan -->
+                                            <td class="bg-danger text-light">1</td> 
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">Total</td>
+                                            <td colspan="2">Rp. </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">Jumlah Saldo</td>
+                                            <td colspan="2">Rp. </td>
+                                        </tr>
                                       </tbody>
                                       
                                     </table>
