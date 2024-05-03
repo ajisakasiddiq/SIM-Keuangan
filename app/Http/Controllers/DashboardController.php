@@ -18,6 +18,17 @@ class DashboardController extends Controller
             $jurusan = 'excellent';
         else
             $jurusan = 'reguler';
+        $trans = Transaksi::with(['user', 'jenistagihan'])
+            ->where('jurusan', $jurusan)
+            ->where('status', '1')
+            ->whereNotNull('tgl_pembayaran')
+            ->latest()
+            ->get();
+        $totaltransaksi = Transaksi::where('status', '1')->count();
+        $trans->map(function ($item) {
+            $item->tgl_pembayaran_formatted = \Carbon\Carbon::parse($item->tgl_pembayaran)->format('F j, Y');
+            return $item;
+        });
 
         $pendapatanBulanan = Transaksi::select(
             DB::raw('DATE_FORMAT(tgl_pembayaran, "%Y-%m") as bulan'),
@@ -48,7 +59,7 @@ class DashboardController extends Controller
             ->where('jurusan', $jurusan)
             ->where('status', '2')
             ->sum('total');
-        return view('dashboard', compact('pengeluaran', 'pendapatan', 'totalpending', 'total', 'pendapatanBulanan'));
+        return view('dashboard', compact('pengeluaran', 'pendapatan', 'totalpending', 'total', 'pendapatanBulanan', 'trans', 'totaltransaksi'));
         // $pendapatan akan berisi nilai total pendapatan berdasarkan jenis_transaksi dan jurusan
 
     }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Rekening;
+use App\Models\Transaksi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,9 +23,22 @@ class RekeningController extends Controller
         } else {
             $jurusan = 'NULL';
         }
+        $trans = Transaksi::with(['user', 'jenistagihan'])
+            ->where('jurusan', $jurusan)
+            ->where('status', '1')
+            ->whereNotNull('tgl_pembayaran')
+            ->latest()
+            ->get();
+        $totaltransaksi = Transaksi::where('status', '1')->count();
+        $trans->map(function ($item) {
+            $item->tgl_pembayaran_formatted = \Carbon\Carbon::parse($item->tgl_pembayaran)->format('F j, Y');
+            return $item;
+        });
         return view('pages.data-rekening', compact(
             'tagihan',
             'no',
+            'trans',
+            'totaltransaksi',
             'jurusan'
         ));
     }

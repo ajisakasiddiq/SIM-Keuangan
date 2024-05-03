@@ -9,6 +9,48 @@
     <!-- Topbar Navbar -->
     <ul class="navbar-nav ml-auto">
 
+        <li class="nav-item dropdown no-arrow mx-1">
+            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-bell fa-fw"></i>
+                <!-- Counter - Alerts -->
+                <span class="badge badge-danger badge-counter">{{ $totaltransaksi }}</span>
+            </a>
+            <!-- Dropdown - Alerts -->
+            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                aria-labelledby="alertsDropdown">
+                <h6 class="dropdown-header">
+                    Notifikasi Pembayaran
+                </h6>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                 
+                    @if($trans->isEmpty())
+                    <div>
+                        {{-- <div class="small text-gray-500">{{ $item->tgl_pembayaran->format('F j, Y') }}</div> --}}
+                        <span class="font-weight-bold">Tidak Ada Pembayaran Terbaru</span>
+                    </div>
+                    @else
+                    @foreach ($trans as $item)
+                    <div class="mr-3">
+                        <div class="icon-circle bg-primary">
+                            <i class="fas fa-file-alt text-white"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="small text-gray-500">{{ $item->tgl_pembayaran_formatted  }}</div>
+                        @if(Auth::user()->role == 'siswa')
+
+                        <span class="font-weight-bold">Ada tagihan {{ $item->jenistagihan->name }} baru</span>
+                        @else
+                        <span class="font-weight-bold">{{ $item->user->name }} Melakukan Pembayaran {{ $item->jenistagihan->name }}</span>
+                        @endif
+                    </div>
+                    @endforeach
+                    @endif
+                </a>
+                {{-- <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a> --}}
+            </div>
+        </li>
         <!-- Nav Item - Search Dropdown (Visible Only XS) -->
         <li class="nav-item dropdown no-arrow d-sm-none">
             <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
@@ -30,9 +72,12 @@
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                 aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#" data-toggle="modal">
+                <a class="dropdown-item " href="{{ route('profile.index') }}">
                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Profile
+                    Profile</a>
+                <a class="dropdown-item" href="{{ route('profile.index') }}" data-toggle="modal">
+                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Setting Password
                 </a>
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>

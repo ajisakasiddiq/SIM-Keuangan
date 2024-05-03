@@ -20,7 +20,17 @@ class PembayaranLainnyaController extends Controller
             $jurusan = 'excellent';
         else
             $jurusan = 'reguler';
-
+        $trans = Transaksi::with(['user', 'jenistagihan'])
+            ->where('jurusan', $jurusan)
+            ->where('status', '1')
+            ->whereNotNull('tgl_pembayaran')
+            ->latest()
+            ->get();
+        $totaltransaksi = Transaksi::where('status', '1')->count();
+        $trans->map(function ($item) {
+            $item->tgl_pembayaran_formatted = \Carbon\Carbon::parse($item->tgl_pembayaran)->format('F j, Y');
+            return $item;
+        });
         $tagihan = tagihan::get();
         $siswa = User::where('role', 'siswa')->get();
         if (request()->ajax()) {
@@ -79,7 +89,7 @@ class PembayaranLainnyaController extends Controller
                 ->rawColumns(['status', 'action'])
                 ->make(true);
         }
-        return view('pages.data-pembayaran-lainnya', compact('siswa', 'tagihan'));
+        return view('pages.data-pembayaran-lainnya', compact('siswa', 'tagihan', 'trans', 'totaltransaksi'));
     }
 
     /**

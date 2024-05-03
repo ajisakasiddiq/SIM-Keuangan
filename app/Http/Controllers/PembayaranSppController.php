@@ -21,7 +21,17 @@ class PembayaranSppController extends Controller
             $jurusan = 'excellent';
         else
             $jurusan = 'reguler';
-
+        $trans = Transaksi::with(['user', 'jenistagihan'])
+            ->where('jurusan', $jurusan)
+            ->where('status', '1')
+            ->whereNotNull('tgl_pembayaran')
+            ->latest()
+            ->get();
+        $totaltransaksi = Transaksi::where('status', '1')->count();
+        $trans->map(function ($item) {
+            $item->tgl_pembayaran_formatted = \Carbon\Carbon::parse($item->tgl_pembayaran)->format('F j, Y');
+            return $item;
+        });
         $tagihan = tagihan::get();
         $tahun = TahunAjaran::where('status', 'Aktif')->get();
         $siswa = User::where('role', 'siswa')->get();
@@ -81,7 +91,7 @@ class PembayaranSppController extends Controller
                 ->rawColumns(['status', 'tahun', 'action'])
                 ->make(true);
         }
-        return view('pages.data-pembayaran-spp', compact('siswa', 'tagihan', 'tahun'));
+        return view('pages.data-pembayaran-spp', compact('siswa', 'tagihan', 'tahun', 'trans', 'totaltransaksi'));
     }
 
     /**

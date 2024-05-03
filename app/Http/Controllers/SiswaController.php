@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Transaksi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
 class SiswaController extends Controller
@@ -13,7 +15,21 @@ class SiswaController extends Controller
      */
     public function index()
     {
-
+        if (Auth::user()->role == 'bendahara-excellent')
+            $jurusan = 'excellent';
+        else
+            $jurusan = 'reguler';
+        $trans = Transaksi::with(['user', 'jenistagihan'])
+            ->where('jurusan', $jurusan)
+            ->where('status', '1')
+            ->whereNotNull('tgl_pembayaran')
+            ->latest()
+            ->get();
+        $totaltransaksi = Transaksi::where('status', '1')->count();
+        $trans->map(function ($item) {
+            $item->tgl_pembayaran_formatted = \Carbon\Carbon::parse($item->tgl_pembayaran)->format('F j, Y');
+            return $item;
+        });
         if (request()->ajax()) {
             $query = User::where('role', 'siswa');
             return DataTables::of($query)
@@ -54,7 +70,7 @@ class SiswaController extends Controller
         }
         // $no = 1;
         // $user = User::where('role', 'siswa')->get();
-        return view('pages.data-siswa');
+        return view('pages.data-siswa', compact('trans', 'totaltransaksi'));
     }
 
     /**

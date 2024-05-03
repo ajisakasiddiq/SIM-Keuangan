@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\tagihan;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
 class PengeluaranController extends Controller
@@ -16,6 +17,21 @@ class PengeluaranController extends Controller
      */
     public function index()
     {
+        if (Auth::user()->role == 'bendahara-excellent')
+            $jurusan = 'excellent';
+        else
+            $jurusan = 'reguler';
+        $trans = Transaksi::with(['user', 'jenistagihan'])
+            ->where('jurusan', $jurusan)
+            ->where('status', '1')
+            ->whereNotNull('tgl_pembayaran')
+            ->latest()
+            ->get();
+        $totaltransaksi = Transaksi::where('status', '1')->count();
+        $trans->map(function ($item) {
+            $item->tgl_pembayaran_formatted = \Carbon\Carbon::parse($item->tgl_pembayaran)->format('F j, Y');
+            return $item;
+        });
         $tagihan = tagihan::get();
         $siswa = User::where('role', 'siswa')->get();
         if (request()->ajax()) {
@@ -71,7 +87,7 @@ class PengeluaranController extends Controller
                 ->rawColumns(['status', 'action'])
                 ->make(true);
         }
-        return view('pages.data-pengeluaran', compact('siswa', 'tagihan'));
+        return view('pages.data-pengeluaran', compact('siswa', 'tagihan', 'trans', 'totaltransaksi'));
     }
 
     /**

@@ -18,6 +18,17 @@ class LaporanKeuanganController extends Controller
             $jurusan = 'excellent';
         else
             $jurusan = 'reguler';
+        $trans = Transaksi::with(['user', 'jenistagihan'])
+            ->where('jurusan', $jurusan)
+            ->where('status', '1')
+            ->whereNotNull('tgl_pembayaran')
+            ->latest()
+            ->get();
+        $totaltransaksi = Transaksi::where('status', '1')->count();
+        $trans->map(function ($item) {
+            $item->tgl_pembayaran_formatted = \Carbon\Carbon::parse($item->tgl_pembayaran)->format('F j, Y');
+            return $item;
+        });
         $no = 1;
         $transactions = Transaksi::select(
             DB::raw('CASE WHEN transaksi.tagihan_id = 6 THEN transaksi.keterangan ELSE jenistagihan.name END AS nama_tagihan'),
@@ -47,6 +58,6 @@ class LaporanKeuanganController extends Controller
             '12' => 'Desember',
         ];
 
-        return view('pages.data-transaksi', compact('bulan', 'transactions', 'no'));
+        return view('pages.data-transaksi', compact('bulan', 'transactions', 'no', 'trans', 'totaltransaksi'));
     }
 }

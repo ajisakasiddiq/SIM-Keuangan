@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Transaksi;
 use App\Models\TahunAjaran;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TahunAjaranController extends Controller
 {
@@ -12,11 +14,31 @@ class TahunAjaranController extends Controller
      */
     public function index()
     {
+        if (Auth::user()->role == 'bendahara-excellent') {
+            $jurusan = 'excellent';
+        } elseif (Auth::user()->jurusan == 'bendahara-reguller') {
+            $jurusan = 'reguller';
+        } else {
+            $jurusan = 'NULL';
+        }
+        $trans = Transaksi::with(['user', 'jenistagihan'])
+            ->where('jurusan', $jurusan)
+            ->where('status', '1')
+            ->whereNotNull('tgl_pembayaran')
+            ->latest()
+            ->get();
+        $totaltransaksi = Transaksi::where('status', '1')->count();
+        $trans->map(function ($item) {
+            $item->tgl_pembayaran_formatted = \Carbon\Carbon::parse($item->tgl_pembayaran)->format('F j, Y');
+            return $item;
+        });
         $no = 1;
         $tahun = TahunAjaran::get();
         return view('pages.data-tahunajaran', compact(
             'tahun',
             'no',
+            'trans',
+            'totaltransaksi',
         ));
     }
 

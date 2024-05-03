@@ -20,6 +20,16 @@ class PembayaranPendaftaranController extends Controller
         $user = Auth::id();
         $no = 1;
         $tagihan = tagihan::get();
+        $trans = Transaksi::with(['user', 'jenistagihan'])
+            ->where('status', '0')
+            ->where('user_id', $user)
+            ->latest()
+            ->get();
+        $totaltransaksi = Transaksi::where('status', '0')->count();
+        $trans->map(function ($item) {
+            $item->tgl_pembayaran_formatted = \Carbon\Carbon::parse($item->tgl_pembayaran)->format('F j, Y');
+            return $item;
+        });
         $siswa = User::where('role', 'siswa')->get();
         $transaksi = Transaksi::with('user')
             ->where('tagihan_id', '3')
@@ -39,7 +49,7 @@ class PembayaranPendaftaranController extends Controller
             ->where('user_id', $user)
             ->get();
 
-        return view('pages.siswa.pembayaran-pendaftaran', compact('no', 'total', 'siswa', 'tagihan', 'transaksi', 'cicilan', 'totalcicilan'));
+        return view('pages.siswa.pembayaran-pendaftaran', compact('no', 'total', 'siswa', 'tagihan', 'transaksi', 'cicilan', 'totalcicilan', 'trans', 'totaltransaksi'));
     }
 
     /**

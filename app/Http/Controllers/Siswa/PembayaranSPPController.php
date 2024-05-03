@@ -24,12 +24,22 @@ class PembayaranSPPController extends Controller
         $user = Auth::id();
         $tagihan = tagihan::get();
         $siswa = User::where('role', 'siswa')->get();
+        $trans = Transaksi::with(['user', 'jenistagihan'])
+            ->where('status', '0')
+            ->where('user_id', $user)
+            ->latest()
+            ->get();
+        $totaltransaksi = Transaksi::where('status', '0')->count();
+        $trans->map(function ($item) {
+            $item->tgl_pembayaran_formatted = \Carbon\Carbon::parse($item->tgl_pembayaran)->format('F j, Y');
+            return $item;
+        });
         $transaksi = Transaksi::with('user')
             ->where('tagihan_id', '1')
             ->where('tahunajar', $tahunajar)
             ->where('user_id', $user)
             ->get();
-        return view('pages.siswa.pembayaran-spp', compact('siswa', 'tagihan', 'transaksi', 'tahun'));
+        return view('pages.siswa.pembayaran-spp', compact('siswa', 'tagihan', 'transaksi', 'tahun', 'trans', 'totaltransaksi'));
     }
 
     /**

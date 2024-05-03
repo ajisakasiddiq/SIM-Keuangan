@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\User;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
@@ -9,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Transaksi;
 
 class ProfileController extends Controller
 {
@@ -17,8 +19,28 @@ class ProfileController extends Controller
      */
     public function index(Request $request): View
     {
+        // Mendapatkan tanggal hari ini
+        // $today = Carbon::now()->toDateString();
+        if (Auth::user()->role == 'bendahara-excellent')
+            $jurusan = 'excellent';
+        else
+            $jurusan = 'reguler';
+        // Mengambil transaksi terbaru pada tanggal hari ini
+        $trans = Transaksi::with(['user', 'jenistagihan'])
+            ->where('jurusan', $jurusan)
+            ->where('status', '1')
+            ->whereNotNull('tgl_pembayaran')
+            ->latest()
+            ->get();
+        $totaltransaksi = Transaksi::where('status', '1')->count();
+        $trans->map(function ($item) {
+            $item->tgl_pembayaran_formatted = \Carbon\Carbon::parse($item->tgl_pembayaran)->format('F j, Y');
+            return $item;
+        });
         return view('pages.edit-profile', [
             'user' => $request->user(),
+            'trans' => $trans,
+            'totaltransaksi' => $totaltransaksi,
         ]);
     }
 
