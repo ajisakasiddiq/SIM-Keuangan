@@ -20,7 +20,7 @@
             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                 aria-labelledby="alertsDropdown">
                 <h6 class="dropdown-header">
-                    Notifikasi Pembayaran
+                    Notifikasi Pembayaran / Tagihan
                 </h6>
                 <a class="dropdown-item d-flex align-items-center" href="#">
                  
@@ -33,11 +33,11 @@
                     @foreach ($trans as $item)
                     <div class="mr-3">
                         <div class="icon-circle bg-primary">
-                            <i class="fas fa-file-alt text-white"></i>
+                            <i class="fas fa-dollar-sign text-white"></i>
                         </div>
                     </div>
                     <div>
-                        <div class="small text-gray-500">{{ $item->tgl_pembayaran_formatted  }}</div>
+                        <div class="small text-gray-400">{{ $item->tgl_pembayaran_formatted  }}</div>
                         @if(Auth::user()->role == 'siswa')
 
                         <span class="font-weight-bold">Ada tagihan {{ $item->jenistagihan->name }} baru</span>
