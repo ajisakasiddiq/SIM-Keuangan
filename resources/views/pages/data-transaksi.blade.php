@@ -83,12 +83,20 @@
                                         </tr>
                                     </thead>
                                       <tbody>
+                                          @foreach($transactions as $data)
                                         <tr>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td class="bg-success text-light">1</td> <!-- Warna hijau untuk Pemasukan -->
-                                            <td class="bg-danger text-light">1</td> 
+                                            <td>{{ $no }}</td>
+                                            <td>{{ $data->nama_tagihan }}</td>
+                                            @if($data->jenis_transaksi == 'Pendapatan')
+                                            <td class="bg-success text-light">{{ $data->jumlah }}</td>
+                                            <td class="bg-danger text-light">-</td> 
+                                             <!-- Warna hijau untuk Pemasukan -->
+                                             @elseif($data->jenis_transaksi == 'Pengeluaran')
+                                             <td class="bg-success text-light">-</td>
+                                            <td class="bg-danger text-light">{{ $data->jumlah }}</td> 
+                                            @endif
                                         </tr>
+                                        @endforeach
                                         <tr>
                                             <td colspan="2">Total</td>
                                             <td colspan="2">Rp. </td>
