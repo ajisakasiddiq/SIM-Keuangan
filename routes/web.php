@@ -22,13 +22,14 @@ Route::get('/', function () {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+// Route::middleware('auth')->group(function () {
+//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+// });
 
 Route::resource('dashboard', 'App\Http\Controllers\DashboardController');
+Route::resource('profile', 'App\Http\Controllers\ProfileController');
 Route::middleware('auth', 'role:bendahara-excellent,bendahara-reguler')
     ->group(function () {
         Route::resource('data-siswa', 'App\Http\Controllers\SiswaController');

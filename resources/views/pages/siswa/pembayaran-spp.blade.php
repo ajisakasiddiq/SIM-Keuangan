@@ -20,11 +20,13 @@ Tagihan SPP
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-2">
-                                    <label for="">Tahun Pelajaran :</label>
+                                <div class="mb-3">
+                                    <label for="tahunajar" class="form-label">Tahun Ajaran</label>
                                     <select class="form-control" name="tahun_pelajaran" id="tahun_pelajaran">
-                                        <option value="2021/2022">2021/2022</option>
-                                        <option value="2022/2023">2022/2023</option>
+                                        <option value="">Pilih Tahun Ajaran</option>
+                                        @foreach ($tahun as $item)
+                                        <option value="{{ $item->tahunawal }}/{{ $item->tahunakhir }}">{{ $item->tahunawal }}/{{ $item->tahunakhir }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>

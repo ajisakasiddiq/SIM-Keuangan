@@ -97,6 +97,7 @@ class PembayaranSppController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request['tahunajar']);
         try {
             if ($request->has('kelas')) {
                 // Jika request memiliki parameter 'kelas', ambil pengguna (user) berdasarkan kelas
@@ -138,16 +139,17 @@ class PembayaranSppController extends Controller
                         'status' => $request['status'],
                         'date_awal' => $request['date_awal'],
                         'date_akhir' => $request['date_akhir'],
+                        'tahunajar' => $request['tahunajar'],
                         'keterangan' => (string) $keterangan,
                         'total' => $nominal,
                     ]);
                 }
             }
 
-            return response()->json(['message' => 'Data transaksi berhasil ditambahkan.']);
+            return redirect()->route('data-tagihan-spp.index')->with('success', 'Data berhasil diperbarui.');
         } catch (\Exception $e) {
             dd($e);
-            return response()->json(['message' => 'Terjadi kesalahan: ' . $e->getMessage()], 500);
+            return redirect()->route('data-tagihan-spp.index')->with('success', 'Data berhasil diperbarui.');
         }
     }
 

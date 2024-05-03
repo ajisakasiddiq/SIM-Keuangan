@@ -96,6 +96,7 @@ class PembayaranPendaftaranController extends Controller
                     'status' => $request['status'],
                     'date_awal' => $request['date_awal'],
                     'date_akhir' => $request['date_akhir'],
+                    'tahunajar' => $request['tahunajar'],
                     'keterangan' => (string) $keterangan,
                     'total' => $nominal,
                 ]);

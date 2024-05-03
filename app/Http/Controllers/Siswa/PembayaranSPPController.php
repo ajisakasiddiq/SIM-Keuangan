@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Siswa;
 use App\Models\User;
 use App\Models\tagihan;
 use App\Models\Transaksi;
+use App\Models\TahunAjaran;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -19,7 +20,7 @@ class PembayaranSPPController extends Controller
     {
         // Ambil nilai tahun_pelajaran dari permintaan GET
         $tahunajar = $request->query('tahun_pelajaran');
-
+        $tahun = TahunAjaran::get();
         $user = Auth::id();
         $tagihan = tagihan::get();
         $siswa = User::where('role', 'siswa')->get();
@@ -28,7 +29,7 @@ class PembayaranSPPController extends Controller
             ->where('tahunajar', $tahunajar)
             ->where('user_id', $user)
             ->get();
-        return view('pages.siswa.pembayaran-spp', compact('siswa', 'tagihan', 'transaksi'));
+        return view('pages.siswa.pembayaran-spp', compact('siswa', 'tagihan', 'transaksi', 'tahun'));
     }
 
     /**
