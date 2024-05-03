@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Cicilan;
 use App\Models\tagihan;
+use App\Models\TahunAjaran;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -24,6 +26,7 @@ class PembayaranPendaftaranController extends Controller
 
         $tagihan = tagihan::get();
         $siswa = User::where('role', 'siswa')->get();
+        $tahun = TahunAjaran::where('status', 'aktif')->get();
         if (request()->ajax()) {
             $query = Transaksi::select(
                 'transaksi.user_id',
@@ -39,25 +42,9 @@ class PembayaranPendaftaranController extends Controller
 
             return DataTables::of($query)
                 ->addColumn('action', function ($item) {
-                    return '
-                        <div class="btn-group">
-                            <div class="dropdown">
-                                <button class="btn btn-primary dropdown-toggle mr-1 mb-1" type="button" data-toggle="dropdown">Aksi</button>
-                                <div class="dropdown-menu">
-                                    <button class="dropdown-item" 
-                                        data-id="' . $item->user_id . '" 
-                                        data-tagihan_id="' . $item->tagihan_id . '" 
-                                        data-user_id="' . $item->user_id . '" 
-                                        data-toggle="modal" data-target="#editModal">Detail</button>
-                                    <form action="' . route('data-tagihan-spp.destroy', $item->user_id) . '" method="POST">
-                                        ' . method_field('delete') . csrf_field() . '
-                                        <button type="submit" class="dropdown-item text-danger">Hapus</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    ';
+                    return '<button href="' . route('data-tagihan-Pendaftaran.show', ['id' => $item->user_id]) . '" class="btn btn-primary">Detail</button>';
                 })
+
                 ->addColumn('no', function ($item) {
                     static $counter = 1;
                     return $counter++;
@@ -80,7 +67,7 @@ class PembayaranPendaftaranController extends Controller
         }
 
 
-        return view('pages.data-pembayaran-pendaftaran', compact('siswa', 'tagihan'));
+        return view('pages.data-pembayaran-pendaftaran', compact('siswa', 'tagihan', 'tahun'));
     }
 
     /**
@@ -88,7 +75,6 @@ class PembayaranPendaftaranController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**
@@ -130,7 +116,28 @@ class PembayaranPendaftaranController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $user = User::findOrFail($id);
+        $no = 1;
+        $tagihan = tagihan::get();
+        $siswa = User::where('role', 'siswa')->get();
+        $transaksi = Transaksi::with('user')
+            ->where('tagihan_id', '3')
+            ->where('user_id', $user)
+            ->get();
+        $total = Transaksi::selectRaw('user_id, tagihan_id, SUM(total) as total_sum')
+            ->where('tagihan_id', '3') // Filter berdasarkan tagihan_id tertentu
+            ->where('user_id', $user) // Filter berdasarkan user_id tertentu
+            ->groupBy('user_id', 'tagihan_id') // Kelompokkan berdasarkan user_id dan tagihan_id
+            ->first();
+        $totalcicilan = Cicilan::selectRaw('user_id, tagihan_id, SUM(total) as total_sum')
+            ->where('tagihan_id', '3') // Filter berdasarkan tagihan_id tertentu
+            ->where('user_id', $user) // Filter berdasarkan user_id tertentu
+            ->groupBy('user_id', 'tagihan_id') // Kelompokkan berdasarkan user_id dan tagihan_id
+            ->get();
+        $cicilan = Cicilan::where('tagihan_id', '3')
+            ->where('user_id', $user)
+            ->get();
+        return view('pages.detail.detail-pendaftaran', compact('no', 'total', 'siswa', 'tagihan', 'transaksi', 'cicilan', 'totalcicilan'));
     }
 
     /**

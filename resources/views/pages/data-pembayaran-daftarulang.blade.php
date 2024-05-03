@@ -167,9 +167,13 @@
                                     aria-describedby="emailHelp">
                             </div>
                             <div class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label">Tahun Ajaran</label>
-                                <input type="text" name="tahunajar" class="form-control" id="tahunajar"
-                                    aria-describedby="emailHelp">
+                                <label for="tahunajar" class="form-label">Tahun Ajaran</label>
+                                <select class="form-control" name="tahunajar" id="tahunajar">
+                                    <option value="">Pilih Tahun Ajaran</option>
+                                    @foreach ($tahun as $item)
+                                    <option value="{{ $item->tahunawal }}/{{ $item->tahunakhir }}">{{ $item->tahunawal }}/{{ $item->tahunakhir }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                   

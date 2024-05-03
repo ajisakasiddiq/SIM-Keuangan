@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\tagihan;
 use App\Models\Transaksi;
+use App\Models\TahunAjaran;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -23,6 +24,7 @@ class PembayaranDaftarUlangController extends Controller
             $jurusan = 'reguler';
 
         $tagihan = tagihan::get();
+        $tahun = TahunAjaran::where('status', 'aktif')->get();
         $siswa = User::where('role', 'siswa')->get();
         if (request()->ajax()) {
             $query = Transaksi::select(
@@ -79,7 +81,7 @@ class PembayaranDaftarUlangController extends Controller
                 ->make(true);
         }
 
-        return view('pages.data-pembayaran-daftarulang', compact('siswa', 'tagihan'));
+        return view('pages.data-pembayaran-daftarulang', compact('siswa', 'tagihan', 'tahun'));
     }
 
     /**

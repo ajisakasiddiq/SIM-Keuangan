@@ -81,7 +81,7 @@ class PembayaranSppController extends Controller
                 ->rawColumns(['status', 'tahun', 'action'])
                 ->make(true);
         }
-        return view('pages.data-pembayaran-spp', compact('siswa', 'tagihan'));
+        return view('pages.data-pembayaran-spp', compact('siswa', 'tagihan', 'tahun'));
     }
 
     /**
