@@ -88,12 +88,12 @@
                                             <td>{{ $no }}</td>
                                             <td>{{ $data->nama_tagihan }}</td>
                                             @if($data->jenis_transaksi == 'Pendapatan')
-                                            <td class="bg-success text-light">{{ $data->jumlah }}</td>
-                                            <td class="bg-danger text-light">-</td> 
+                                            <td >{{ $data->jumlah }}</td>
+                                            <td >-</td> 
                                              <!-- Warna hijau untuk Pemasukan -->
                                              @elseif($data->jenis_transaksi == 'Pengeluaran')
-                                             <td class="bg-success text-light">-</td>
-                                            <td class="bg-danger text-light">{{ $data->jumlah }}</td> 
+                                             <td >-</td>
+                                            <td >{{ $data->jumlah }}</td> 
                                             @endif
                                         </tr>
                                         @endforeach
@@ -121,6 +121,25 @@
 @endsection
 @push('addon-script')
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Dapatkan nilai bulan dan tahun dari parameter URL (jika ada)
+        var urlParams = new URLSearchParams(window.location.search);
+        var selectedMonth = urlParams.get('bulan');
+        var selectedYear = urlParams.get('tahun');
+
+        // Setel nilai terpilih pada elemen <select> bulan dan tahun (jika nilai tersedia)
+        var selectMonth = document.getElementById('filter-month');
+        var selectYear = document.getElementById('tahun');
+
+        if (selectedMonth) {
+            selectMonth.value = selectedMonth;
+        }
+
+        if (selectedYear) {
+            selectYear.value = selectedYear;
+        }
+    });
+
     function handleSubmit() {
         // Dapatkan nilai yang dipilih dari elemen <select> bulan dan tahun
         var selectedMonth = document.getElementById('filter-month').value;
@@ -136,4 +155,5 @@
         }
     }
 </script>
+
 @endpush
