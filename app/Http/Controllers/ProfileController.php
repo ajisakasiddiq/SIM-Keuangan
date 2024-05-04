@@ -21,7 +21,8 @@ class ProfileController extends Controller
     {
         // Mendapatkan tanggal hari ini
         // $today = Carbon::now()->toDateString();
-        if (Auth::user()->role == 'bendahara-excellent')
+        $user = Auth::user();
+        if ($user->role == 'bendahara-excellent')
             $jurusan = 'excellent';
         else
             $jurusan = 'reguler';
@@ -37,11 +38,7 @@ class ProfileController extends Controller
             $item->tgl_pembayaran_formatted = \Carbon\Carbon::parse($item->tgl_pembayaran)->format('F j, Y');
             return $item;
         });
-        return view('pages.edit-profile', [
-            'user' => $request->user(),
-            'trans' => $trans,
-            'totaltransaksi' => $totaltransaksi,
-        ]);
+        return view('pages.edit-profile', compact('user', 'trans', 'totaltransaksi'));
     }
 
     /**
@@ -51,6 +48,7 @@ class ProfileController extends Controller
     {
         try {
             $data = $request->all();
+            $data['foto'] = $request->file('foto')->store('assets/foto', 'public');
             $item = User::findOrFail($id);
             $item->update($data);
 

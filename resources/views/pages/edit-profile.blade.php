@@ -74,11 +74,22 @@
               <div class="card-header">Profile Picture</div>
               <div class="card-body text-center">
                   <!-- Profile picture image-->
+                  @if($user->foto == NULL)
                   <img class="img-account-profile rounded-circle mb-2" src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+                  @else
+                  <!-- Menampilkan gambar menggunakan URL dari storage -->
+                  <img class="img-account-profile rounded-circle mb-2"
+     src="{{ Storage::url($user->foto) }}"
+     alt="My Image"
+     style="max-width: 200px; max-height: 200px;">
+
+
+                  @endif
+
                   <!-- Profile picture help block-->
                   <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
                   <!-- Profile picture upload button-->
-                  <input class="form-control" type="file">Upload new image</input>
+                  <input name="foto" class="form-control" type="file">Upload new image</input>
               </div>
           </div>
       </div>
