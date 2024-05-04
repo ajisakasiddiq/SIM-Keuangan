@@ -90,10 +90,17 @@ class PembayaranSppController extends Controller
                     }
                 })
                 ->addColumn('bukti_transaksi', function ($item) {
-                    return '<td><a href="' . Storage::url($item->bukti_transaksi) . '" data-lightbox="gallery">
-                                <img src="' . Storage::url($item->bukti_transaksi) . '" alt="Bukti Transaksi" style="width: 100px; height: auto;">
-                            </a></td>';
+                    if ($item->bukti_transaksi) {
+                        // Jika ada data bukti transaksi, tampilkan tautan dan gambar
+                        return '<td><a href="' . Storage::url($item->bukti_transaksi) . '" data-lightbox="gallery">
+                                    <img src="' . Storage::url($item->bukti_transaksi) . '" alt="Bukti Transaksi" style="width: 100px; height: auto;">
+                                </a></td>';
+                    } else {
+                        // Jika tidak ada data bukti transaksi, tampilkan tanda strip (-)
+                        return '<td>-</td>';
+                    }
                 })
+
                 ->rawColumns(['status', 'bukti_transaksi', 'tahun', 'action'])
                 ->make(true);
         }

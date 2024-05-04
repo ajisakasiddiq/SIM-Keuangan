@@ -73,10 +73,17 @@ class PembayaranLainnyaController extends Controller
                     return $counter++;
                 })
                 ->addColumn('bukti_transaksi', function ($item) {
-                    return '<td><a href="' . Storage::url($item->bukti_transaksi) . '" data-lightbox="gallery">
-                                <img src="' . Storage::url($item->bukti_transaksi) . '" alt="Bukti Transaksi" style="width: 100px; height: auto;">
-                            </a></td>';
+                    if ($item->bukti_transaksi) {
+                        // Jika ada data bukti transaksi, tampilkan tautan dan gambar
+                        return '<td><a href="' . Storage::url($item->bukti_transaksi) . '" data-lightbox="gallery">
+                                    <img src="' . Storage::url($item->bukti_transaksi) . '" alt="Bukti Transaksi" style="width: 100px; height: auto;">
+                                </a></td>';
+                    } else {
+                        // Jika tidak ada data bukti transaksi, tampilkan tanda strip (-)
+                        return '<td>-</td>';
+                    }
                 })
+
                 ->addColumn('status', function ($item) {
                     switch ($item->status) {
                         case 0:
