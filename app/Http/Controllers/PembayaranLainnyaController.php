@@ -7,6 +7,7 @@ use App\Models\tagihan;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 class PembayaranLainnyaController extends Controller
@@ -71,6 +72,11 @@ class PembayaranLainnyaController extends Controller
                     static $counter = 1;
                     return $counter++;
                 })
+                ->addColumn('bukti_transaksi', function ($item) {
+                    return '<td><a href="' . Storage::url($item->bukti_transaksi) . '" data-lightbox="gallery">
+                                <img src="' . Storage::url($item->bukti_transaksi) . '" alt="Bukti Transaksi" style="width: 100px; height: auto;">
+                            </a></td>';
+                })
                 ->addColumn('status', function ($item) {
                     switch ($item->status) {
                         case 0:
@@ -86,7 +92,7 @@ class PembayaranLainnyaController extends Controller
                             return '<span class="badge badge-danger">Undefined</span>';
                     }
                 })
-                ->rawColumns(['status', 'action'])
+                ->rawColumns(['status', 'bukti_transaksi', 'action'])
                 ->make(true);
         }
         return view('pages.data-pembayaran-lainnya', compact('siswa', 'tagihan', 'trans', 'totaltransaksi'));

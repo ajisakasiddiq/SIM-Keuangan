@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\tagihan;
-use App\Models\TahunAjaran;
 use App\Models\Transaksi;
+use App\Models\TahunAjaran;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 class PembayaranSppController extends Controller
@@ -88,7 +89,12 @@ class PembayaranSppController extends Controller
                             return '<span class="badge badge-danger">Undefined</span>';
                     }
                 })
-                ->rawColumns(['status', 'tahun', 'action'])
+                ->addColumn('bukti_transaksi', function ($item) {
+                    return '<td><a href="' . Storage::url($item->bukti_transaksi) . '" data-lightbox="gallery">
+                                <img src="' . Storage::url($item->bukti_transaksi) . '" alt="Bukti Transaksi" style="width: 100px; height: auto;">
+                            </a></td>';
+                })
+                ->rawColumns(['status', 'bukti_transaksi', 'tahun', 'action'])
                 ->make(true);
         }
         return view('pages.data-pembayaran-spp', compact('siswa', 'tagihan', 'tahun', 'trans', 'totaltransaksi'));
