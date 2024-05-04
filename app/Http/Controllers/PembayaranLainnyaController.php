@@ -138,6 +138,7 @@ class PembayaranLainnyaController extends Controller
     public function update(Request $request, string $id)
     {
         $data = $request->all();
+        $data['bukti_transaksi'] = $request->file('bukti_transaksi')->store('assets/bukti_transaksi', 'public');
         $item = Transaksi::findOrFail($id);
         $item->update($data);
         return redirect()->route('data-tagihan-lainnya.index')->with('success', 'Data berhasil diperbarui.');

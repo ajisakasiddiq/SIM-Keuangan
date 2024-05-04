@@ -56,8 +56,10 @@ class PembayaranSPPController extends Controller
     public function store(Request $request)
     {
         try {
+            $data = $request->all();
+            $data['bukti_transaksi'] = $request->file('bukti_transaksi')->store('assets/bukti_transaksi', 'public');
             // Simpan data ke database
-            Transaksi::create($request->all());
+            Transaksi::create($data);
             return redirect()->route('Tagihan-spp.index')->with('success', 'Data berhasil disimpan.');
         } catch (\Exception $e) {
             // Tangkap pengecualian dan tampilkan pesan kesalahan
