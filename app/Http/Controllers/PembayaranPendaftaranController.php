@@ -52,7 +52,7 @@ class PembayaranPendaftaranController extends Controller
 
             return DataTables::of($query)
                 ->addColumn('action', function ($item) {
-                    return '<button href="' . route('data-tagihan-Pendaftaran.show', ['id' => $item->user_id]) . '" class="btn btn-primary">Detail</button>';
+                    return '<a href="' . route('Details.index', ['user_id' => $item->user_id, 'tagihan_id' => $item->tagihan_id]) . '" class="btn btn-primary">Detail</a>';
                 })
 
                 ->addColumn('no', function ($item) {
@@ -127,28 +127,6 @@ class PembayaranPendaftaranController extends Controller
      */
     public function show(string $id)
     {
-        $user = User::findOrFail($id);
-        $no = 1;
-        $tagihan = tagihan::get();
-        $siswa = User::where('role', 'siswa')->get();
-        $transaksi = Transaksi::with('user')
-            ->where('tagihan_id', '3')
-            ->where('user_id', $user)
-            ->get();
-        $total = Transaksi::selectRaw('user_id, tagihan_id, SUM(total) as total_sum')
-            ->where('tagihan_id', '3') // Filter berdasarkan tagihan_id tertentu
-            ->where('user_id', $user) // Filter berdasarkan user_id tertentu
-            ->groupBy('user_id', 'tagihan_id') // Kelompokkan berdasarkan user_id dan tagihan_id
-            ->first();
-        $totalcicilan = Cicilan::selectRaw('user_id, tagihan_id, SUM(total) as total_sum')
-            ->where('tagihan_id', '3') // Filter berdasarkan tagihan_id tertentu
-            ->where('user_id', $user) // Filter berdasarkan user_id tertentu
-            ->groupBy('user_id', 'tagihan_id') // Kelompokkan berdasarkan user_id dan tagihan_id
-            ->get();
-        $cicilan = Cicilan::where('tagihan_id', '3')
-            ->where('user_id', $user)
-            ->get();
-        return view('pages.detail.detail-pendaftaran', compact('no', 'total', 'siswa', 'tagihan', 'transaksi', 'cicilan', 'totalcicilan'));
     }
 
     /**

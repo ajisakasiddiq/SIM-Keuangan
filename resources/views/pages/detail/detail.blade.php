@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-Pembayaran Pendaftaran
+Detail Pembayaran 
 @endsection
 
 @section('content')
@@ -8,7 +8,9 @@ Pembayaran Pendaftaran
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Pembayaran Pendaftaran</h1>
+        
+        <h1 class="h3 mb-0 text-gray-800">Detail</h1>
+
     </div>
 
     <!-- Content Row -->
@@ -20,7 +22,7 @@ Pembayaran Pendaftaran
                     <div class="card">
                         <div class="row ml-2 mt-2">
                             <div class="col-md-6">
-                                <h5>Rincian Pembayaran Pendaftaran</h5>
+                                <h5>Rincian Pembayaran </h5>
                             </div>
                         </div>
                         <div class="table-responsive m-5">
@@ -33,7 +35,7 @@ Pembayaran Pendaftaran
                                       </tr>
                                   </thead>
                                     <tbody>
-                                        @if ($cicilan->isEmpty())
+                                        @if ($transaksi->isEmpty())
                                         <tr>
                                             <td colspan="3" class="text-center">Tidak ada tagihan.</td>
                                         </tr>
@@ -155,11 +157,11 @@ Pembayaran Pendaftaran
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('Tagihan-Pendaftaran.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('Details.store') }}" method="POST" enctype="multipart/form-data">
                     @method('POST')    
                     @csrf
-                  <input type="hidden" name="tagihan_id" value="3" id="tagihan_id">
-                  <input type="hidden" name="user_id" value="{{ Auth::user()->id }}" id="user_id">
+                  <input type="hidden" name="tagihan_id" value="{{ $tagihan_id }}" id="tagihan_id">
+                  <input type="hidden" name="user_id" value="{{ $user_id }}" id="user_id">
                   <div class="mb-3">
                     <label for="total" class="form-label">Total yg Dibayarkan</label>
                     <input  type="text" name="total" id="total" class="form-control">

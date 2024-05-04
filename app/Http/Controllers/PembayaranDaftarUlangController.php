@@ -51,24 +51,7 @@ class PembayaranDaftarUlangController extends Controller
 
             return DataTables::of($query)
                 ->addColumn('action', function ($item) {
-                    return '
-                        <div class="btn-group">
-                            <div class="dropdown">
-                                <button class="btn btn-primary dropdown-toggle mr-1 mb-1" type="button" data-toggle="dropdown">Aksi</button>
-                                <div class="dropdown-menu">
-                                    <button class="dropdown-item" 
-                                        data-id="' . $item->user_id . '" 
-                                        data-tagihan_id="' . $item->tagihan_id . '" 
-                                        data-user_id="' . $item->user_id . '" 
-                                        data-toggle="modal" data-target="#editModal">Detail</button>
-                                    <form action="' . route('data-tagihan-spp.destroy', $item->user_id) . '" method="POST">
-                                        ' . method_field('delete') . csrf_field() . '
-                                        <button type="submit" class="dropdown-item text-danger">Hapus</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    ';
+                    return '<a href="' . route('Details.index', ['user_id' => $item->user_id, 'tagihan_id' => $item->tagihan_id]) . '" class="btn btn-primary">Detail</a>';
                 })
                 ->addColumn('no', function ($item) {
                     static $counter = 1;
