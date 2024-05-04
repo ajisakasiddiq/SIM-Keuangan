@@ -46,7 +46,7 @@ class PembayaranDaftarUlangController extends Controller
                 DB::raw('SUM(transaksi.total) as total_sum') // Memilih kolom total_sum sebagai hasil SUM
             )
                 ->join('users', 'transaksi.user_id', '=', 'users.id')
-                ->where('transaksi.tagihan_id', '3')
+                ->where('transaksi.tagihan_id', '2')
                 ->where('transaksi.jurusan', $jurusan)
                 ->groupBy('transaksi.user_id', 'transaksi.tagihan_id', 'transaksi.status');  // Tambahkan kolom GROUP BY untuk kolom yang dipilih
 
