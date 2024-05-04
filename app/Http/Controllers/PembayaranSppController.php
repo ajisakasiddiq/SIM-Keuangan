@@ -67,6 +67,13 @@ class PembayaranSppController extends Controller
                           </form>
                         </div>
                       </div>
+                      <form action="' . route('data-tagihan-spp.update', $item->id) . '" method="POST" class="d-inline">
+                ' . method_field('PUT')  . csrf_field() . '
+                <input type="hidden" name="id" value="' . $item->id . '">
+                <input type="hidden" name="user_id" value="' . $item->user_id . '">
+                <input type="hidden" name="tagihan_id" value="' . $item->tagihan_id . '">
+                <button type="submit" class="btn btn-success">Lunas</button>
+            </form>
                     </div>
                     ';
                 })
