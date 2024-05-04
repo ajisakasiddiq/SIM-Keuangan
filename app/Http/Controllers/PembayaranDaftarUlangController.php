@@ -40,14 +40,15 @@ class PembayaranDaftarUlangController extends Controller
             $query = Transaksi::select(
                 'transaksi.user_id',
                 'transaksi.tagihan_id',
+                'transaksi.status',
                 'users.name',
                 'users.kelas',
                 DB::raw('SUM(transaksi.total) as total_sum') // Memilih kolom total_sum sebagai hasil SUM
             )
                 ->join('users', 'transaksi.user_id', '=', 'users.id')
-                ->where('transaksi.tagihan_id', '2')
+                ->where('transaksi.tagihan_id', '3')
                 ->where('transaksi.jurusan', $jurusan)
-                ->groupBy('transaksi.user_id', 'transaksi.tagihan_id'); // Tambahkan kolom GROUP BY untuk kolom yang dipilih
+                ->groupBy('transaksi.user_id', 'transaksi.tagihan_id', 'transaksi.status');  // Tambahkan kolom GROUP BY untuk kolom yang dipilih
 
             return DataTables::of($query)
                 ->addColumn('action', function ($item) {

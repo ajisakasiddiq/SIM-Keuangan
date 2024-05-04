@@ -86,10 +86,10 @@ class DetailsController extends Controller
             // Simpan data ke database
             $data = $request->all();
             $data['bukti_pembayaran'] = $request->file('bukti_pembayaran')->store('assets/bukti_transaksi', 'public');
-            Cicilan::create($data);
+            $cicilan = Cicilan::create($data);
             $user_id = $data['user_id'];
             $tagihan_id = $data['tagihan_id'];
-
+            $this->updateTransaksiStatus($cicilan);
             // Redirect dengan menyertakan user_id dan tagihan_id sebagai parameter
             return redirect()->route('Details.index', compact('user_id', 'tagihan_id'))
                 ->with('success', 'Data berhasil disimpan.');
@@ -100,6 +100,29 @@ class DetailsController extends Controller
         }
     }
 
+    private function updateTransaksiStatus($cicilan)
+    {
+        $tagihanId = $cicilan->tagihan_id;
+        $userId = $cicilan->user_id;
+
+        // Hitung total cicilan untuk tagihan_id dan user_id yang sama
+        $totalCicilan = Cicilan::where('tagihan_id', $tagihanId)
+            ->where('user_id', $userId)
+            ->sum('total');
+
+        // Hitung total transaksi untuk tagihan_id dan user_id yang sama
+        $totalTransaksi = Transaksi::where('tagihan_id', $tagihanId)
+            ->where('user_id', $userId)
+            ->sum('total');
+
+        // Periksa apakah total cicilan mencapai atau melebihi total transaksi
+        if ($totalCicilan >= $totalTransaksi) {
+            // Update status transaksi menjadi 'LUNAS'
+            Transaksi::where('tagihan_id', $tagihanId)
+                ->where('user_id', $userId)
+                ->update(['status' => '2']);
+        }
+    }
     /**
      * Display the specified resource.
      */
