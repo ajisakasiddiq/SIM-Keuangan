@@ -118,6 +118,7 @@ Detail Pembayaran
                                   <thead>
                                       <tr>
                                         <th>No</th>
+                                        <th>Bukti Pembayaran</th>
                                         <th>Tgl Pembayaran</th>
                                         <th>Nominal</th>
                                       </tr>
@@ -132,6 +133,9 @@ Detail Pembayaran
                                         @foreach ($cicilan as $item)
                                         <tr>
                                             <td>{{ $no++ }}</td>
+                                            <td><a href="{{ Storage::url($item->bukti_pembayaran) }}" data-lightbox="gallery">
+                                                <img src="{{ Storage::url($item->bukti_pembayaran) }}" alt="Bukti Transaksi" style="width: 100px; height: auto;">
+                                            </a></td>
                                             <td>{{ $item->tgl }}</td>
                                             <td>{{ $item->total }}</td>
                                         </tr>
