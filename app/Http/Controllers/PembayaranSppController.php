@@ -72,6 +72,7 @@ class PembayaranSppController extends Controller
                 <input type="hidden" name="id" value="' . $item->id . '">
                 <input type="hidden" name="user_id" value="' . $item->user_id . '">
                 <input type="hidden" name="tagihan_id" value="' . $item->tagihan_id . '">
+                <input type="hidden" name="status" value="2">
                 <button type="submit" class="btn btn-success">Lunas</button>
             </form>
                     </div>
@@ -205,9 +206,22 @@ class PembayaranSppController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $data = $request->all();
-        $data['bukti_transaksi'] = $request->file('bukti_transaksi')->store('assets/bukti_transaksi', 'public');
+        // Temukan transaksi berdasarkan ID atau tampilkan error jika tidak ditemukan
         $item = Transaksi::findOrFail($id);
+
+        // Ambil data yang dikirimkan dalam request
+        $data = $request->all();
+
+        // Periksa apakah ada file yang diunggah
+        if ($request->hasFile('bukti_transaksi')) {
+            // Jika ada file yang diunggah, simpan file baru dan gunakan path yang baru
+            $data['bukti_transaksi'] = $request->file('bukti_transaksi')->store('assets/bukti_transaksi', 'public');
+        } else {
+            // Jika tidak ada file yang diunggah, gunakan foto lama (path yang sudah ada)
+            $data['bukti_transaksi'] = $item->bukti_transaksi;
+        }
+
+        // Lakukan pembaruan data transaksi dengan data yang baru
         $item->update($data);
         return redirect()->route('data-tagihan-spp.index')->with('success', 'Data berhasil diperbarui.');
     }

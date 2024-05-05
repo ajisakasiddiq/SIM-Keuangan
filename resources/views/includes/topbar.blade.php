@@ -26,7 +26,6 @@
                  
                     @if($trans->isEmpty())
                     <div>
-                        {{-- <div class="small text-gray-500">{{ $item->tgl_pembayaran->format('F j, Y') }}</div> --}}
                         <span class="font-weight-bold">Tidak Ada Pembayaran Terbaru</span>
                     </div>
                     @else
