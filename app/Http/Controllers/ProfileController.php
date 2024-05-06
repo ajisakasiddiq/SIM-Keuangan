@@ -47,9 +47,17 @@ class ProfileController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $data = $request->all();
-            $data['foto'] = $request->file('foto')->store('assets/foto', 'public');
             $item = User::findOrFail($id);
+            $data = $request->all();
+            if ($request->hasFile('foto')) {
+                // Jika ada file yang diunggah, simpan file baru dan gunakan path yang baru
+                $data['foto'] = $request->file('foto')->store('assets/foto', 'public');
+            } else {
+                // Jika tidak ada file yang diunggah, gunakan foto lama (path yang sudah ada)
+                $data['foto'] = $item->foto;
+            }
+
+
             $item->update($data);
 
             return redirect()->route('profile.index')->with('success', 'Data berhasil diperbarui.');
