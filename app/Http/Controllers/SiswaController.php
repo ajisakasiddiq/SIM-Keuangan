@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Transaksi;
+use App\Imports\SiswaImport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\Facades\DataTables;
 
 class SiswaController extends Controller
@@ -95,6 +97,16 @@ class SiswaController extends Controller
             // Tangkap pengecualian dan tampilkan pesan kesalahan
             return redirect()->route('data-siswa.index')->with('error', 'Key yang anda masukkan tidak ada di saldo mon');
         }
+    }
+
+
+    public function importData(Request $request)
+    {
+        $file = $request->file('excel_file');
+
+        Excel::import(new SiswaImport, $file);
+
+        return redirect()->back()->with('success', 'Data berhasil diimpor.');
     }
 
     /**

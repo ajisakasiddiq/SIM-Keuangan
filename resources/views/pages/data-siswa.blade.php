@@ -18,9 +18,13 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <a href="" class="btn btn-primary mb-3" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#adduser">
+                            <a href="" type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#adduser">
                                 + Tambah Data
                             </a>
+                            <a href=""  type="button" class="btn btn-success mb-2" data-bs-toggle="modal" data-bs-target="#import">
+                                + Import Data Siswa
+                            </a>
+                            
                             <div class="table-responsive">
                               <table class="table-hover scroll-horizontal-vertical w-100" id="siswa">
                                     <thead>
@@ -211,6 +215,34 @@
         </div>
       </div>
 {{-- end modal add --}}
+{{-- import data --}}
+<div class="modal fade" id="import" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-3" id="exampleModalLabel">Impor File</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('data-siswa.importData') }}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Import Data</label>
+                         <input type="file" name="excel_file">
+                         <br>
+                         <small>*Max 10.000 data</small>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
 
 </div>
 @endsection
