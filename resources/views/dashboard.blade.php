@@ -128,7 +128,7 @@
                             <!-- Card Body -->
                             <div class="card-body">
                                 <div class="chart-area">
-                                    <canvas id="myAreaChart"></canvas>
+                                    <canvas id="chart"></canvas>
                                 </div>
                             </div>
                         </div>
@@ -140,7 +140,7 @@
                             <!-- Card Header - Dropdown -->
                             <div
                                 class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                <h6 class="m-0 font-weight-bold text-primary">Perbandingan Keuangan</h6>
+                                <h6 class="m-0 font-weight-bold text-primary">Perbandingan Keuangan Bulanan</h6>
                                 <div class="dropdown no-arrow">
                                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -159,17 +159,14 @@
                             <!-- Card Body -->
                             <div class="card-body">
                                 <div class="chart-pie pt-4 pb-2">
-                                    <canvas id="myPieChart"></canvas>
+                                    <canvas id="piechart"></canvas>
                                 </div>
                                 <div class="mt-4 text-center small">
                                     <span class="mr-2">
-                                        <i class="fas fa-circle text-primary"></i> Pemasukan
+                                        <i class="fas fa-circle text-primary"></i> Pendapatan
                                     </span>
                                     <span class="mr-2">
                                         <i class="fas fa-circle text-success"></i> Pengeluaran
-                                    </span>
-                                    <span class="mr-2">
-                                        <i class="fas fa-circle text-info"></i> Sisa
                                     </span>
                                 </div>
                             </div>
@@ -190,99 +187,147 @@
 @endsection
 @push('addon-script')
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var ctx = document.getElementById('myAreaChart').getContext('2d');
 
-        var data = {!! json_encode($pendapatanBulanan) !!}; // Mengambil data pendapatan bulanan dari PHP
+document.addEventListener("DOMContentLoaded", function() {
+    var ctx = document.getElementById('piechart').getContext('2d');
 
-        var labels = data.map(function(item) {
-            return item.bulan; // Mengambil label bulan dari data
-        });
+    // Data pendapatan dan pengeluaran dari database
+    var pendapatanbulan = {!! json_encode($pendapatanbulan) !!};
+    var pengeluaranbulan = {!! json_encode($pengeluaranbulan) !!};
 
-        var values = data.map(function(item) {
-            return item.total_pendapatan; // Mengambil nilai total pendapatan dari data
-        });
-
-        var myAreaChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Total Pendapatan',
-                    data: values,
-                    backgroundColor: 'rgba(78, 115, 223, 0.05)',
-                    borderColor: 'rgba(78, 115, 223, 1)',
-                    pointRadius: 3,
-                    pointBackgroundColor: 'rgba(78, 115, 223, 1)',
-                    pointBorderColor: 'rgba(78, 115, 223, 1)',
-                    pointHoverRadius: 3,
-                    pointHoverBackgroundColor: 'rgba(78, 115, 223, 1)',
-                    pointHoverBorderColor: 'rgba(78, 115, 223, 1)',
-                    pointHitRadius: 10,
-                    pointBorderWidth: 2,
-                    lineTension: 0.3
-                }]
+    var piechart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ['Pendapatan', 'Pengeluaran'],
+            datasets: [{
+                data: [pendapatanbulan, pengeluaranbulan],
+                backgroundColor: ['#007bff', '#28a745'],
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            legend: {
+                display: true,
+                position: 'bottom',
+                labels: {
+                    fontColor: '#333',
+                    fontSize: 14
+                }
             },
-            options: {
-                maintainAspectRatio: false,
-                scales: {
-                    xAxes: [{
-                        time: {
-                            unit: 'month'
-                        },
-                        gridLines: {
-                            display: false,
-                            drawBorder: false
-                        },
-                        ticks: {
-                            maxTicksLimit: 6
-                        }
-                    }],
-                    yAxes: [{
-                        ticks: {
-                            min: 0,
-                            maxTicksLimit: 5,
-                            padding: 10,
-                            // Include a dollar sign in the ticks
-                            callback: function(value, index, values) {
-                                return 'Rp. ' + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                            }
-                        },
-                        gridLines: {
-                            color: "rgb(234, 236, 244)",
-                            zeroLineColor: "rgb(234, 236, 244)",
-                            drawBorder: false,
-                            borderDash: [2],
-                            zeroLineBorderDash: [2]
-                        }
-                    }]
-                },
-                legend: {
-                    display: false
-                },
-                tooltips: {
-                    backgroundColor: "rgb(255,255,255)",
-                    bodyFontColor: "#858796",
-                    titleMarginBottom: 10,
-                    titleFontColor: '#6e707e',
-                    titleFontSize: 14,
-                    borderColor: '#dddfeb',
-                    borderWidth: 1,
-                    xPadding: 15,
-                    yPadding: 15,
-                    displayColors: false,
-                    intersect: false,
-                    mode: 'index',
-                    caretPadding: 10,
-                    callbacks: {
-                        label: function(tooltipItem, chart) {
-                            var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-                            return datasetLabel + ': Rp. ' + tooltipItem.yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                        }
+            tooltips: {
+                callbacks: {
+                    label: function(tooltipItem, data) {
+                        var label = data.labels[tooltipItem.index] || '';
+                        var value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+                        return label + ': Rp. ' + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                     }
                 }
             }
-        });
+        }
     });
+});
+
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    var ctx = document.getElementById('chart').getContext('2d');
+
+    var data = {!! json_encode($pendapatanBulanan) !!}; // Mendapatkan data pendapatan bulanan dari PHP
+
+    // Array nama bulan
+    var monthNames = [
+        'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+        'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+    ];
+
+    // Mengubah label bulan dari angka menjadi nama bulan
+    var labels = data.map(function(item) {
+        var monthIndex = parseInt(item.bulan) - 1; // Karena index bulan dimulai dari 0
+        return monthNames[monthIndex];
+    });
+
+    var values = data.map(function(item) {
+        return item.total_pendapatan; // Mengambil nilai total pendapatan dari data
+    });
+
+    var chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Total Pendapatan',
+                data: values,
+                backgroundColor: 'rgba(78, 115, 223, 0.05)',
+                borderColor: 'rgba(78, 115, 223, 1)',
+                pointRadius: 3,
+                pointBackgroundColor: 'rgba(78, 115, 223, 1)',
+                pointBorderColor: 'rgba(78, 115, 223, 1)',
+                pointHoverRadius: 3,
+                pointHoverBackgroundColor: 'rgba(78, 115, 223, 1)',
+                pointHoverBorderColor: 'rgba(78, 115, 223, 1)',
+                pointHitRadius: 10,
+                pointBorderWidth: 2,
+                lineTension: 0.3
+            }]
+        },
+        options: {
+            maintainAspectRatio: false,
+            scales: {
+                xAxes: [{
+                    gridLines: {
+                        display: false,
+                        drawBorder: false
+                    },
+                    ticks: {
+                        maxTicksLimit: 6
+                    }
+                }],
+                yAxes: [{
+                    ticks: {
+                        min: 0,
+                        maxTicksLimit: 5,
+                        padding: 10,
+                        callback: function(value, index, values) {
+                            return 'Rp. ' + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                        }
+                    },
+                    gridLines: {
+                        color: "rgb(234, 236, 244)",
+                        zeroLineColor: "rgb(234, 236, 244)",
+                        drawBorder: false,
+                        borderDash: [2],
+                        zeroLineBorderDash: [2]
+                    }
+                }]
+            },
+            legend: {
+                display: false
+            },
+            tooltips: {
+                backgroundColor: "rgb(255,255,255)",
+                bodyFontColor: "#858796",
+                titleMarginBottom: 10,
+                titleFontColor: '#6e707e',
+                titleFontSize: 14,
+                borderColor: '#dddfeb',
+                borderWidth: 1,
+                xPadding: 15,
+                yPadding: 15,
+                displayColors: false,
+                intersect: false,
+                mode: 'index',
+                caretPadding: 10,
+                callbacks: {
+                    label: function(tooltipItem, chart) {
+                        var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+                        return datasetLabel + ': Rp. ' + tooltipItem.yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                    }
+                }
+            }
+        }
+    });
+});
+
 </script>
 @endpush

@@ -7,6 +7,7 @@ use App\Models\tagihan;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 class PendapatanController extends Controller
@@ -68,6 +69,17 @@ class PendapatanController extends Controller
                     static $counter = 1;
                     return $counter++;
                 })
+                ->editColumn('bukti_transaksi', function ($item) {
+                    // Cek apakah ada bukti pembayaran (gambar)
+                    if ($item->bukti_transaksi) {
+                        // Buat tautan dengan gambar sebagai isi
+                        $image = '<img src="' . Storage::url($item->bukti_transaksi) . '" alt="Bukti Transaksi" style="width: 100px; height: auto;">';
+                        $link = '<a href="' . Storage::url($item->bukti_transaksi) . '" data-lightbox="gallery">' . $image . '</a>';
+                        return $link;
+                    } else {
+                        return ''; // Jika tidak ada bukti pembayaran, kembalikan string kosong
+                    }
+                })
                 ->addColumn('status', function ($item) {
                     switch ($item->status) {
                         case 0:
@@ -83,7 +95,7 @@ class PendapatanController extends Controller
                             return '<span class="badge badge-danger">Undefined</span>';
                     }
                 })
-                ->rawColumns(['status', 'action'])
+                ->rawColumns(['status', 'action', 'bukti_transaksi'])
                 ->make(true);
         }
         return view('pages.data-pendapatan', compact('siswa', 'tagihan', 'trans', 'totaltransaksi'));
@@ -103,8 +115,16 @@ class PendapatanController extends Controller
     public function store(Request $request)
     {
         try {
+            $data = $request->all();
             // Simpan data ke database
-            Transaksi::create($request->all());
+            if ($request->hasFile('bukti_transaksi')) {
+                // Jika ada file yang diunggah, simpan file baru dan gunakan path yang baru
+                $data['bukti_transaksi'] = $request->file('bukti_transaksi')->store('assets/bukti_transaksi', 'public');
+            } else {
+                // Jika tidak ada file yang diunggah, gunakan foto lama (path yang sudah ada)
+                $data['bukti_transaksi'] = "Tidak Ada Bukti Transaksi";
+            }
+            Transaksi::create($data);
             return redirect()->route('data-pendapatan.index')->with('success', 'Data berhasil disimpan.');
         } catch (\Exception $e) {
             // Tangkap pengecualian dan tampilkan pesan kesalahan

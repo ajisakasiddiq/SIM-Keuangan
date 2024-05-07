@@ -7,6 +7,7 @@ use App\Models\tagihan;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 class PengeluaranController extends Controller
@@ -56,7 +57,7 @@ class PengeluaranController extends Controller
                         data-status="' . $item->status . '" 
                         data-Pendapatan="' . $item->Pendapatan . '" 
                         data-toggle="modal" data-target="#editModal">Edit</button>
-                          <form action="' . route('data-tagihan-spp.destroy', $item->id) . '" method="POST">
+                          <form action="' . route('data-pengeluaran.destroy', $item->id) . '" method="POST">
                           ' . method_field('delete') . csrf_field() . '
                           <button type="submit" class="dropdown-item text-danger">Hapus</button>
                           </form>
@@ -68,6 +69,17 @@ class PengeluaranController extends Controller
                 ->addColumn('no', function ($item) {
                     static $counter = 1;
                     return $counter++;
+                })
+                ->editColumn('bukti_transaksi', function ($item) {
+                    // Cek apakah ada bukti pembayaran (gambar)
+                    if ($item->bukti_transaksi) {
+                        // Buat tautan dengan gambar sebagai isi
+                        $image = '<img src="' . Storage::url($item->bukti_transaksi) . '" alt="Bukti Transaksi" style="width: 100px; height: auto;">';
+                        $link = '<a href="' . Storage::url($item->bukti_transaksi) . '" data-lightbox="gallery">' . $image . '</a>';
+                        return $link;
+                    } else {
+                        return ''; // Jika tidak ada bukti pembayaran, kembalikan string kosong
+                    }
                 })
                 ->addColumn('status', function ($item) {
                     switch ($item->status) {
@@ -84,7 +96,7 @@ class PengeluaranController extends Controller
                             return '<span class="badge badge-danger">Undefined</span>';
                     }
                 })
-                ->rawColumns(['status', 'action'])
+                ->rawColumns(['status', 'action', 'bukti_transaksi'])
                 ->make(true);
         }
         return view('pages.data-pengeluaran', compact('siswa', 'tagihan', 'trans', 'totaltransaksi'));
@@ -104,8 +116,16 @@ class PengeluaranController extends Controller
     public function store(Request $request)
     {
         try {
+            $data = $request->all();
             // Simpan data ke database
-            Transaksi::create($request->all());
+            if ($request->hasFile('bukti_transaksi')) {
+                // Jika ada file yang diunggah, simpan file baru dan gunakan path yang baru
+                $data['bukti_transaksi'] = $request->file('bukti_transaksi')->store('assets/bukti_transaksi', 'public');
+            } else {
+                // Jika tidak ada file yang diunggah, gunakan foto lama (path yang sudah ada)
+                $data['bukti_transaksi'] = "Tidak Ada Bukti Transaksi";
+            }
+            Transaksi::create($data);
             return redirect()->route('data-pengeluaran.index')->with('success', 'Data berhasil disimpan.');
         } catch (\Exception $e) {
             // Tangkap pengecualian dan tampilkan pesan kesalahan
@@ -135,8 +155,21 @@ class PengeluaranController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $data = $request->all();
         $item = Transaksi::findOrFail($id);
+
+        // Ambil data yang dikirimkan dalam request
+        $data = $request->all();
+
+        // Periksa apakah ada file yang diunggah
+        if ($request->hasFile('bukti_transaksi')) {
+            // Jika ada file yang diunggah, simpan file baru dan gunakan path yang baru
+            $data['bukti_transaksi'] = $request->file('bukti_transaksi')->store('assets/bukti_transaksi', 'public');
+        } else {
+            // Jika tidak ada file yang diunggah, gunakan foto lama (path yang sudah ada)
+            $data['bukti_transaksi'] = $item->bukti_transaksi;
+        }
+
+        // Lakukan pembaruan data transaksi dengan data yang baru
         $item->update($data);
         return redirect()->route('data-pengeluaran.index')->with('success', 'Data berhasil diperbarui.');
     }

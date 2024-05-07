@@ -31,7 +31,7 @@ class DashboardController extends Controller
         });
 
         $pendapatanBulanan = Transaksi::select(
-            DB::raw('DATE_FORMAT(tgl_pembayaran, "%Y-%m") as bulan'),
+            DB::raw('DATE_FORMAT(tgl_pembayaran, "%m") as bulan'),
             DB::raw('SUM(total) as total_pendapatan')
         )
             ->where('jenis_transaksi', 'Pendapatan')
@@ -55,11 +55,24 @@ class DashboardController extends Controller
             ->sum('total');
         // dd($pendapatan);
         $pengeluaran = Transaksi::where('jenis_transaksi', 'Pengeluaran')
-            ->where('tgl_pembayaran', $tanggalHariIni)
             ->where('jurusan', $jurusan)
             ->where('status', '2')
             ->sum('total');
-        return view('dashboard', compact('pengeluaran', 'pendapatan', 'totalpending', 'total', 'pendapatanBulanan', 'trans', 'totaltransaksi'));
+
+
+
+        $pendapatanbulan = Transaksi::where('jenis_transaksi', 'Pendapatan')
+            ->where('jurusan', $jurusan)
+            ->where('status', '2')
+            ->sum('total');
+        // dd($pendapatan);
+        $pengeluaranbulan = Transaksi::where('jenis_transaksi', 'Pengeluaran')
+            ->where('tgl_pembayaran', $tanggalHariIni)
+            ->where('jurusan', $jurusan)
+            ->sum('total');
+
+
+        return view('dashboard', compact('pengeluaran', 'pengeluaranbulan', 'pendapatanbulan', 'pendapatan', 'totalpending', 'total', 'pendapatanBulanan', 'trans', 'totaltransaksi'));
         // $pendapatan akan berisi nilai total pendapatan berdasarkan jenis_transaksi dan jurusan
 
     }
