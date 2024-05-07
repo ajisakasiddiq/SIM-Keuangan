@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Transaksi;
 use App\Exports\DataExport;
+use App\Exports\LaporanExport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -67,8 +68,8 @@ class LaporanKeuanganController extends Controller
 
     public function exportData(Request $request)
     {
-        $bulan = $request->input('bulan'); // Misalnya, parameter 'bulan' diambil dari URL atau form
-        $tahun = $request->input('tahun');
+        $bulan = $request->query('bulan'); // Ambil nilai bulan dari query string
+        $tahun = $request->query('tahun');
         if (Auth::user()->role == 'bendahara-excellent')
             $jurusan = 'excellent';
         else
@@ -87,8 +88,9 @@ class LaporanKeuanganController extends Controller
             ->whereMonth('transaksi.tgl_pembayaran', $bulan)
             ->groupBy('transaksi.tagihan_id', 'nama_tagihan', 'transaksi.jenis_transaksi')
             ->get();
-
+        // dd($bulan);
         // Panggil class ekspor (ganti dengan nama class export yang sesuai)
-        return Excel::download(new DataExport($transactions), 'data_export.xlsx');
+        $namaFile = 'laporanKeuangan_' . $tahun . '_' . $bulan . '.xlsx';
+        return Excel::download(new LaporanExport($transactions), $namaFile);
     }
 }

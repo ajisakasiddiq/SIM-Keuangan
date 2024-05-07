@@ -44,7 +44,11 @@
                                     </select>                
                                 </div>
                                 <div class="col-md-2">
-                                    <button class="btn btn-primary" onclick="handleSubmit()">Submit</button>
+                                    <button class="btn btn-primary" onclick="handleSubmit()">View</button>
+                                    <button type="button" onclick="print()" class="btn btn-success">
+                                        Print
+                                    </button>
+
                                 </div>
                             </div>
                         </div>
@@ -145,8 +149,21 @@
 
         // Kirim nilai yang dipilih ke URL yang sesuai (misalnya, ke endpoint dengan AJAX atau sebagai parameter URL)
         if (selectedMonth && selectedYear) {
-            // Contoh: Redirect ke URL dengan parameter bulan dan tahun
             window.location.href = "{{ route('Laporan-Keuangan.index') }}?bulan=" + selectedMonth + "&tahun=" + selectedYear;
+        } else {
+            // Tampilkan pesan atau ambil tindakan lain jika nilai bulan atau tahun tidak dipilih
+            alert('Harap pilih bulan dan tahun sebelum mengirim.');
+        }
+    }
+    function print() {
+        // Dapatkan nilai yang dipilih dari elemen <select> bulan dan tahun
+        var selectedMonth = document.getElementById('filter-month').value;
+        var selectedYear = document.getElementById('tahun').value;
+
+        // Kirim nilai yang dipilih ke URL yang sesuai (misalnya, ke endpoint dengan AJAX atau sebagai parameter URL)
+        if (selectedMonth && selectedYear) {
+            // Contoh: Redirect ke URL dengan parameter bulan dan tahun
+            window.location.href = "{{ route('export.data') }}?bulan=" + selectedMonth + "&tahun=" + selectedYear;
         } else {
             // Tampilkan pesan atau ambil tindakan lain jika nilai bulan atau tahun tidak dipilih
             alert('Harap pilih bulan dan tahun sebelum mengirim.');
