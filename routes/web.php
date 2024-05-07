@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\LaporanKeuanganController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +50,7 @@ Route::middleware('auth', 'role:bendahara-excellent,bendahara-reguler')
         Route::resource('Detail-Pembayaran', 'App\Http\Controllers\DetailController');
         Route::resource('Tahun-Ajaran', 'App\Http\Controllers\TahunAjaranController');
         Route::resource('Details', 'App\Http\Controllers\DetailsController');
+        Route::get('/export-data', [LaporanKeuanganController::class, 'exportData'])->name('export.data');
     });
 
 Route::middleware('auth', 'role:siswa')->group(function () {

@@ -110,7 +110,7 @@
                       </div>
                       <div class="mb-3">
                           <label for="exampleInputEmail1" class="form-label">Tanggal Lahir</label>
-                          <input type="text" name="tgl_lahir" class="form-control" id="tgl_lahir"
+                          <input type="date" name="tgl_lahir" class="form-control" id="tgl_lahir"
                               aria-describedby="emailHelp">
                       </div>
                       <div class="mb-3">
@@ -121,9 +121,12 @@
                         </select>
                       </div>
                       <div class="mb-3">
-                          <label for="exampleInputEmail1" class="form-label">Kelas</label>
-                          <input type="text" name="kelas" class="form-control" id="kelas"
-                              aria-describedby="emailHelp">
+                          <label for="kelas" class="form-label">Kelas</label>
+                          <select class="form-control" name="kelas" id="kelas">
+                            <option value="VII">VII</option>
+                            <option value="VIII">VIII</option>
+                            <option value="IX">IX</option>
+                        </select>
                       </div>
               </div>
               <div class="modal-footer">
@@ -156,7 +159,7 @@
                     </div>
                     <div class="mb-3">
                       <label for="password" class="form-label">Password</label>
-                      <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                      <input id="password" type="hidden" value="12345678" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
                       <input id="role" type="hidden" value="siswa" class="form-control @error('password') is-invalid @enderror" name="role" required autocomplete="new-password">
                     </div> <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">NIK</label>
@@ -180,7 +183,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Tanggal Lahir</label>
-                        <input type="text" name="tgl_lahir" class="form-control" id="tgl_lahir"
+                        <input type="date" name="tgl_lahir" class="form-control" id="tgl_lahir"
                             aria-describedby="emailHelp">
                     </div>
                     <div class="mb-3">
@@ -191,9 +194,12 @@
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Kelas</label>
-                        <input type="text" name="kelas" class="form-control" id="kelas"
-                            aria-describedby="emailHelp">
+                        <label for="kelas" class="form-label">Kelas</label>
+                        <select class="form-control" name="kelas" id="kelas">
+                          <option value="VII">VII</option>
+                          <option value="VIII">VIII</option>
+                          <option value="IX">IX</option>
+                      </select>
                     </div>
             </div>
             <div class="modal-footer">

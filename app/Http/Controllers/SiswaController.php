@@ -91,6 +91,7 @@ class SiswaController extends Controller
             User::create($request->all());
             return redirect()->route('data-siswa.index')->with('success', 'Data berhasil disimpan.');
         } catch (\Exception $e) {
+            dd($e);
             // Tangkap pengecualian dan tampilkan pesan kesalahan
             return redirect()->route('data-siswa.index')->with('error', 'Key yang anda masukkan tidak ada di saldo mon');
         }

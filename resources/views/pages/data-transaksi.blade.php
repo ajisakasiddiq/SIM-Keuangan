@@ -62,9 +62,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-2">
-                                    <a href="" class="btn btn-primary" type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#adduser">
-                                        Print
-                                    </a>
+                                    <a href="{{ route('export.data', ['bulan' => $bulan, 'tahun' => $tahun]) }}" class="btn btn-primary">Export Data</a>
                                 </div>
                             </div>
                             <br>
