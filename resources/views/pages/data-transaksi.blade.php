@@ -66,7 +66,10 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-2">
-                                    <a href="{{ route('export.data', ['bulan' => $bulan, 'tahun' => $tahun]) }}" class="btn btn-primary">Export Data</a>
+                                    {{-- <a href="{{ route('export.data', ['bulan' => $bulan, 'tahun' => $tahun]) }}" class="btn btn-primary">Export Data</a> --}}
+                                    {{-- <div class="d-sm-flex align-items-center justify-content-between">
+                                        <span class="mb-0 text-gray-800">Laporan Keuangan</span>
+                                    </div> --}}
                                 </div>
                             </div>
                             <br>
