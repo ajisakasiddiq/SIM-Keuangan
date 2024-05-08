@@ -56,7 +56,7 @@
 </head>
 <body>
     <div class="container">
-        <h2>Tagihan Bulanan {{ $user->name }}</h2>
+      
 
         @foreach ($tagihans as $tagihanId => $tagihanGroup)
             @php
@@ -64,6 +64,7 @@
                 $jenisTagihan = $firstTagihan ? $firstTagihan['nama'] : '';
                 $totalTagihanGrup = collect($tagihanGroup)->sum('total_tagihan'); // Menghitung total tagihan pada grup
             @endphp
+              <h2>Tagihan {{ $jenisTagihan }} {{ $user->name }}</h2>
             <div class="invoice-group">
                 <h3>Detail Tagihan ({{ $jenisTagihan }} - Tagihan ID: {{ $tagihanId }})</h3>
                 
