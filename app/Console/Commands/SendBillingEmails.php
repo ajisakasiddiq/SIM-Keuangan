@@ -21,6 +21,7 @@ class SendBillingEmails extends Command
     {
         // Ambil transaksi yang tanggal akhirnya hari ini
         $transaksis = Transaksi::with('user', 'jenistagihan')
+            ->where('status', '0')
             ->whereDate('date_akhir', now()->toDateString())
             ->get();
 
