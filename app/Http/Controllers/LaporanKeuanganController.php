@@ -46,9 +46,15 @@ class LaporanKeuanganController extends Controller
             ->whereMonth('transaksi.tgl_pembayaran', $bulan)
             ->groupBy('transaksi.tagihan_id', 'nama_tagihan', 'transaksi.jenis_transaksi')
             ->get();
+        $totalsaldo = Transaksi::where('status', '2')
+            ->where('jenis_transaksi', 'pendapatan')
+            ->whereYear('tgl_pembayaran', $tahun) // Filter berdasarkan tahun
+            ->whereMonth('tgl_pembayaran', $bulan)
+            ->sum('total');
 
+        // ->get();
 
-        $bulan = [
+        $listbulan = [
             '1' => 'Januari',
             '2' => 'Februari',
             '3' => 'Maret',
@@ -63,7 +69,7 @@ class LaporanKeuanganController extends Controller
             '12' => 'Desember',
         ];
 
-        return view('pages.data-transaksi', compact('bulan', 'transactions', 'no', 'trans', 'totaltransaksi', 'bulan', 'tahun'));
+        return view('pages.data-transaksi', compact('listbulan', 'totalsaldo', 'transactions', 'no', 'trans', 'totaltransaksi', 'bulan', 'tahun'));
     }
 
     public function exportData(Request $request)
@@ -88,9 +94,14 @@ class LaporanKeuanganController extends Controller
             ->whereMonth('transaksi.tgl_pembayaran', $bulan)
             ->groupBy('transaksi.tagihan_id', 'nama_tagihan', 'transaksi.jenis_transaksi')
             ->get();
+        $totalsaldo = Transaksi::where('status', '2')
+            ->where('jenis_transaksi', 'pendapatan')
+            ->whereYear('tgl_pembayaran', $tahun) // Filter berdasarkan tahun
+            ->whereMonth('tgl_pembayaran', $bulan)
+            ->sum('total');
         // dd($bulan);
         // Panggil class ekspor (ganti dengan nama class export yang sesuai)
         $namaFile = 'laporanKeuangan_' . $tahun . '_' . $bulan . '.xlsx';
-        return Excel::download(new LaporanExport($transactions), $namaFile);
+        return Excel::download(new LaporanExport($transactions, $totalsaldo, $bulan, $tahun), $namaFile);
     }
 }

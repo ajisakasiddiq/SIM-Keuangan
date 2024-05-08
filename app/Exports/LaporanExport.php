@@ -16,16 +16,25 @@ class LaporanExport implements FromView, WithStyles
      * @return \Illuminate\Support\Collection
      */
     protected $transactions;
+    protected $totalsaldo;
+    protected $bulan;
+    protected $tahun;
 
-    public function __construct($transactions)
+    public function __construct($transactions, $totalsaldo, $bulan, $tahun)
     {
         $this->transactions = $transactions;
+        $this->totalsaldo = $totalsaldo;
+        $this->bulan = $bulan;
+        $this->tahun = $tahun;
     }
 
     public function view(): View
     {
         return view('export.laporan', [
-            'transactions' => $this->transactions
+            'transactions' => $this->transactions,
+            'totalsaldo' => $this->totalsaldo,
+            'bulan' => $this->bulan,
+            'tahun' => $this->tahun,
         ]);
     }
 

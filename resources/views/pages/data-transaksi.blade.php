@@ -2,6 +2,11 @@
 @section('title')
     Dashboard | Laporan Keuangan
 @endsection
+@php
+    use Carbon\Carbon;
+    Carbon::setLocale('id'); // Set locale ke Bahasa Indonesia ('id')
+@endphp
+
 
 @section('content')
 <div class="container-fluid">
@@ -23,7 +28,7 @@
                                 <div class="col-md-2">
                                     <select id="filter-month" name="bulan" id="bulan" class="form-control">
                                         <option value="">Pilih Bulan</option>
-                                        @foreach($bulan as $key => $nama_bulan)
+                                        @foreach($listbulan as $key => $nama_bulan)
                                             <option value="{{ $key }}">{{ $nama_bulan }}</option>
                                         @endforeach
                                     </select>
@@ -93,12 +98,12 @@
                                             <td>{{ $no }}</td>
                                             <td>{{ $data->nama_tagihan }}</td>
                                             @if($data->jenis_transaksi == 'Pendapatan')
-                                            <td >{{ $data->jumlah }}</td>
+                                            <td >Rp. {{ number_format($data->jumlah, 0, ',', '.') }}</td>
                                             <td >-</td> 
                                              <!-- Warna hijau untuk Pemasukan -->
                                              @elseif($data->jenis_transaksi == 'Pengeluaran')
                                              <td >-</td>
-                                            <td >{{ $data->jumlah }}</td> 
+                                            <td >Rp. {{ number_format($data->jumlah, 0, ',', '.') }}</td> 
                                             @endif
                                         </tr>
                                         @endforeach
@@ -107,8 +112,9 @@
                                             <td colspan="2">Rp. </td>
                                         </tr>
                                         <tr>
-                                            <td colspan="2">Jumlah Saldo</td>
-                                            <td colspan="2">Rp. </td>
+                                            <td colspan="2">Jumlah Saldo {{ Carbon::createFromFormat('m', $bulan)->translatedFormat('F') }}
+                                                {{ $tahun }}</td>
+                                            <td colspan="2">Rp. {{ number_format($totalsaldo, 0, ',', '.') }}</td>
                                         </tr>
                                       </tbody>
                                       

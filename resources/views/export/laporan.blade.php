@@ -1,7 +1,10 @@
-<table>
+@php
+    use Carbon\Carbon;
+    Carbon::setLocale('id'); // Set locale ke Bahasa Indonesia ('id')
+@endphp
+<table class="table-bordered text-center scroll-horizontal-vertical w-100">
     <thead>
         <tr>
-            <th rowspan="2">No</th>
             <th rowspan="2">Name</th>
             <th colspan="2">Total</th> 
         </tr>
@@ -11,28 +14,29 @@
             <th class="bg-danger text-light">Pengeluaran</th> 
         </tr>
     </thead>
-    <tbody>
-        @foreach($transactions as $index => $data)
-            <tr>
-                <td>{{ $index + 1 }}</td>
-                <td>{{ $data->nama_tagihan }}</td>
-                @if($data->jenis_transaksi == 'Pendapatan')
-                    <td>{{ $data->jumlah }}</td>
-                    <td>0</td>
-                @elseif($data->jenis_transaksi == 'Pengeluaran')
-                    <td>0</td>
-                    <td>{{ $data->jumlah }}</td>
-                @endif
-            </tr>
+      <tbody>
+          @foreach($transactions as $data)
+        <tr>
+            <td>{{ $data->nama_tagihan }}</td>
+            @if($data->jenis_transaksi == 'Pendapatan')
+            <td >Rp. {{ number_format($data->jumlah, 0, ',', '.') }}</td>
+            <td >-</td> 
+             <!-- Warna hijau untuk Pemasukan -->
+             @elseif($data->jenis_transaksi == 'Pengeluaran')
+             <td >-</td>
+            <td >Rp. {{ number_format($data->jumlah, 0, ',', '.') }}</td> 
+            @endif
+        </tr>
         @endforeach
         <tr>
             <td colspan="2">Total</td>
-            <td>Rp. </td>
+            <td colspan="2">Rp. </td>
         </tr>
         <tr>
-            <td colspan="2">Jumlah Saldo</td>
-            <td>Rp. </td>
-            <td>Rp. </td>
+            <td colspan="2">Jumlah Saldo {{ Carbon::createFromFormat('m', $bulan)->translatedFormat('F') }}
+                {{ $tahun }}</td>
+            <td colspan="2">Rp. {{ number_format($totalsaldo, 0, ',', '.') }}</td>
         </tr>
-    </tbody>
-</table>
+      </tbody>
+      
+    </table>
