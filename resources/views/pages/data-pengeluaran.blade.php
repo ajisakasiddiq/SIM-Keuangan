@@ -235,38 +235,40 @@
           modal.find('#Pendapatan').val(Pendapatan);
       });
   
-      // Submit Edit Task Form
       $('#editTaskForm').on('submit', function(e) {
-      e.preventDefault();
-  
-      // Tambahkan validasi di sini (misalnya, pastikan semua field yang diperlukan diisi)
-  
-      // Tampilkan konfirmasi kepada pengguna
-      var confirmation = confirm('Anda yakin ingin menyimpan perubahan?');
-  
-      if (confirmation) {
-          var formData = $(this).serialize();
-          var transaksi_id = $('#id').val();
-  
-          $.ajax({
-              url: '/data-pengeluaran/' + transaksi_id,
-              type: 'POST',
-              data: formData,
-              success: function(data) {
-                  alert('Data Berhasil Di ubah',data);
-                  window.location.href = '/data-pengeluaran';
-              },
-              error: function(xhr, status, error) {
-        // Tangkap pesan error yang lebih spesifik dari responseJSON
-        var errorMessage = xhr.responseJSON.message; // Ambil pesan error dari responseJSON
+    e.preventDefault();
+// console.log(bukti_transaksi);
+    // Validasi di sini (pastikan semua field yang diperlukan diisi)
 
-        // Tampilkan pesan error dalam alert atau console.log()
-        alert('Terjadi Kesalahan: ' + errorMessage);
-                  window.location.href = '/data-pengeluaran';
-              }
-          });
-      }
-  });
+    var confirmation = confirm('Anda yakin ingin menyimpan perubahan?');
+
+    if (confirmation) {
+        var formData = new FormData(this); // Buat objek FormData dari formulir
+
+        var transaksi_id = $('#id').val();
+        // console.log('Data yang akan dikirim:', bukti_transaksi);
+        // Tambahkan transaksi_id ke FormData (opsional, bergantung pada kebutuhan server)
+        formData.append('transaksi_id', transaksi_id);
+
+        $.ajax({
+            url: '/data-danabos/' + transaksi_id,
+            type: 'POST',
+            data: formData,
+            contentType: false, // Tidak atur contentType untuk FormData
+            processData: false, // Tidak memproses FormData secara otomatis
+            success: function(data) {
+                alert('Data Berhasil Diubah');
+                window.location.href = '/data-danabos';
+            },
+            error: function(xhr, status, error) {
+                var errorMessage = xhr.responseJSON.message;
+                alert('Terjadi Kesalahan: ' + errorMessage);
+                window.location.href = '/data-danabos';
+            }
+        });
+    }
+});
+
   });
   </script>
 @endpush

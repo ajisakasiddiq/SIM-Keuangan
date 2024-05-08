@@ -210,7 +210,7 @@ class PembayaranSppController extends Controller
         $item = Transaksi::findOrFail($id);
 
         // Ambil data yang dikirimkan dalam request
-        $data = $request->all();
+
 
         // Periksa apakah ada file yang diunggah
         if ($request->hasFile('bukti_transaksi')) {
@@ -220,7 +220,7 @@ class PembayaranSppController extends Controller
             // Jika tidak ada file yang diunggah, gunakan foto lama (path yang sudah ada)
             $data['bukti_transaksi'] = $item->bukti_transaksi;
         }
-
+        $data = $request->all();
         // Lakukan pembaruan data transaksi dengan data yang baru
         $item->update($data);
         return redirect()->route('data-tagihan-spp.index')->with('success', 'Data berhasil diperbarui.');

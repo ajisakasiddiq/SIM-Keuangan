@@ -155,8 +155,8 @@ class DanaBosController extends Controller
         $item = Transaksi::findOrFail($id);
 
         // Ambil data yang dikirimkan dalam request
-        $data = $request->all();
 
+        $data = $request->all();
         // Periksa apakah ada file yang diunggah
         if ($request->hasFile('bukti_transaksi')) {
             // Jika ada file yang diunggah, simpan file baru dan gunakan path yang baru
