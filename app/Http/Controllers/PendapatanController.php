@@ -123,7 +123,7 @@ class PendapatanController extends Controller
                 $data['bukti_transaksi'] = $request->file('bukti_transaksi')->store('assets/bukti_transaksi', 'public');
             } else {
                 // Jika tidak ada file yang diunggah, gunakan foto lama (path yang sudah ada)
-                $data['bukti_transaksi'] = "Tidak Ada Bukti Transaksi";
+                $data['bukti_transaksi'] = NULL;
             }
             Transaksi::create($data);
             return redirect()->route('data-pendapatan.index')->with('success', 'Data berhasil disimpan.');

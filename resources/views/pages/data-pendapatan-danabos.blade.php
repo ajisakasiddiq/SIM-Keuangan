@@ -83,7 +83,7 @@
                             aria-describedby="emailHelp">
                     </div>
                     <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Nota/kwitansi(Opsional)</label>
+                        <label for="bukti_transaksi" class="form-label">Nota/kwitansi(Opsional)</label>
                         <input type="file" name="bukti_transaksi" class="form-control" id="bukti_transaksi"
                             aria-describedby="emailHelp">
                     </div>
@@ -215,6 +215,7 @@
           var tgl_pembayaran = button.data('tgl_pembayaran');
           var total = button.data('total');
           var status = button.data('status');
+          var bukti_transaksi = button.data('bukti_transaksi');
           var Pendapatan = button.data('Pendapatan');
           var modal = $(this);
           modal.find('#id').val(id);
@@ -222,6 +223,7 @@
           modal.find('#user_id').val(user_id);
           modal.find('#keterangan').val(keterangan);
           modal.find('#tgl_pembayaran').val(tgl_pembayaran);
+          modal.find('#bukti_transaksi').val(bukti_transaksi);
           modal.find('#total').val(total);
           modal.find('#status').val(status);
           modal.find('#Pendapatan').val(Pendapatan);

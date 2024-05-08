@@ -49,6 +49,7 @@ class DanaBosController extends Controller
                         data-user_id="' . $item->user_id . '" 
                         data-keterangan="' . $item->keterangan . '" 
                         data-tgl_pembayaran="' . $item->tgl_pembayaran . '" 
+                        data-bukti_transaksi="' . $item->bukti_transaksi . '" 
                         data-total="' . $item->total . '" 
                         data-status="' . $item->status . '" 
                         data-Pendapatan="' . $item->Pendapatan . '" 
@@ -119,7 +120,7 @@ class DanaBosController extends Controller
                 $data['bukti_transaksi'] = $request->file('bukti_transaksi')->store('assets/bukti_transaksi', 'public');
             } else {
                 // Jika tidak ada file yang diunggah, gunakan foto lama (path yang sudah ada)
-                $data['bukti_transaksi'] = "Tidak Ada Bukti Transaksi";
+                $data['bukti_transaksi'] = NULL;
             }
             Transaksi::create($data);
             return redirect()->route('data-danabos.index')->with('success', 'Data berhasil disimpan.');

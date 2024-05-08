@@ -80,8 +80,16 @@ class PembayaranKainSeragamController extends Controller
     public function store(Request $request)
     {
         try {
+            $data = $request->all();
             // Simpan data ke database
-            Transaksi::create($request->all());
+            if ($request->hasFile('bukti_transaksi')) {
+                // Jika ada file yang diunggah, simpan file baru dan gunakan path yang baru
+                $data['bukti_transaksi'] = $request->file('bukti_transaksi')->store('assets/bukti_transaksi', 'public');
+            } else {
+                // Jika tidak ada file yang diunggah, gunakan foto lama (path yang sudah ada)
+                $data['bukti_transaksi'] = NULL;
+            }
+            Transaksi::create($data);
             return redirect()->route('data-tagihan-kainSeragam.index')->with('success', 'Data berhasil disimpan.');
         } catch (\Exception $e) {
             // Tangkap pengecualian dan tampilkan pesan kesalahan
