@@ -67,7 +67,6 @@ class DashboardController extends Controller
             ->sum('total');
         // dd($pendapatan);
         $pengeluaranbulan = Transaksi::where('jenis_transaksi', 'Pengeluaran')
-            ->where('tgl_pembayaran', $tanggalHariIni)
             ->where('jurusan', $jurusan)
             ->sum('total');
 

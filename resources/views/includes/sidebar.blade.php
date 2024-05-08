@@ -156,7 +156,7 @@
               <a class="collapse-item"  href="{{ route('data-tagihan-kainSeragam.index') }}">Kain Seragam</a> 
               <a class="collapse-item"  href="{{ route('data-tagihan-spp.index') }}">SPP</a>
               <a class="collapse-item"  href="{{ route('data-tagihan-DaftarUlang.index') }}">Daftar Ulang</a>
-              <a class="collapse-item"  href="{{ route('data-tagihan-DaftarUlang.index') }}">Dana Bos</a>
+              <a class="collapse-item"  href="{{ route('data-danabos.index') }}">Dana Bos</a>
               <a class="collapse-item"  href="{{ route('data-tagihan-lainnya.index') }}">Pembayaran Lain-Lainnya</a
           </div>
       </div>

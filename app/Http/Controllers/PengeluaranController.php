@@ -38,6 +38,7 @@ class PengeluaranController extends Controller
         if (request()->ajax()) {
             $query = Transaksi::with('jenistagihan')
                 ->where('jenis_transaksi', 'Pengeluaran') // Memfilter berdasarkan tagihan_id = 1
+                ->where('jurusan', $jurusan)
                 ->where('status', '2');
             return DataTables::of($query)
                 ->addColumn('action', function ($item) {

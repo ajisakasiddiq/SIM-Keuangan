@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-    Dashboard | Data Pengeluaran
+    Dashboard | Data Pendapatan
 @endsection
 
 @section('content')
@@ -8,7 +8,7 @@
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Data Pengeluaran</h1>
+        <h1 class="h3 mb-0 text-gray-800">Data Pendapatan Dana Bos</h1>
     </div>
 
     <!-- Content Row -->
@@ -27,7 +27,7 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Nota</th>
+                                            <th>bukti_transaksi</th>
                                             <th>Keterangan</th>
                                             <th>Tanggal Transaksi</th>
                                             <th>Total</th>
@@ -40,7 +40,7 @@
                                     <tfoot>
                                         <tr>
                                             <th>No</th>
-                                            <th>Nota</th>
+                                            <th>bukti_transaksi</th>
                                             <th>Keterangan</th>
                                             <th>Tanggal Transaksi</th>
                                             <th>Total</th>
@@ -95,7 +95,7 @@
                         <input type="hidden" name="status" class="form-control" id="status"
                             aria-describedby="emailHelp" value="2">
                         <input type="hidden" name="jenis_transaksi" class="form-control" id="jenis_transaksi"
-                            aria-describedby="emailHelp" value="Pengeluaran">
+                            aria-describedby="emailHelp" value="Pendapatan">
                     </div>
             </div>
             <div class="modal-footer">
@@ -111,11 +111,11 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title bold fs-3" id="exampleModalLabel">{{ __('Tambah Data') }}</h4>
+              <h4 class="modal-title bold fs-3" id="exampleModalLabel">{{ __('Tambah Tagihan') }}</h4>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('data-pengeluaran.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('data-pendapatan.store') }}" method="POST"  enctype="multipart/form-data">
                     @csrf
                     @method('POST')
                     @if(Auth::user()->role == 'bendahara-excellent')
@@ -123,7 +123,7 @@
                     @else
                     <input type="hidden" name="jurusan" id="jurusan" value="reguler">
                     @endif
-                    <input type="hidden" name="tagihan_id" value="6">
+                    <input type="hidden" name="tagihan_id" value="5">
                     <div class="mb-3">
                       <label for="keterangan" class="form-label">Keterangan</label>
                       <input id="keterangan" type="text" class="form-control @error('name') is-invalid @enderror" name="keterangan" autofocus>
@@ -148,7 +148,7 @@
                         <input type="hidden" name="status" class="form-control" id="status"
                             aria-describedby="emailHelp" value="2">
                         <input type="hidden" name="jenis_transaksi" class="form-control" id="jenis_transaksi"
-                            aria-describedby="emailHelp" value="Pengeluaran">
+                            aria-describedby="emailHelp" value="Pendapatan">
                     </div>
             </div>
             <div class="modal-footer">
@@ -179,21 +179,13 @@
               
               {
                   data: 'bukti_transaksi',
-                  name: 'Nota'
+                  name: 'bukti_transaksi'
               },
               
-              { 
-            data: 'keterangan',
-            name: 'Keterangan',
-            render: function(data, type, row) {
-                // Memeriksa nilai tagihan_id untuk menentukan nilai keterangan
-                if (row.tagihan_id === 6) {
-                    return row.keterangan; // Mengembalikan nilai keterangan jika tagihan_id adalah 6
-                } else {
-                    return row.jenistagihan.name.toString(); // Mengembalikan nilai tagihan_id sebagai string jika bukan 6
-                }
-            }
-        },
+              {
+                  data: 'keterangan',
+                  name: 'Keterangan'
+              },
               {
                   data: 'tgl_pembayaran',
                   name: 'Tanggal Transaksi'
@@ -249,12 +241,12 @@
           var transaksi_id = $('#id').val();
   
           $.ajax({
-              url: '/data-pengeluaran/' + transaksi_id,
+              url: '/data-danabos/' + transaksi_id,
               type: 'POST',
               data: formData,
               success: function(data) {
                   alert('Data Berhasil Di ubah',data);
-                  window.location.href = '/data-pengeluaran';
+                  window.location.href = '/data-danabos';
               },
               error: function(xhr, status, error) {
         // Tangkap pesan error yang lebih spesifik dari responseJSON
@@ -262,7 +254,7 @@
 
         // Tampilkan pesan error dalam alert atau console.log()
         alert('Terjadi Kesalahan: ' + errorMessage);
-                  window.location.href = '/data-pengeluaran';
+                  window.location.href = '/data-danabos';
               }
           });
       }

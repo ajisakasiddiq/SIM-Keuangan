@@ -10,11 +10,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
-class PendapatanController extends Controller
+class DanaBosController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         if (Auth::user()->role == 'bendahara-excellent')
@@ -36,9 +33,8 @@ class PendapatanController extends Controller
         $siswa = User::where('role', 'siswa')->get();
         if (request()->ajax()) {
             $query = Transaksi::with('jenistagihan')
-                ->where('jenis_transaksi', 'Pendapatan') // Memfilter berdasarkan tagihan_id = 1
-                ->where('jurusan', $jurusan)
-                ->where('status', '2');
+                ->where('tagihan_id', '5')
+                ->where('jurusan', $jurusan);
             return DataTables::of($query)
                 ->addColumn('action', function ($item) {
                     // $barcode = DNS1D::getBarcodeHTML($item->id, 'C128', 2, 50);
@@ -99,7 +95,7 @@ class PendapatanController extends Controller
                 ->rawColumns(['status', 'action', 'bukti_transaksi'])
                 ->make(true);
         }
-        return view('pages.data-pendapatan', compact('siswa', 'tagihan', 'trans', 'totaltransaksi'));
+        return view('pages.data-pendapatan-danabos', compact('siswa', 'tagihan', 'trans', 'totaltransaksi'));
     }
 
     /**
@@ -126,11 +122,11 @@ class PendapatanController extends Controller
                 $data['bukti_transaksi'] = "Tidak Ada Bukti Transaksi";
             }
             Transaksi::create($data);
-            return redirect()->route('data-pendapatan.index')->with('success', 'Data berhasil disimpan.');
+            return redirect()->route('data-danabos.index')->with('success', 'Data berhasil disimpan.');
         } catch (\Exception $e) {
             // Tangkap pengecualian dan tampilkan pesan kesalahan
             dd($e); // Menampilkan informasi exception ke terminal
-            return redirect()->route('data-pendapatan.index')->with('error', 'Terjadi kesalahan saat menyimpan data.');
+            return redirect()->route('data-danabos.index')->with('error', 'Terjadi kesalahan saat menyimpan data.');
         }
     }
 
@@ -171,7 +167,7 @@ class PendapatanController extends Controller
 
         // Lakukan pembaruan data transaksi dengan data yang baru
         $item->update($data);
-        return redirect()->route('data-pendapatan.index')->with('success', 'Data berhasil diperbarui.');
+        return redirect()->route('data-danabos.index')->with('success', 'Data berhasil diperbarui.');
     }
 
     /**
@@ -182,6 +178,6 @@ class PendapatanController extends Controller
         $data = Transaksi::findOrFail($id);
         $data->delete();
 
-        return redirect()->route('data-pendapatan.index');
+        return redirect()->route('data-danabos.index');
     }
 }

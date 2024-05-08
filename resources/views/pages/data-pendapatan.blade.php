@@ -28,7 +28,7 @@
                                         <tr>
                                             <th>No</th>
                                             <th>bukti_transaksi</th>
-                                            <th>Jenis Keuangan</th>
+                                            <th>Keterangan</th>
                                             <th>Tanggal Transaksi</th>
                                             <th>Total</th>
                                             <th>Aksi</th>
@@ -41,7 +41,7 @@
                                         <tr>
                                             <th>No</th>
                                             <th>bukti_transaksi</th>
-                                            <th>Jenis Keuangan</th>
+                                            <th>Keterangan</th>
                                             <th>Tanggal Transaksi</th>
                                             <th>Total</th>
                                             <th>Aksi</th>
@@ -64,7 +64,7 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                <form id="editTaskForm" method="POST">
+                <form id="editTaskForm" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <input type="hidden" name="tagihan_id"id="tagihan_id">
@@ -115,9 +115,14 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('data-pendapatan.store') }}" method="POST">
+                <form action="{{ route('data-pendapatan.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('POST')
+                    @if(Auth::user()->role == 'bendahara-excellent')
+                    <input type="hidden" name="jurusan" id="jurusan" value="excellent">
+                    @else
+                    <input type="hidden" name="jurusan" id="jurusan" value="reguler">
+                    @endif
                     <input type="hidden" name="tagihan_id" value="6">
                     <div class="mb-3">
                       <label for="keterangan" class="form-label">Keterangan</label>
@@ -179,7 +184,7 @@
               
               { 
             data: 'keterangan',
-            name: 'Jenis Keuangan',
+            name: 'Keterangan',
             render: function(data, type, row) {
                 // Memeriksa nilai tagihan_id untuk menentukan nilai keterangan
                 if (row.tagihan_id === 6) {
