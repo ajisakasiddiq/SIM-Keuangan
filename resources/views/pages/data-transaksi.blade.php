@@ -105,16 +105,21 @@
                                              <td >-</td>
                                             <td >Rp. {{ number_format($data->jumlah, 0, ',', '.') }}</td> 
                                             @endif
+                                            @endforeach
                                         </tr>
-                                        @endforeach
                                         <tr>
                                             <td colspan="2">Total</td>
                                             <td colspan="2">Rp. </td>
                                         </tr>
                                         <tr>
+                                            @if($bulan == NULL And $tahun == NULL)
+
+                                            <td colspan="2">Jumlah Saldo</td>
+                                            @else
                                             <td colspan="2">Jumlah Saldo {{ Carbon::createFromFormat('m', $bulan)->translatedFormat('F') }}
                                                 {{ $tahun }}</td>
-                                            <td colspan="2">Rp. {{ number_format($totalsaldo, 0, ',', '.') }}</td>
+                                                @endif
+                                                <td colspan="2">Rp. {{ number_format($totalsaldo, 0, ',', '.') }}</td>
                                         </tr>
                                       </tbody>
                                       
