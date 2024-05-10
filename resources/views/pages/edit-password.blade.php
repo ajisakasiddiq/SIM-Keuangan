@@ -8,7 +8,11 @@
           <div class="card mb-6">
               <div class="card-header">Ubah Password</div>
               <div class="card-body">
-                 
+                @if (session('success'))
+                <div class="alert alert-success">
+                     {{ session('success') }}
+                 </div>
+            @endif
                 <div class="">
                     <label class="small mb-1" for="current_password">Password Lama </label>
                     <input class="form-control" name="current_password" id="current_password" type="text" placeholder="Enter your current password">

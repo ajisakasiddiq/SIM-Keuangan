@@ -99,7 +99,11 @@
           <div class="card mb-6">
               <div class="card-header">Account Details</div>
               <div class="card-body">
-                 
+                @if (session('success'))
+                <div class="alert alert-success">
+                     {{ session('success') }}
+                 </div>
+            @endif
                       <!-- Form Group (username)-->
                       <div class="row gx-3 mb-3">
                       <div class="col-md-6">
