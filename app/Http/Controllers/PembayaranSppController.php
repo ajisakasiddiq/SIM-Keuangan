@@ -177,10 +177,10 @@ class PembayaranSppController extends Controller
                 }
             }
 
-            return redirect()->route('data-tagihan-spp.index')->with('success', 'Data berhasil diperbarui.');
+            return redirect()->route('data-tagihan-spp.index')->with('success', 'Data berhasil ditambah.');
         } catch (\Exception $e) {
             dd($e);
-            return redirect()->route('data-tagihan-spp.index')->with('success', 'Data berhasil diperbarui.');
+            return redirect()->route('data-tagihan-spp.index')->with('error', 'Data gagal ditambah.');
         }
     }
 
@@ -223,6 +223,7 @@ class PembayaranSppController extends Controller
         $data = $request->all();
         // Lakukan pembaruan data transaksi dengan data yang baru
         $item->update($data);
+
         return redirect()->route('data-tagihan-spp.index')->with('success', 'Data berhasil diperbarui.');
     }
 

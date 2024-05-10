@@ -18,6 +18,11 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
+                          @if (session('success'))
+                          <div class="alert alert-success">
+                               {{ session('success') }}
+                           </div>
+                      @endif
                             <a href="" class="btn btn-primary mb-3" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#adduser">
                                 + Tambah Data
                             </a>

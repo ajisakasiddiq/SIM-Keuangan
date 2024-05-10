@@ -18,7 +18,13 @@
                 
                 <div class="col-md-12">
                     <div class="card">
+                        
                         <div class="card-body">
+                            @if (session('success'))
+                                <div class="alert alert-success">
+                                     {{ session('success') }}
+                                 </div>
+                            @endif
                             <a href="" class="btn btn-primary mb-3" type="button"  data-bs-toggle="modal" data-bs-target="#adduser">
                                 + Tagihan Berdasarkan Siswa
                             </a>
