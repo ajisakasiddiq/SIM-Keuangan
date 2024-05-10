@@ -19,6 +19,11 @@ Tagihan SPP
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
+                            @if (session('success'))
+                            <div class="alert alert-success">
+                                 {{ session('success') }}
+                             </div>
+                        @endif
                             <div class="row">
                                 <div class="mb-3">
                                     <label for="tahunajar" class="form-label">Tahun Ajaran</label>
