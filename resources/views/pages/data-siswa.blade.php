@@ -35,6 +35,7 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
+                                            <th>Foto</th>
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>NIK</th>
@@ -53,6 +54,7 @@
                                     <tfoot>
                                         <tr>
                                           <th>No</th>
+                                          <th>Foto</th>
                                           <th>Name</th>
                                           <th>Email</th>
                                           <th>NIK</th>
@@ -263,6 +265,10 @@
               {
                   data: 'no',
                   name: 'no'
+              },
+              {
+                  data: 'profile',
+                  name: 'Foto'
               },
               {
                   data: 'name',

@@ -8,6 +8,7 @@ use App\Imports\SiswaImport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 class SiswaController extends Controller
@@ -33,7 +34,7 @@ class SiswaController extends Controller
             return $item;
         });
         if (request()->ajax()) {
-            $query = User::where('role', 'siswa');
+            $query = User::where('role', 'siswa')->where('jurusan', $jurusan);
             return DataTables::of($query)
                 ->addColumn('action', function ($item) {
                     // $barcode = DNS1D::getBarcodeHTML($item->id, 'C128', 2, 50);
@@ -67,7 +68,18 @@ class SiswaController extends Controller
                     static $counter = 1;
                     return $counter++;
                 })
-                ->rawColumns(['action'])
+                ->addColumn('profile', function ($item) {
+                    if ($item->foto) {
+                        // Jika ada data bukti transaksi, tampilkan tautan dan gambar
+                        return '<td><a href="' . Storage::url($item->foto) . '" data-lightbox="gallery">
+                                    <img src="' . Storage::url($item->foto) . '" alt="Bukti Transaksi" style="width: 100px; height: auto;">
+                                </a></td>';
+                    } else {
+                        // Jika tidak ada data bukti transaksi, tampilkan tanda strip (-)
+                        return 'Tidak Ada Foto';
+                    }
+                })
+                ->rawColumns(['action', 'profile'])
                 ->make(true);
         }
         // $no = 1;
