@@ -35,6 +35,7 @@ Route::resource('profile', 'App\Http\Controllers\ProfileController');
 Route::middleware('auth', 'role:bendahara-excellent,bendahara-reguler')
     ->group(function () {
         Route::resource('data-siswa', 'App\Http\Controllers\SiswaController');
+        Route::resource('data-user', 'App\Http\Controllers\UserController');
         Route::resource('data-guru', 'App\Http\Controllers\GuruController');
         Route::resource('data-jenis-tagihan', 'App\Http\Controllers\JenisTagihanController');
         Route::resource('data-rekening', 'App\Http\Controllers\RekeningController');

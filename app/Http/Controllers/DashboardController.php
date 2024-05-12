@@ -24,6 +24,7 @@ class DashboardController extends Controller
             ->whereNotNull('tgl_pembayaran')
             ->latest()
             ->get();
+        $userid = Auth::user()->id;
         $totaltransaksi = Transaksi::where('status', '1')->count();
         $trans->map(function ($item) {
             $item->tgl_pembayaran_formatted = \Carbon\Carbon::parse($item->tgl_pembayaran)->format('F j, Y');
@@ -58,7 +59,12 @@ class DashboardController extends Controller
             ->where('jurusan', $jurusan)
             ->where('status', '2')
             ->sum('total');
-
+        $tagihanberjalan = Transaksi::where('user_id', $userid)
+            ->where('status', '0')->count();
+        $tagihanpending = Transaksi::where('user_id', $userid)
+            ->where('status', '1')->count();
+        $tagihanlunas = Transaksi::where('user_id', $userid)
+            ->where('status', '2')->count();
 
 
         $pendapatanbulan = Transaksi::where('jenis_transaksi', 'Pendapatan')
@@ -71,7 +77,7 @@ class DashboardController extends Controller
             ->sum('total');
 
 
-        return view('dashboard', compact('pengeluaran', 'pengeluaranbulan', 'pendapatanbulan', 'pendapatan', 'totalpending', 'total', 'pendapatanBulanan', 'trans', 'totaltransaksi'));
+        return view('dashboard', compact('pengeluaran', 'pengeluaranbulan', 'pendapatanbulan', 'pendapatan', 'totalpending', 'total', 'pendapatanBulanan', 'trans', 'totaltransaksi', 'tagihanberjalan', 'tagihanpending', 'tagihanlunas'));
         // $pendapatan akan berisi nilai total pendapatan berdasarkan jenis_transaksi dan jurusan
 
     }
