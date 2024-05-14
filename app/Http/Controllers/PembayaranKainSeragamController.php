@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\tagihan;
 use App\Models\Transaksi;
+use App\Models\TahunAjaran;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -33,10 +35,20 @@ class PembayaranKainSeragamController extends Controller
         });
         $tagihan = tagihan::get();
         $siswa = User::where('role', 'siswa')->get();
+        $tahun = TahunAjaran::where('status', 'aktif')->get();
         if (request()->ajax()) {
-            $query = Transaksi::with('user')
-                ->where('tagihan_id', '4')
-                ->where('jurusan', $jurusan);
+            $query = Transaksi::select(
+                'transaksi.user_id',
+                'transaksi.tagihan_id',
+                'transaksi.status',
+                'users.name',
+                'users.kelas',
+                DB::raw('SUM(transaksi.total) as total_sum') // Memilih kolom total_sum sebagai hasil SUM
+            )
+                ->join('users', 'transaksi.user_id', '=', 'users.id')
+                ->where('transaksi.tagihan_id', '4')
+                ->where('transaksi.jurusan', $jurusan)
+                ->groupBy('transaksi.user_id', 'transaksi.tagihan_id', 'transaksi.status'); //
             return DataTables::of($query)
                 ->addColumn('action', function ($item) {
                     return '<a href="' . route('Details.index', ['user_id' => $item->user_id, 'tagihan_id' => $item->tagihan_id]) . '" class="btn btn-primary">Detail</a>';
@@ -63,7 +75,7 @@ class PembayaranKainSeragamController extends Controller
                 ->rawColumns(['status', 'action'])
                 ->make(true);
         }
-        return view('pages.data-pembayaran-kainseragam', compact('siswa', 'tagihan', 'totaltransaksi', 'trans'));
+        return view('pages.data-pembayaran-kainseragam', compact('siswa', 'tagihan', 'totaltransaksi', 'trans', 'tahun'));
     }
 
     /**
@@ -80,16 +92,24 @@ class PembayaranKainSeragamController extends Controller
     public function store(Request $request)
     {
         try {
-            $data = $request->all();
-            // Simpan data ke database
-            if ($request->hasFile('bukti_transaksi')) {
-                // Jika ada file yang diunggah, simpan file baru dan gunakan path yang baru
-                $data['bukti_transaksi'] = $request->file('bukti_transaksi')->store('assets/bukti_transaksi', 'public');
-            } else {
-                // Jika tidak ada file yang diunggah, gunakan foto lama (path yang sudah ada)
-                $data['bukti_transaksi'] = NULL;
+            foreach ($request['keterangan'] as $index => $keterangan) {
+                $nominal = (string) $request['total'][$index];
+
+                // Simpan ke database sesuai kebutuhan Anda
+                Transaksi::create([
+                    'user_id' => $request['user_id'],
+                    'tagihan_id' => $request['tagihan_id'],
+                    'jurusan' => $request['jurusan'],
+                    'jenis_transaksi' => $request['jenis_transaksi'],
+                    'status' => $request['status'],
+                    'date_awal' => $request['date_awal'],
+                    'date_akhir' => $request['date_akhir'],
+                    'tahunajar' => $request['tahunajar'],
+                    'keterangan' => (string) $keterangan,
+                    'total' => $nominal,
+                ]);
             }
-            Transaksi::create($data);
+
             return redirect()->route('data-tagihan-kainSeragam.index')->with('success', 'Data berhasil disimpan.');
         } catch (\Exception $e) {
             // Tangkap pengecualian dan tampilkan pesan kesalahan

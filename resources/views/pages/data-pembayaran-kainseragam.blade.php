@@ -29,37 +29,29 @@
                             </a>
                             <div class="table-responsive">
                               <table class="table-hover scroll-horizontal-vertical w-100" id="tagihan">
-                                    <thead>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Nama Siswa</th>
-                                            <th>Kelas Siswa</th>
-                                            <th>bukti_transaksi</th>
-                                            <th>date_awal</th>
-                                            <th>date_akhir</th>
-                                            <th>Total</th>
-                                            <th>keterangan</th>
-                                            <th>status</th>
-                                            <th>Aksi</th>
-                                        </tr>
-                                    </thead>
-                                      <tbody>
-                                      </tbody>
-                                    </div>                              
-                                    <tfoot>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Nama Siswa</th>
-                                            <th>Kelas Siswa</th>
-                                            <th>bukti_transaksi</th>
-                                            <th>date_awal</th>
-                                            <th>date_akhir</th>
-                                            <th>Total</th>
-                                            <th>keterangan</th>
-                                            <th>status</th>
-                                            <th>Aksi</th>
-                                        </tr>
-                                    </tfoot>
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Nama Siswa</th>
+                                        <th>Kelas Siswa</th>
+                                        <th>Total</th>
+                                        <th>status</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                  <tbody>
+                                  </tbody>
+                                </div>                              
+                                <tfoot>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Nama Siswa</th>
+                                        <th>Kelas Siswa</th>
+                                        <th>Total</th>
+                                        <th>status</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </tfoot>
                                 </table>
                             </div>
                         </div>
@@ -133,8 +125,9 @@
       </div>
   </div>
     {{-- modal add --}}
-    <div class="modal fade" id="adduser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+    {{-- modal add --}}
+    <div class="modal fade bd-example-modal-lg" id="adduser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog  modal-lg">
           <div class="modal-content">
             <div class="modal-header">
               <h4 class="modal-title bold fs-3" id="exampleModalLabel">{{ __('Tambah Tagihan') }}</h4>
@@ -144,45 +137,58 @@
                 <form action="{{ route('data-tagihan-kainSeragam.store') }}" method="POST">
                     @csrf
                     @method('POST')
-                    <input type="hidden" name="tagihan_id" value="4">
-                    @if(Auth::user()->role == 'bendahara-excellent')
-                    <input type="hidden" name="jurusan" value="excellent">
-                    @else
-                    <input type="hidden" name="jurusan" value="reguler">
-                    @endif
-                    <div class="mb-3">
-                        <label for="user_id" class="form-label">Nama Siswa</label>
-                        <select class="form-control" name="user_id" id="user_id">
-                            <option value="">Pilih Siswa</option>
-                            @foreach ($siswa as $item)
-                            <option value="{{ $item->id }}">{{ $item->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    
-                    <div class="mb-3">
-                      <label for="keterangan" class="form-label">Keterangan</label>
-                      <input id="keterangan" type="text" class="form-control @error('name') is-invalid @enderror" name="keterangan" autofocus>
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Awal Pembayaran</label>
-                        <input type="date" name="date_awal" class="form-control" id="date_awal"
-                            aria-describedby="emailHelp">
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Batas Pembayaran</label>
-                        <input type="date" name="date_akhir" class="form-control" id="date_akhir"
-                            aria-describedby="emailHelp">
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Total</label>
-                        <input type="text" name="total" class="form-control" id="total"
-                            aria-describedby="emailHelp">
-                        <input type="hidden" name="status" class="form-control" id="status"
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="hidden" name="status" class="form-control" id="status"
                             aria-describedby="emailHelp" value="0">
                         <input type="hidden" name="jenis_transaksi" class="form-control" id="jenis_transaksi"
                             aria-describedby="emailHelp" value="Pendapatan">
+                            <input type="hidden" name="tagihan_id" value="4">
+                            @if(Auth::user()->role == 'bendahara-excellent')
+                            <input type="hidden" name="jurusan" id="jurusan" value="excellent">
+                            @else
+                            <input type="hidden" name="jurusan" id="jurusan" value="reguler">
+                            @endif
+                            <div class="mb-3">
+                                <label for="user_id" class="form-label">Nama Siswa</label>
+                                <select class="form-control select2" name="user_id" id="user_id">
+                                    <option value="">Pilih Siswa</option>
+                                    @foreach ($siswa as $item)
+                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Awal Pembayaran</label>
+                                <input type="date" name="date_awal" class="form-control" id="date_awal"
+                                    aria-describedby="emailHelp">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Batas Pembayaran</label>
+                                <input type="date" name="date_akhir" class="form-control" id="date_akhir"
+                                    aria-describedby="emailHelp">
+                            </div>
+                            <div class="mb-3">
+                                <label for="tahunajar" class="form-label">Tahun Ajaran</label>
+                                <select class="form-control" name="tahunajar" id="tahunajar">
+                                    <option value="">Pilih Tahun Ajaran</option>
+                                    @foreach ($tahun as $item)
+                                    <option value="{{ $item->tahunawal }}/{{ $item->tahunakhir }}">{{ $item->tahunawal }}/{{ $item->tahunakhir }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                  
+                    <div class="col-md-6">
+                        <small>Macam Tagihan</small>
+                        <hr>
+                        <div id="entriesContainer">
+                            <!-- Container untuk field-field entri -->
+                        </div>
+                    
+                        <button type="button" id="addEntryButton" class="btn btn-primary">+</button>
                     </div>
+                </div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -191,13 +197,46 @@
             </div>
           </div>
         </div>
-      </div>
-{{-- end modal add --}}
+      </div>{{-- end modal add --}}
 
 </div>
 @endsection
 @push('addon-script')
 <script type="text/javascript">
+$(document).ready(function() {
+        let inputIndex = 1;
+
+        $('#addEntryButton').click(function() {
+            const userId = $('#user_id').val();
+            const dateAwal = $('#date_awal').val();
+            const dateAkhir = $('#date_akhir').val();
+            const jurusan = $('#jurusan').val();
+            const tagihan_id = $('#tagihan_id').val();
+            const jenis_transaksi = $('#jenis_transaksi').val();
+            const status = $('#status').val();
+            const tahunajar = $('#tahunajar').val();
+
+            const inputHtml = `
+            <div class="row">
+                        <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="keterangan${inputIndex}" class="form-label">Keterangan</label>
+                    <input type="text" class="form-control" name="keterangan[]" id="keterangan${inputIndex}">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="total${inputIndex}" class="form-label">Nominal</label>
+                    <input type="text" class="form-control" name="total[]" id="total${inputIndex}">
+                </div>
+            </div>
+            `;
+
+            $('#entriesContainer').append(inputHtml);
+            inputIndex++;
+        });
+    });
+  // crud
   // crud
   $(document).ready(function() {
     var table=  $('#tagihan').DataTable({
@@ -210,33 +249,16 @@
                   name: 'no'
               },
               {
-                  data: 'user.name',
+                  data: 'name',
                   name: 'Nama Siswa'
               },
               {
-                  data: 'user.kelas',
+                  data: 'kelas',
                   name: 'Kelas Siswa'
               },
               {
-                  data: 'bukti_transaksi',
-                  name: 'bukti_transaksi'
-              },
-              {
-                  data: 'date_awal',
-                  name: 'date_awal'
-              },
-              {
-                  data: 'date_akhir',
-                  name: 'date_akhir'
-              },
-              {
-                  data: 'total',
+                  data: 'total_sum',
                   name: 'total'
-              },
-              
-              {
-                  data: 'keterangan',
-                  name: 'keterangan'
               },
               {
                   data: 'status',
