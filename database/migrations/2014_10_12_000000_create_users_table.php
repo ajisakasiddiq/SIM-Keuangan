@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('nisn')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('nik')->nullable();
@@ -24,7 +25,7 @@ return new class extends Migration
             $table->string('tgl_lahir')->nullable();
             $table->string('tempat_lahir')->nullable();
             $table->enum('role', ['siswa', 'guru', 'admin', 'bendahara-excellent', 'bendahara-reguler']);
-            $table->enum('jk', ['L', 'P']);
+            $table->enum('jk', ['L', 'P'])->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

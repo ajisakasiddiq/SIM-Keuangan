@@ -48,6 +48,7 @@
                                             <th>Tanggal Lahir</th>
                                             <th>Jenis Kelamin</th>
                                             <th>Kelas</th>
+                                            <th>Tipe Kelas</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -67,6 +68,7 @@
                                           <th>Tanggal Lahir</th>
                                           <th>Jenis Kelamin</th>
                                           <th>Kelas</th>
+                                          <th>Tipe Kelas</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </tfoot>
@@ -215,6 +217,13 @@
                           <option value="IX">IX</option>
                       </select>
                     </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Tipe Kelas</label>
+                        <select class="form-control" name="jk" id="">
+                            <option value="excellent">Excellent Class</option>
+                            <option value="reguler">Reguler</option>
+                        </select>
+                    </div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -331,6 +340,10 @@
               {
                   data: 'kelas',
                   name: 'Kelas'
+              },
+              {
+                  data: 'jurusan',
+                  name: 'Tipe Kelas'
               },
               {
                   data: 'action',
