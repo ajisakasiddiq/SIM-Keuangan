@@ -49,12 +49,14 @@ class SiswaController extends Controller
                         data-name="' . $item->name . '" 
                         data-email="' . $item->email . '" 
                         data-nik="' . $item->nik . '" 
+                        data-nisn="' . $item->nisn . '" 
                         data-no_hp="' . $item->no_hp . '" 
                         data-alamat="' . $item->alamat . '" 
                         data-tempat_lahir="' . $item->tempat_lahir . '" 
                         data-tgl_lahir="' . $item->tgl_lahir . '" 
                         data-jk="' . $item->jk . '" 
                         data-kelas="' . $item->kelas . '" 
+                        data-jurusan="' . $item->jurusan . '" 
                         data-toggle="modal" data-target="#editModal">Edit</button>
                           <form action="' . route('data-siswa.destroy', $item->id) . '" method="POST">
                           ' . method_field('delete') . csrf_field() . '

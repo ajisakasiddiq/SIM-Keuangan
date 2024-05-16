@@ -32,12 +32,13 @@ Detail Pembayaran
                                           <th>No</th>
                                           <th>Name</th>
                                           <th>Nominal</th>
+                                          <th>Aksi</th>
                                       </tr>
                                   </thead>
                                     <tbody>
                                         @if ($transaksi->isEmpty())
                                         <tr>
-                                            <td colspan="3" class="text-center">Tidak ada tagihan.</td>
+                                            <td colspan="4" class="text-center">Tidak ada tagihan.</td>
                                         </tr>
                                       
                                     @else
@@ -46,6 +47,19 @@ Detail Pembayaran
                                             <td>{{ $no++ }}</td>
                                             <td>{{ $item->keterangan }}</td>
                                             <td>{{ $item->total }}</td>
+                                            <td><div class="btn-group">
+                                                <div class="dropdown">
+                                                  <button class="btn btn-primary dropdown-toggle mr-1 mb-1" type="button" data-toggle="dropdown">Aksi</button>
+                                                  <div class="dropdown-menu">
+                                                  <button class="dropdown-item" data-toggle="modal" data-target="#editModal">Edit</button>
+                                                    <form action="{{ route('data-pendapatan.destroy', $item->id) }}" method="POST">
+                                                    @csrf 
+                                                    @method('DELETE')
+                                                    <button type="submit" class="dropdown-item text-danger">Hapus</button>
+                                                    </form>
+                                                  </div>
+                                                </div>
+                                              </div></td>
                                         </tr>
                                         @endforeach
                                         {{-- @foreach($total as $item) --}}
@@ -126,7 +140,7 @@ Detail Pembayaran
                                     <tbody>
                                         @if ($cicilan->isEmpty())
                                         <tr>
-                                            <td colspan="3" class="text-center">Anda belum melakukan pembayaran.</td>
+                                            <td colspan="4" class="text-center">Anda belum melakukan pembayaran.</td>
                                         </tr>
                                       
                                     @else

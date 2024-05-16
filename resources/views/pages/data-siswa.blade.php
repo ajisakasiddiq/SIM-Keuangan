@@ -41,6 +41,7 @@
                                             <th>Foto</th>
                                             <th>Name</th>
                                             <th>Email</th>
+                                            <th>nisn</th>
                                             <th>NIK</th>
                                             <th>No HP</th>
                                             <th>Alamat</th>
@@ -61,6 +62,7 @@
                                           <th>Foto</th>
                                           <th>Name</th>
                                           <th>Email</th>
+                                          <th>nisn</th>
                                           <th>NIK</th>
                                           <th>No HP</th>
                                           <th>Alamat</th>
@@ -105,6 +107,11 @@
                               aria-describedby="emailHelp">
                       </div>
                       <div class="mb-3">
+                          <label for="nisn" class="form-label">NISN</label>
+                          <input type="text" name="nisn" class="form-control" id="nisn"
+                              aria-describedby="emailHelp">
+                      </div>
+                      <div class="mb-3">
                           <label for="exampleInputEmail1" class="form-label">NIK</label>
                           <input type="text" name="nik" class="form-control" id="nik"
                               aria-describedby="emailHelp">
@@ -142,6 +149,13 @@
                             <option value="VII">VII</option>
                             <option value="VIII">VIII</option>
                             <option value="IX">IX</option>
+                        </select>
+                      </div>
+                      <div class="mb-3">
+                          <label for="jurusan" class="form-label">Tipe Kelas</label>
+                          <select class="form-control" name="jurusan" id="jurusan">
+                            <option value="excellent">Excellent Class</option>
+                            <option value="reguler">Reguler</option>
                         </select>
                       </div>
               </div>
@@ -219,7 +233,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Tipe Kelas</label>
-                        <select class="form-control" name="jk" id="">
+                        <select class="form-control" name="jurusan" id="jurusan">
                             <option value="excellent">Excellent Class</option>
                             <option value="reguler">Reguler</option>
                         </select>
@@ -314,6 +328,10 @@
                   name: 'email'
               },
               {
+                  data: 'nisn',
+                  name: 'nisn'
+              },
+              {
                   data: 'nik',
                   name: 'NIK'
               },
@@ -361,6 +379,7 @@
           var button = $(event.relatedTarget); // Button that triggered the modal
           var id = button.data('id'); // Extract info from data-* attributes
           var name = button.data('name');
+          var nisn = button.data('nisn');
           var email = button.data('email');
           var nik = button.data('nik');
           var no_hp = button.data('no_hp');
@@ -369,10 +388,12 @@
           var tgl_lahir = button.data('tgl_lahir');
           var jk = button.data('jk');
           var kelas = button.data('kelas');
+          var jurusan = button.data('jurusan');
           var modal = $(this);
           modal.find('#id').val(id);
           modal.find('#name').val(name);
           modal.find('#email').val(email);
+          modal.find('#nisn').val(nisn);
           modal.find('#nik').val(nik);
           modal.find('#no_hp').val(no_hp);
           modal.find('#alamat').val(alamat);
@@ -380,6 +401,7 @@
           modal.find('#tgl_lahir').val(tgl_lahir);
           modal.find('#jk').val(jk);
           modal.find('#kelas').val(kelas);
+          modal.find('#jurusan').val(jurusan);
       });
   
       // Submit Edit Task Form

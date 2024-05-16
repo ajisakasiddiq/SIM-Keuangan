@@ -182,6 +182,6 @@ class PendapatanController extends Controller
         $data = Transaksi::findOrFail($id);
         $data->delete();
 
-        return redirect()->route('data-pendapatan.index');
+        return redirect()->back()->with('success', 'Delete Data successfully.');
     }
 }

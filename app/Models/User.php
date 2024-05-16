@@ -29,6 +29,8 @@ class User extends Authenticatable
         'foto',
         'kelas',
         'role',
+        'jurusan',
+        'nisn',
         'password',
     ];
 
