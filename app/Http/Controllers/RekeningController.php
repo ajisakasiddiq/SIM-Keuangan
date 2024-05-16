@@ -15,14 +15,15 @@ class RekeningController extends Controller
     public function index()
     {
         $no = 1;
-        $tagihan = Rekening::get();
+
         if (Auth::user()->role == 'bendahara-excellent') {
             $jurusan = 'excellent';
-        } elseif (Auth::user()->jurusan == 'bendahara-reguller') {
-            $jurusan = 'reguller';
+        } elseif (Auth::user()->role == 'bendahara-reguler') {
+            $jurusan = 'reguler';
         } else {
             $jurusan = 'NULL';
         }
+        $tagihan = Rekening::where('jurusan', $jurusan)->get();
         $trans = Transaksi::with(['user', 'jenistagihan'])
             ->where('jurusan', $jurusan)
             ->where('status', '1')

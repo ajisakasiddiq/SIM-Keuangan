@@ -45,22 +45,22 @@
                                             <td>{{ $data->atas_nama }}</td>
                                             <td>{{ $data->norek }}</td>
                                             <td>
+                                              <div class="btn-group">
                                                 <div class="dropdown">
-                                                    <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                     Aksi
-                                                    </button>
-                                                    <ul class="dropdown-menu">
-                                                    <li><a data-bs-toggle="modal" data-bs-target="#editUser{{ $data->id }}" class="dropdown-item">Edit</a></li>
-                                                    <li><a data-bs-toggle="modal" data-bs-target="#deletedata{{$data->id}}" class="dropdown-item text-danger">Hapus</a></li>
-                
-                                                    </ul>
+                                                  <button class="btn btn-primary dropdown-toggle mr-1 mb-1" type="button" data-toggle="dropdown">Aksi</button>
+                                                  <div class="dropdown-menu">
+                                                  <button class="dropdown-item" data-toggle="modal" data-target="#editModal{{ $data->id }}">Edit</button>
+                                                    <form action="{{ route('data-rekening.destroy', $data->id) }}" method="POST">
+                                                    @csrf 
+                                                    @method('DELETE')
+                                                    <button type="submit" class="dropdown-item text-danger">Hapus</button>
+                                                    </form>
                                                   </div>
+                                                </div>
+                                              </div>
                                             </td>
                                         </tr>
-                                        
-                                        
-                                        {{-- modal edit --}}
-    <div class="modal fade" id="editUser{{ $data->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="editModal{{ $data->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -94,33 +94,6 @@
         </div>
       </div>
 </div>
-
-{{-- modal delete --}}
-<div class="modal fade" id="deletedata{{ $data->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Hapus Data</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-          <form action="{{ route('data-rekening.destroy', $data->id) }}" method="POST">
-              @csrf
-              @method('DELETE')
-              <p>Anda Yakin akan menghapus data {{ $data->name }}?</p>
-          
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
-        <button type="submit" class="btn btn-primary">Hapus</button>
-      </form>
-
-      </div>
-    </div>
-  </div>
-</div>
-
-
 @endforeach 
                                     </tbody>
                                     <tfoot>
@@ -147,7 +120,7 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title bold fs-3" id="exampleModalLabel">{{ __('Tambah User') }}</h4>
+              <h4 class="modal-title bold fs-3" id="exampleModalLabel">{{ __('Tambah Data Rekening') }}</h4>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">

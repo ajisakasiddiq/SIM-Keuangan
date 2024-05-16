@@ -110,6 +110,64 @@
     
 </div>
 
+@elseif(Auth::user()->role == 'admin')
+<div class="row">
+
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-4 col-md-12 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                            Tagihan Berjalan</div>
+
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $tagihanberjalan }}</div>
+                {{-- <small>Pendapatan Minggu Ini (Rp. {{ number_format($pendapatan, 0, ',', '.') }})</small> --}}
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-4 col-md-12 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                            Tagihan Pending</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $tagihanpending }}</div>
+                        {{-- <small>Pengeluaran Minggu Ini (Rp. {{ number_format($pendapatan, 0, ',', '.') }})</small> --}}
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4 col-md-12 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Tagihan Lunas</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $tagihanlunas }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @else
                 <!-- Content Row -->
                 <div class="row">
@@ -159,7 +217,7 @@
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                             Total Saldo</div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">Rp. {{ number_format($total, 0, ',', '.') }}</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">Rp. {{ number_format($pendapatan - $pengeluaran, 0, ',', '.') }}</div>
                                     </div>
                                     <div class="col-auto">
                                         <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
