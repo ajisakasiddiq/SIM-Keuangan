@@ -19,13 +19,15 @@ class LaporanExport implements FromView, WithStyles
     protected $totalsaldo;
     protected $bulan;
     protected $tahun;
+    protected $totalpengeluaran;
 
-    public function __construct($transactions, $totalsaldo, $bulan, $tahun)
+    public function __construct($transactions, $totalsaldo, $bulan, $tahun, $totalpengeluaran)
     {
         $this->transactions = $transactions;
         $this->totalsaldo = $totalsaldo;
         $this->bulan = $bulan;
         $this->tahun = $tahun;
+        $this->totalpengeluaran = $totalpengeluaran;
     }
 
     public function view(): View
@@ -35,6 +37,7 @@ class LaporanExport implements FromView, WithStyles
             'totalsaldo' => $this->totalsaldo,
             'bulan' => $this->bulan,
             'tahun' => $this->tahun,
+            'totalpengeluaran' => $this->totalpengeluaran,
         ]);
     }
 

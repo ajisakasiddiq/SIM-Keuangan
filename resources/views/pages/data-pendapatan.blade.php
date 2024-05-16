@@ -256,19 +256,19 @@
         formData.append('transaksi_id', transaksi_id);
 
         $.ajax({
-            url: '/data-danabos/' + transaksi_id,
+            url: '/data-pendapatan/' + transaksi_id,
             type: 'POST',
             data: formData,
             contentType: false, // Tidak atur contentType untuk FormData
             processData: false, // Tidak memproses FormData secara otomatis
             success: function(data) {
                 alert('Data Berhasil Diubah');
-                window.location.href = '/data-danabos';
+                window.location.href = '/data-pendapatan';
             },
             error: function(xhr, status, error) {
                 var errorMessage = xhr.responseJSON.message;
                 alert('Terjadi Kesalahan: ' + errorMessage);
-                window.location.href = '/data-danabos';
+                window.location.href = '/data-pendapatan';
             }
         });
     }

@@ -259,7 +259,6 @@
                         </div>
                         <div class="mb-3">
                             <label for="tahunajar" class="form-label">Tahun Ajaran</label>
-                            <input type="text" name="tahunajar" >
                             <select class="form-control" name="tahunajar" id="tahunajar">
                                 <option value="">Pilih Tahun Ajaran</option>
                                 @foreach ($tahun as $item)

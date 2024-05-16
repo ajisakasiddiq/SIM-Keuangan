@@ -95,7 +95,7 @@
                                       <tbody>
                                           @foreach($transactions as $data)
                                         <tr>
-                                            <td>{{ $no }}</td>
+                                            <td>{{ $no++ }}</td>
                                             <td>{{ $data->nama_tagihan }}</td>
                                             @if($data->jenis_transaksi == 'Pendapatan')
                                             <td >Rp. {{ number_format($data->jumlah, 0, ',', '.') }}</td>
@@ -109,7 +109,8 @@
                                         </tr>
                                         <tr>
                                             <td colspan="2">Total</td>
-                                            <td colspan="2">Rp. </td>
+                                            <td >Rp. {{ number_format($totalsaldo, 0, ',', '.') }}</td>
+                                            <td >Rp. {{ number_format($totalpengeluaran, 0, ',', '.') }}</td>
                                         </tr>
                                         <tr>
                                             @if($bulan == NULL And $tahun == NULL)
@@ -119,7 +120,7 @@
                                             <td colspan="2">Jumlah Saldo {{ Carbon::createFromFormat('m', $bulan)->translatedFormat('F') }}
                                                 {{ $tahun }}</td>
                                                 @endif
-                                                <td colspan="2">Rp. {{ number_format($totalsaldo, 0, ',', '.') }}</td>
+                                                <td colspan="2">Rp. {{ number_format($totalsaldo - $totalpengeluaran, 0, ',', '.') }}</td>
                                         </tr>
                                       </tbody>
                                       

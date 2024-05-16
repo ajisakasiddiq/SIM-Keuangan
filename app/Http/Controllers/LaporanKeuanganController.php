@@ -51,6 +51,11 @@ class LaporanKeuanganController extends Controller
             ->whereYear('tgl_pembayaran', $tahun) // Filter berdasarkan tahun
             ->whereMonth('tgl_pembayaran', $bulan)
             ->sum('total');
+        $totalpengeluaran = Transaksi::where('status', '2')
+            ->where('jenis_transaksi', 'pengeluaran')
+            ->whereYear('tgl_pembayaran', $tahun) // Filter berdasarkan tahun
+            ->whereMonth('tgl_pembayaran', $bulan)
+            ->sum('total');
 
         // ->get();
 
@@ -69,7 +74,7 @@ class LaporanKeuanganController extends Controller
             '12' => 'Desember',
         ];
 
-        return view('pages.data-transaksi', compact('listbulan', 'totalsaldo', 'transactions', 'no', 'trans', 'totaltransaksi', 'bulan', 'tahun'));
+        return view('pages.data-transaksi', compact('listbulan', 'totalsaldo', 'transactions', 'no', 'trans', 'totaltransaksi', 'bulan', 'tahun', 'totalpengeluaran'));
     }
 
     public function exportData(Request $request)
@@ -99,9 +104,14 @@ class LaporanKeuanganController extends Controller
             ->whereYear('tgl_pembayaran', $tahun) // Filter berdasarkan tahun
             ->whereMonth('tgl_pembayaran', $bulan)
             ->sum('total');
+        $totalpengeluaran = Transaksi::where('status', '2')
+            ->where('jenis_transaksi', 'pengeluaran')
+            ->whereYear('tgl_pembayaran', $tahun) // Filter berdasarkan tahun
+            ->whereMonth('tgl_pembayaran', $bulan)
+            ->sum('total');
         // dd($bulan);
         // Panggil class ekspor (ganti dengan nama class export yang sesuai)
         $namaFile = 'laporanKeuangan_' . $tahun . '_' . $bulan . '.xlsx';
-        return Excel::download(new LaporanExport($transactions, $totalsaldo, $bulan, $tahun), $namaFile);
+        return Excel::download(new LaporanExport($transactions, $totalsaldo, $bulan, $tahun, $totalpengeluaran), $namaFile);
     }
 }

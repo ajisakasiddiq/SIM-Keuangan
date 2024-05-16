@@ -51,7 +51,7 @@ Detail Pembayaran
                                                 <div class="dropdown">
                                                   <button class="btn btn-primary dropdown-toggle mr-1 mb-1" type="button" data-toggle="dropdown">Aksi</button>
                                                   <div class="dropdown-menu">
-                                                  <button class="dropdown-item" data-toggle="modal" data-target="#editModal">Edit</button>
+                                                  <button class="dropdown-item" data-toggle="modal" data-target="#editModal{{ $item->id }}">Edit</button>
                                                     <form action="{{ route('data-pendapatan.destroy', $item->id) }}" method="POST">
                                                     @csrf 
                                                     @method('DELETE')
@@ -61,6 +61,37 @@ Detail Pembayaran
                                                 </div>
                                               </div></td>
                                         </tr>
+
+
+                                        <div class="modal fade" id="editModal{{ $item->id }}" tabindex="1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-3" id="exampleModalLabel">Edit Transaksi
+                                                        </h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                      <form action="{{ route('data-pendapatan.update',$item->id) }}" method="POST" enctype="multipart/form-data">
+                                                          @csrf
+                                                          @method('PUT')
+                                                          <div class="mb-3">
+                                                            <label for="keterangan" class="form-label">Name</label>
+                                                            <input id="keterangan"  type="text" class="form-control @error('name') is-invalid @enderror" name="keterangan" value="{{ $item->keterangan }}" autofocus>
+                                                          </div>
+                                                          <div class="mb-3">
+                                                              <label for="exampleInputEmail1" class="form-label">Jumlah</label>
+                                                              <input type="text" name="total" class="form-control" id="total" value="{{ $item->total }}">
+                                                          </div>
+                                                  </div>
+                                                  <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                                  </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         @endforeach
                                         {{-- @foreach($total as $item) --}}
                                         <tr>

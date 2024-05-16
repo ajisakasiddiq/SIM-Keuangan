@@ -171,7 +171,7 @@ class PendapatanController extends Controller
 
         // Lakukan pembaruan data transaksi dengan data yang baru
         $item->update($data);
-        return redirect()->route('data-pendapatan.index')->with('success', 'Data berhasil diperbarui.');
+        return redirect()->back()->with('success', 'Update Data successfully.');
     }
 
     /**
