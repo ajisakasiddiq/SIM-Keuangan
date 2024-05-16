@@ -35,7 +35,7 @@ class SiswaController extends Controller
             return $item;
         });
         if (request()->ajax()) {
-            $query = User::where('role', 'siswa')->where('jurusan', $jurusan);
+            $query = User::where('role', 'siswa');
             return DataTables::of($query)
                 ->addColumn('action', function ($item) {
                     // $barcode = DNS1D::getBarcodeHTML($item->id, 'C128', 2, 50);
@@ -118,7 +118,16 @@ class SiswaController extends Controller
         }
     }
 
+    public function updateClasses(Request $request)
+    {
+        // Update kelas VII ke VIII
+        User::where('role', 'siswa')->where('kelas', 'IX')->update(['kelas' => 'Lulus']);
+        User::where('role', 'siswa')->where('kelas', 'VIII')->update(['kelas' => 'IX']);
+        User::where('role', 'siswa')->where('kelas', 'VII')->update(['kelas' => 'VIII']);
 
+        // Bisa tambahkan notifikasi atau redirect setelah update
+        return redirect()->back()->with('success', 'Kelas siswa berhasil diperbarui.');
+    }
     public function importData(Request $request)
     {
         $file = $request->file('excel_file');

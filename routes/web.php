@@ -34,8 +34,6 @@ Route::resource('dashboard', 'App\Http\Controllers\DashboardController');
 Route::resource('profile', 'App\Http\Controllers\ProfileController');
 Route::middleware('auth', 'role:bendahara-excellent,bendahara-reguler')
     ->group(function () {
-        Route::resource('data-siswa', 'App\Http\Controllers\SiswaController');
-        Route::resource('data-user', 'App\Http\Controllers\UserController');
         Route::resource('data-guru', 'App\Http\Controllers\GuruController');
         Route::resource('data-jenis-tagihan', 'App\Http\Controllers\JenisTagihanController');
         Route::resource('data-rekening', 'App\Http\Controllers\RekeningController');
@@ -51,12 +49,17 @@ Route::middleware('auth', 'role:bendahara-excellent,bendahara-reguler')
         Route::resource('data-pengeluaran', 'App\Http\Controllers\PengeluaranController');
         Route::resource('Laporan-Keuangan', 'App\Http\Controllers\LaporanKeuanganController');
         Route::resource('Detail-Pembayaran', 'App\Http\Controllers\DetailController');
-        Route::resource('Tahun-Ajaran', 'App\Http\Controllers\TahunAjaranController');
         Route::resource('Details', 'App\Http\Controllers\DetailsController');
         Route::get('/export-data', [LaporanKeuanganController::class, 'exportData'])->name('export.data');
         Route::post('/data-siswa/importExcel', [SiswaController::class, 'importData'])->name('data-siswa.importData');
     });
-
+Route::middleware('auth', 'role:admin')
+    ->group(function () {
+        Route::resource('data-siswa', 'App\Http\Controllers\SiswaController');
+        Route::resource('data-user', 'App\Http\Controllers\UserController');
+        Route::resource('Tahun-Ajaran', 'App\Http\Controllers\TahunAjaranController');
+        Route::post('/update-classes', [SiswaController::class, 'updateClasses'])->name('update.class');
+    });
 Route::middleware('auth', 'role:siswa')->group(function () {
     Route::resource('Tagihan-spp', 'App\Http\Controllers\Siswa\PembayaranSPPController');
     Route::resource('Tagihan-Pendaftaran', 'App\Http\Controllers\Siswa\PembayaranPendaftaranController');

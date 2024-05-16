@@ -13,59 +13,34 @@
         <a class="nav-link {{ (request()->is('dashboard')) ? 'active' : ''}}" href="{{ route('dashboard.index') }}"><i class="fas fa-fw fa-tachometer-alt"></i><span>Dashboard</span></a>
     </li>
 
-    <!-- Divider -->
-    <hr class="sidebar-divider">
-
-    <!-- Heading --> 
-    @if(Auth::user()->role == 'admin-tu')
-    <div class="sidebar-heading">
-        Data Master
-    </div>
+    @if(Auth::user()->role == 'admin')
     <li class="nav-item">
-      <a class="nav-link {{ (request()->is('data-guru')) ? 'active' : ''}}" href="{{ route('data-guru.index') }}">
-            <i class="fa-duotone fa-user" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
-             
-            <span>Data Guru</span></a>
-    </li>
+        <a class="nav-link {{ (request()->is('data-user')) ? 'active' : ''}}" href="{{ route('data-user.index') }}">
+              <i class="fa-duotone fa-user" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
+              <span>Data User</span></a>
+      </li>
     <li class="nav-item">
-      <a class="nav-link {{ (request()->is('data-jenis-tagihan')) ? 'active' : ''}}" href="{{ route('data-jenis-tagihan.index') }}">
-            <i class="fa-duotone fa-user" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
-            <span>Data Jenis Tagihan</span></a>
-    </li>
-    <!-- Divider -->
-    <hr class="sidebar-divider">
-
-
-
-
-
-
-
+        <a class="nav-link {{ (request()->is('data-siswa')) ? 'active' : ''}}" href="{{ route('data-siswa.index') }}">
+              <i class="fa-duotone fa-user" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
+              <span>Data Siswa</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {{ (request()->is('Tahun-Ajaran*')) ? 'active' : ''}}" href="{{ route('Tahun-Ajaran.index') }}">
+              <i class="fa-duotone fa-user" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
+              <span>Data Tahun Ajaran</span></a>
+      </li>
+      
     @elseif(Auth::user()->role == 'bendahara-excellent')
     <!-- Heading -->
     <div class="sidebar-heading">
         Data Master
     </div>
-    <li class="nav-item">
-      <a class="nav-link {{ (request()->is('data-siswa')) ? 'active' : ''}}" href="{{ route('data-siswa.index') }}">
-            <i class="fa-duotone fa-user" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
-            <span>Data Siswa</span></a>
-    </li>
+    
     <li class="nav-item">
       <a class="nav-link {{ (request()->is('data-rekening')) ? 'active' : ''}}" href="{{ route('data-rekening.index') }}">
             <i class="fa-duotone fa-user" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
             <span>Data Rekening</span></a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link {{ (request()->is('data-user')) ? 'active' : ''}}" href="{{ route('data-user.index') }}">
-            <i class="fa-duotone fa-user" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
-            <span>Data User</span></a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link {{ (request()->is('Tahun-Ajaran*')) ? 'active' : ''}}" href="{{ route('Tahun-Ajaran.index') }}">
-            <i class="fa-duotone fa-user" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
-            <span>Data Tahun Ajaran</span></a>
-    </li>
+    </li>    
     <div class="sidebar-heading">
         Data Keuangan
     </div>
@@ -135,11 +110,6 @@
             <i class="fa-duotone fa-user" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
             <span>Data Rekening</span></a>
     </li>
-    {{-- <li class="nav-item">
-      <a class="nav-link {{ (request()->is('data-siswa')) ? 'active' : ''}}" href="{{ route('data-jenis-tagihan.index') }}">
-            <i class="fa-money-check-alt" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
-            <span>Kategori Tagihan Siswa</span></a>
-    </li> --}}
     <div class="sidebar-heading">
         Data Keuangan
     </div>

@@ -29,6 +29,9 @@
                             <a href=""  type="button" class="btn btn-success mb-2" data-bs-toggle="modal" data-bs-target="#import">
                                 + Import Data Siswa
                             </a>
+                            <a href=""  type="button" class="btn btn-success mb-2" data-bs-toggle="modal" data-bs-target="#naik">
+                                + Naik Kelas Siswa
+                            </a>
                             
                             <div class="table-responsive">
                               <table class="table-hover scroll-horizontal-vertical w-100" id="siswa">
@@ -238,6 +241,29 @@
                          <input type="file" name="excel_file">
                          <br>
                          <small>*Max 10.000 data</small>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="naik" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-3" id="exampleModalLabel">Impor File</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('update.class') }}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <div class="mb-3">
+                        <h3 for="exampleInputEmail1" class="form-label">Yakin Update Kelas ini?</h3>
                     </div>
             </div>
             <div class="modal-footer">
