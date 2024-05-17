@@ -33,7 +33,7 @@ Pembayaran Pendaftaran
                                       </tr>
                                   </thead>
                                     <tbody>
-                                        @if ($cicilan->isEmpty())
+                                        @if ($transaksi->isEmpty())
                                         <tr>
                                             <td colspan="3" class="text-center">Tidak ada tagihan.</td>
                                         </tr>
@@ -87,9 +87,9 @@ Pembayaran Pendaftaran
                             @else
                             {{-- @foreach($total as $transaksi) --}}
                             @php
-                                $totalTransaksi = $total->total_sum;
+                                $totalnya = $total->total_sum;
                                 $totalCicilan = $totalcicilan->isNotEmpty() ? $totalcicilan->first()->total_sum : 0;
-                                $saldoSisa = $totalTransaksi - $totalCicilan;
+                                $saldoSisa = $totalnya - $totalCicilan;
                             @endphp
                             <p>: Rp. {{ $totalCicilan }}</p>
                             <p>: Rp. {{ $saldoSisa }}</p>
