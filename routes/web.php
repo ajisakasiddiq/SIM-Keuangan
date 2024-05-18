@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LaporanKeuanganController;
+use App\Http\Controllers\Rekap\RekapitulasiPendapatanController;
 use App\Http\Controllers\SiswaController;
 
 /*
@@ -17,7 +18,7 @@ use App\Http\Controllers\SiswaController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('export.rekap');
 });
 
 // Route::get('/dashboard', function () {
@@ -53,6 +54,7 @@ Route::middleware('auth', 'role:bendahara-excellent,bendahara-reguler')
         Route::resource('Rekapitulasi-pendapatan', 'App\Http\Controllers\Rekap\RekapitulasiPendapatanController');
         Route::resource('Details', 'App\Http\Controllers\DetailsController');
         Route::get('/export-data', [LaporanKeuanganController::class, 'exportData'])->name('export.data');
+        Route::get('/export-data', [RekapitulasiPendapatanController::class, 'exportExcel'])->name('export.excel');
         Route::post('/data-siswa/importExcel', [SiswaController::class, 'importData'])->name('data-siswa.importData');
     });
 Route::middleware('auth', 'role:admin')
