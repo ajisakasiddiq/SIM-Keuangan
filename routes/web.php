@@ -49,6 +49,7 @@ Route::middleware('auth', 'role:bendahara-excellent,bendahara-reguler')
         Route::resource('data-pengeluaran', 'App\Http\Controllers\PengeluaranController');
         Route::resource('Laporan-Keuangan', 'App\Http\Controllers\LaporanKeuanganController');
         Route::resource('Detail-Pembayaran', 'App\Http\Controllers\DetailController');
+        Route::resource('Rekapitulasi-pengeluaran', 'App\Http\Controllers\Rekap\RekapitulasiPengeluaranController');
         Route::resource('Details', 'App\Http\Controllers\DetailsController');
         Route::get('/export-data', [LaporanKeuanganController::class, 'exportData'])->name('export.data');
         Route::post('/data-siswa/importExcel', [SiswaController::class, 'importData'])->name('data-siswa.importData');

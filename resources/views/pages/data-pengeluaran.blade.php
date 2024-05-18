@@ -32,6 +32,7 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
+                                            <th>Kategori Keuangan</th>
                                             <th>Nota</th>
                                             <th>Keterangan</th>
                                             <th>Tanggal Transaksi</th>
@@ -45,6 +46,7 @@
                                     <tfoot>
                                         <tr>
                                             <th>No</th>
+                                            <th>Kategori Keuangan</th>
                                             <th>Nota</th>
                                             <th>Keterangan</th>
                                             <th>Tanggal Transaksi</th>
@@ -72,11 +74,17 @@
                 <form id="editTaskForm" method="POST" enctype="multipart/form-data"> 
                     @csrf
                     @method('PUT')
-                    <input type="hidden" name="tagihan_id"id="tagihan_id">
                     <input type="hidden" name="id" id="id">
                     <input id="user_id" type="hidden" class="form-control" value="{{ Auth::User()->id }}" name="user_id">
                     <input id="metode" type="hidden" class="form-control" value="cash" name="metode">
-
+                    <div class="mb-3">
+                        <label for="tagihan_id">Kategori</label>
+                        <select class="form-control" name="tagihan_id" id="tagihan_id">
+                        @foreach ($tagihan as $item)
+                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                        @endforeach
+                    </select>
+                    </div>
                     <div class="mb-3">
                       <label for="keterangan" class="form-label">Keterangan</label>
                       <input id="keterangan" type="text" class="form-control @error('name') is-invalid @enderror" name="keterangan" autofocus>
@@ -128,7 +136,14 @@
                     @else
                     <input type="hidden" name="jurusan" id="jurusan" value="reguler">
                     @endif
-                    <input type="hidden" name="tagihan_id" value="6">
+                    <div class="mb-3">
+                        <label for="tagihan_id">Kategori</label>
+                        <select class="form-control" name="tagihan_id" id="tagihan_id">
+                        @foreach ($tagihan as $item)
+                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                        @endforeach
+                    </select>
+                    </div>
                     <div class="mb-3">
                       <label for="keterangan" class="form-label">Keterangan</label>
                       <input id="keterangan" type="text" class="form-control @error('name') is-invalid @enderror" name="keterangan" autofocus>
@@ -180,6 +195,10 @@
               {
                   data: 'no',
                   name: 'no'
+              },
+              {
+                  data: 'jenistagihan.name',
+                  name: 'Kategori Keuangan'
               },
               
               {

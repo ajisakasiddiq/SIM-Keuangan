@@ -33,7 +33,7 @@ class PengeluaranController extends Controller
             $item->tgl_pembayaran_formatted = \Carbon\Carbon::parse($item->tgl_pembayaran)->format('F j, Y');
             return $item;
         });
-        $tagihan = tagihan::get();
+        $tagihan = tagihan::whereNotIn('id', [1, 2, 3, 4, 5, 6])->get();
         $siswa = User::where('role', 'siswa')->get();
         if (request()->ajax()) {
             $query = Transaksi::with('jenistagihan')
