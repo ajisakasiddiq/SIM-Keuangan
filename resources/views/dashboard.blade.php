@@ -168,6 +168,24 @@
         </div>
     </div>
 </div>
+<div class="row">
+
+    <!-- Area Chart -->
+    <div class="col-xl-12">
+        <div class="card shadow mb-4">
+            <!-- Card Header - Title -->
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Selamat Datang Ajisakasiddiq</h6>
+            </div>
+            <!-- Card Body - Content -->
+            <div class="card-body custom-card-body">
+                <p>Ini adalah pesan selamat datang untuk Ajisakasiddiq.</p>
+            </div>
+        </div>
+    </div>
+    
+    
+</div>
 @else
                 <!-- Content Row -->
                 <div class="row">

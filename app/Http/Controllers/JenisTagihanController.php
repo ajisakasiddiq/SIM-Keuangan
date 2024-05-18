@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\tagihan;
+use App\Models\Transaksi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class JenisTagihanController extends Controller
 {
@@ -13,10 +15,27 @@ class JenisTagihanController extends Controller
     public function index()
     {
         $no = 1;
-        $tagihan = tagihan::get();
+        if (Auth::user()->role == 'bendahara-excellent')
+            $jurusan = 'excellent';
+        else
+            $jurusan = 'reguler';
+        $trans = Transaksi::with(['user', 'jenistagihan'])
+            ->where('jurusan', $jurusan)
+            ->where('status', '1')
+            ->whereNotNull('tgl_pembayaran')
+            ->latest()
+            ->get();
+        $totaltransaksi = Transaksi::where('status', '1')->count();
+        $trans->map(function ($item) {
+            $item->tgl_pembayaran_formatted = \Carbon\Carbon::parse($item->tgl_pembayaran)->format('F j, Y');
+            return $item;
+        });
+        $tagihan = tagihan::whereNotIn('id', [1, 2, 3, 4, 5, 6])->get();
         return view('pages.data-jenis-tagihan', compact(
             'tagihan',
-            'no'
+            'no',
+            'trans',
+            'totaltransaksi',
         ));
     }
 
