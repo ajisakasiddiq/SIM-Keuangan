@@ -51,6 +51,7 @@ class DashboardController extends Controller
 
         $pendapatan = Transaksi::where('jenis_transaksi', 'Pendapatan')
             ->where('tgl_pembayaran', $tanggalHariIni)
+            ->where('tgl_pembayaran', $tanggalHariIni)
             ->where('jurusan', $jurusan)
             ->where('status', '2')
             ->sum('total');
