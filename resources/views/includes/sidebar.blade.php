@@ -98,12 +98,7 @@
     <div id="rekap" class="collapse {{ (request()->is('data-tagihan*')) ? 'show' : ''}}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Rekapitulasi Keuangan</h6>
-            <a class="collapse-item {{ (request()->is('data-tagihan-Pendaftaran*')) ? 'active' : ''}}" href="{{ route('data-tagihan-Pendaftaran.index') }}">Pendaftaran Kelas 7 (ON PROGRESS)</a>
-            <a class="collapse-item {{ (request()->is('data-tagihan-kainSeragam*')) ? 'active' : ''}}" href="{{ route('data-tagihan-kainSeragam.index') }}">Kain Seragam (ON PROGRESS)</a>
-            <a class="collapse-item {{ (request()->is('data-tagihan-spp*')) ? 'active' : ''}}" href="{{ route('data-tagihan-spp.index') }}">SPP (ON PROGRESS)</a>
-            <a class="collapse-item {{ (request()->is('data-tagihan-DaftarUlang*')) ? 'active' : ''}}" href="{{ route('data-tagihan-DaftarUlang.index') }}">Daftar Ulang (ON PROGRESS)</a>
-            <a class="collapse-item {{ (request()->is('data-tagihan-lainnya*')) ? 'active' : ''}}" href="{{ route('data-tagihan-lainnya.index') }}">Pembayaran Lain-Lainnya (ON PROGRESS)</a>
-            <a class="collapse-item {{ (request()->is('data-tagihan-lainnya*')) ? 'active' : ''}}" href="{{ route('data-tagihan-lainnya.index') }}">Rekapitulasi Pendapatan (ON PROGRESS)</a>
+            <a class="collapse-item {{ (request()->is('Rekapitulasi-pendapatan*')) ? 'active' : ''}}" href="{{ route('Rekapitulasi-pendapatan.index') }}">Rekapitulasi Pendapatan</a>
             <a class="collapse-item {{ (request()->is('Rekapitulasi-pengeluaran*')) ? 'active' : ''}}" href="{{ route('Rekapitulasi-pengeluaran.index') }}">Rekapitulasi Pengeluaran</a>
         </div>
     </div>
