@@ -52,7 +52,8 @@ class RekapitulasiPendapatanController extends Controller
         $siswa = User::where('role', 'siswa')->get();
         $tahun = TahunAjaran::where('status', 'aktif')->get();
         $query = Transaksi::with('jenistagihan')
-            ->where('jenis_transaksi', 'Pendapatan');
+            ->where('jenis_transaksi', 'Pendapatan')
+            ->where('jurusan', $jurusan);
 
         if ($tagihanid) {
             $query->where('tagihan_id', $tagihanid);
@@ -68,8 +69,8 @@ class RekapitulasiPendapatanController extends Controller
         }
 
         $data = $query->get();
+        $jumlahtotal = $query->sum('total');
 
-
-        return view('pages.rekapitulasi.rekapitulasi-pendapatan', compact('siswa', 'tagihan', 'no', 'tahun', 'trans', 'data', 'totaltransaksi', 'listbulan', 'query'));
+        return view('pages.rekapitulasi.rekapitulasi-pendapatan', compact('siswa', 'tagihan', 'no', 'tahun', 'jumlahtotal', 'trans', 'data', 'totaltransaksi', 'listbulan', 'query'));
     }
 }

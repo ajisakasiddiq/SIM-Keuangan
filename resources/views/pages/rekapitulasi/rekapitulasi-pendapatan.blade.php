@@ -67,8 +67,8 @@
                                             <th>Kategori</th>
                                             <th>Keterangan</th>
                                             <th>Tanggal Transaksi</th>
-                                            <th>Total</th>
                                             <th>status</th>
+                                            <th>Total</th>
                                         </tr>
                                     </thead>
                                       <tbody>
@@ -77,8 +77,7 @@
                                                 <td>{{ $no++ }}</td>
                                                 <td>{{ $item->jenistagihan->name }}</td>
                                                 <td>{{ $item->keterangan }}</td>
-                                                <td>{{ $item->tgl_pembayaran }}</td>
-                                                <td>{{ $item->total }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($item->tgl_pembayaran)->isoFormat('D MMMM YYYY') }}</td>
                                                 <td>
                                                     @switch($item->status)
                                                         @case(0)
@@ -94,20 +93,18 @@
                                                             <span class="badge badge-danger">Undefined</span>
                                                     @endswitch
                                                 </td>
-                                                
+                                                <td>Rp. {{ number_format($item->total, 0, ',', '.') }}</td>
+
                                             </tr>
                                             @endforeach
                                       </tbody>
                                     </div>                              
                                     <tfoot>
                                         <tr>
-                                            <th>No</th>
-                                            <th>Kategori</th>
-                                            <th>Keterangan</th>
-                                            <th>Tanggal Transaksi</th>
-                                            <th>Total</th>
-                                            <th>status</th>
+                                            <td colspan="5"></td>
+                                            <td>Total: Rp. {{ number_format($jumlahtotal, 0, ',', '.') }}</td>
                                         </tr>
+                                    
                                     </tfoot>
                                 </table>
                             </div>

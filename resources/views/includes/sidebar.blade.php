@@ -44,7 +44,7 @@
     <li class="nav-item">
         <a class="nav-link {{ (request()->is('data-jenis-tagihan*')) ? 'active' : ''}}" href="{{ route('data-jenis-tagihan.index') }}">
             <i class="fa-duotone fa-user" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
-            <span>Data Keuangan</span>
+            <span>Data kategori Keuangan</span>
         </a>
     </li>
     <div class="sidebar-heading">
@@ -128,7 +128,7 @@
     <li class="nav-item">
         <a class="nav-link {{ (request()->is('data-jenis-tagihan*')) ? 'active' : ''}}" href="{{ route('data-jenis-tagihan.index') }}">
             <i class="fa-duotone fa-user" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
-            <span>Data Keuangan</span>
+            <span>Data Ketegori Keuangan</span>
         </a>
     </li>
     <div class="sidebar-heading">
@@ -175,10 +175,18 @@
 <div class="sidebar-heading">Laporan Keuangan</div>
 
 <li class="nav-item">
-    <a class="nav-link {{ (request()->is('rekapitulasi')) ? 'active' : ''}}" href="{{ route('Laporan-Keuangan.index') }}">
-        <i class="fa-money-check-alt" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
-        <span>Rekapitulasi</span>
+    <a class="nav-link collapsed {{ (request()->is('data-tagihan*')) ? 'active' : ''}}" href="#" data-toggle="collapse" data-target="#rekap"
+       aria-expanded="true" aria-controls="pembayaran">
+        <i class="fas fa-fw fa-cog"></i>
+        <span>Rekapitulasi Keuangan</span>
     </a>
+    <div id="rekap" class="collapse {{ (request()->is('data-tagihan*')) ? 'show' : ''}}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Rekapitulasi Keuangan</h6>
+            <a class="collapse-item {{ (request()->is('Rekapitulasi-pendapatan*')) ? 'active' : ''}}" href="{{ route('Rekapitulasi-pendapatan.index') }}">Rekapitulasi Pendapatan</a>
+            <a class="collapse-item {{ (request()->is('Rekapitulasi-pengeluaran*')) ? 'active' : ''}}" href="{{ route('Rekapitulasi-pengeluaran.index') }}">Rekapitulasi Pengeluaran</a>
+        </div>
+    </div>
 </li>
 <li class="nav-item">
     <a class="nav-link {{ (request()->is('laporan')) ? 'active' : ''}}" href="{{ route('Laporan-Keuangan.index') }}">
