@@ -60,7 +60,10 @@ Tagihan SPP
                                                 @elseif($item->status == '1')
                                                 <td><span class="badge badge-info">Tunggu Konfirmasi</span></td>
                                                 @else
-                                                <td><span class="badge badge-success">Sudah Dibayar</span></td>
+                                                <td>
+                                                    <span class="badge badge-success m-1">Sudah Dibayar</span><br>
+                                                    <a href="/cetak-spp/{{ $item->id }}" class="btn btn-primary"><i class="fa fa-print"></i> Cetak</a>
+                                                </td>
                                                 @endif
                                             </tr>
 

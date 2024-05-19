@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Siswa;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\tagihan;
 use App\Models\Transaksi;
@@ -40,6 +41,16 @@ class PembayaranSPPController extends Controller
             ->where('user_id', $user)
             ->get();
         return view('pages.siswa.pembayaran-spp', compact('siswa', 'tagihan', 'transaksi', 'tahun', 'trans', 'totaltransaksi'));
+    }
+
+    public function cetak($id)
+    {
+        Carbon::setLocale('id');
+        $transaksi = Transaksi::with('user')
+            ->where('tagihan_id', '1')
+            ->where('id', $id)
+            ->get();
+        return view('pages.cetak.cetak-spp', compact('transaksi'));
     }
 
     /**

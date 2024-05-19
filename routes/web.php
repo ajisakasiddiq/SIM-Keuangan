@@ -72,5 +72,6 @@ Route::middleware('auth', 'role:siswa')->group(function () {
     Route::resource('Tagihan-DaftarUlang', 'App\Http\Controllers\Siswa\PembayaranDaftarUlangController');
     Route::resource('Tagihan-Lainnya', 'App\Http\Controllers\Siswa\PembayaranLainnyaController');
     Route::resource('Tagihan-KainSeragam', 'App\Http\Controllers\Siswa\PembayaranKainSeragamController');
+    Route::get('/cetak-spp/{id}', [App\Http\Controllers\Siswa\PembayaranSPPController::class, 'cetak'])->name('cetak.spp');
 });
 require __DIR__ . '/auth.php';
