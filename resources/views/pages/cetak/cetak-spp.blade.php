@@ -78,7 +78,7 @@
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container" id="print-area">
         <div class="header">
             <h1>Nota Bukti Pembayaran SPP</h1>
             <p>MTs. Zainul Hasan Balung</p>
@@ -120,6 +120,10 @@
     </div>
     <script>
         window.print();
+
+        window.onafterprint = function() {
+            document.body.innerHTML = '';
+        };
     </script>
 </body>
 </html>
