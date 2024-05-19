@@ -11,11 +11,13 @@ class RekapitulasiExport implements FromView, WithStyles
 {
     protected $data;
     protected $jumlahtotal;
+    protected $title;
 
-    public function __construct($data, $jumlahtotal)
+    public function __construct($data, $jumlahtotal, $title)
     {
         $this->data = $data;
         $this->jumlahtotal = $jumlahtotal;
+        $this->title = $title;
     }
 
     public function view(): View
@@ -23,6 +25,7 @@ class RekapitulasiExport implements FromView, WithStyles
         return view('export.rekap', [
             'data' => $this->data,
             'jumlahtotal' => $this->jumlahtotal,
+            'title' => $this->title,
         ]);
     }
 

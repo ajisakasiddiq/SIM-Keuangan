@@ -8,8 +8,10 @@ use App\Models\Transaksi;
 use App\Models\TahunAjaran;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Exports\RekapitulasiExport;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\Facades\DataTables;
 
 class RekapitulasiPengeluaranController extends Controller
@@ -71,5 +73,37 @@ class RekapitulasiPengeluaranController extends Controller
         $jumlahtotal = $query->sum('total');
 
         return view('pages.rekapitulasi.rekapitulasi-pengeluaran', compact('siswa', 'tagihan', 'jumlahtotal', 'no', 'tahun', 'trans', 'data', 'totaltransaksi', 'listbulan', 'query'));
+    }
+    public function exportExcel(Request $request)
+    {
+        if (Auth::user()->role == 'bendahara-excellent')
+            $jurusan = 'excellent';
+        else
+            $jurusan = 'reguler';
+        $tagihanid = $request->input('tagihan_id');
+        $selectedyear = $request->input('tahun');
+        $bulan = $request->input('bulan');
+        $query = Transaksi::with('jenistagihan')
+            ->where('jenis_transaksi', 'Pengeluaran')
+            ->where('jurusan', $jurusan);
+
+        if ($tagihanid) {
+            $query->where('tagihan_id', $tagihanid);
+        }
+        if ($selectedyear) {
+            $query->whereYear('tgl_pembayaran', $selectedyear);
+        }
+        if ($bulan) {
+            $query->whereMonth('tgl_pembayaran', $bulan);
+        }
+        if (Auth::user()->role == 'bendahara-excellent') {
+            $query->whereNotIn('tagihan_id', ['5']);
+        }
+
+        $data = $query->get();
+        $jumlahtotal = $query->sum('total');
+        $title = 'Pengeluaran';
+
+        return Excel::download(new RekapitulasiExport($data, $jumlahtotal, $title), 'rekapitulasi-Pengeluaran.xlsx');
     }
 }

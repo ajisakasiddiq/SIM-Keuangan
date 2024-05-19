@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LaporanKeuanganController;
 use App\Http\Controllers\Rekap\RekapitulasiPendapatanController;
+use App\Http\Controllers\Rekap\RekapitulasiPengeluaranController;
 use App\Http\Controllers\SiswaController;
 
 /*
@@ -55,6 +56,7 @@ Route::middleware('auth', 'role:bendahara-excellent,bendahara-reguler')
         Route::resource('Details', 'App\Http\Controllers\DetailsController');
         Route::get('/export-data', [LaporanKeuanganController::class, 'exportData'])->name('export.data');
         Route::get('/export-data', [RekapitulasiPendapatanController::class, 'exportExcel'])->name('export.excel');
+        Route::get('/export-data', [RekapitulasiPengeluaranController::class, 'exportExcel'])->name('export.pengeluaran');
         Route::post('/data-siswa/importExcel', [SiswaController::class, 'importData'])->name('data-siswa.importData');
     });
 Route::middleware('auth', 'role:admin')

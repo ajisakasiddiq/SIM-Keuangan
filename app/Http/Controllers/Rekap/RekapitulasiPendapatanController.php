@@ -103,7 +103,8 @@ class RekapitulasiPendapatanController extends Controller
 
         $data = $query->get();
         $jumlahtotal = $query->sum('total');
+        $title = 'Pengeluaran';
 
-        return Excel::download(new RekapitulasiExport($data, $jumlahtotal), 'rekapitulasi-pendapatan.xlsx');
+        return Excel::download(new RekapitulasiExport($data, $jumlahtotal, $title), 'rekapitulasi-pendapatan.xlsx');
     }
 }

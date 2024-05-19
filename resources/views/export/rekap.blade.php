@@ -36,7 +36,7 @@
     </style>
 </head>
 <body>
-    <h1 class="text-center">Rekapitulasi Pendapatan</h1>
+    <h1 class="text-center">Rekapitulasi {{ $title }}</h1>
     <table class="table-bordered">
         <thead>
             <tr>

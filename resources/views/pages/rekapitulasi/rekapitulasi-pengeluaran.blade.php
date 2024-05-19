@@ -174,20 +174,29 @@
     window.location.href = url;
 }
 
-    function print() {
-        // Dapatkan nilai yang dipilih dari elemen <select> bulan dan tahun
+function print() {
+    // Dapatkan nilai yang dipilih dari elemen <select> bulan dan tahun
         var selectedMonth = document.getElementById('bulan').value;
-        var selectedYear = document.getElementById('tahun').value;
-        var selectedTagihanId = document.getElementById('tagihan_id').value;
+    var selectedYear = document.getElementById('tahun').value;
+    var selectedTagihanId = document.getElementById('tagihan_id').value;
 
-        // Kirim nilai yang dipilih ke URL yang sesuai (misalnya, ke endpoint dengan AJAX atau sebagai parameter URL)
-        if (selectedMonth && selectedYear && selectedTagihanId)  {
-            // Contoh: Redirect ke URL dengan parameter bulan dan tahun
-            window.location.href = "{{ route('export.data') }}?bulan=" + selectedMonth + "&tahun=" + selectedYear + "&tagihan_id" +selectedTagihanId;
-        } else {
-            // Tampilkan pesan atau ambil tindakan lain jika nilai bulan atau tahun tidak dipilih
-            alert('Harap pilih bulan dan tahun sebelum mengirim.');
-        }
+    // Buat URL dengan parameter yang dipilih
+    var url = "{{ route('export.pengeluaran') }}?";
+    if (selectedMonth) {
+        url += "bulan=" + selectedMonth + "&";
+    }
+    if (selectedYear) {
+        url += "tahun=" + selectedYear + "&";
+    }
+    if (selectedTagihanId) {
+        url += "tagihan_id=" + selectedTagihanId + "&";
+    }
+
+    // Hapus karakter '&' terakhir jika ada
+    url = url.slice(0, -1);
+
+    // Redirect ke URL yang dibangun
+    window.location.href = url;
     }
 </script>
 @endpush
