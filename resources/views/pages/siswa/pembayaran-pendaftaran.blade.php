@@ -97,6 +97,10 @@ Pembayaran Pendaftaran
                             @if ($saldoSisa == 0)
                                 <!-- Jika saldo sisa sama dengan nol, tampilkan pesan atau konten sesuai kebutuhan -->
                                 <h4 class="text-success">Lunas.</h4>
+                                @foreach ($transaksi as $item)
+                                    
+                                <a href="/cetak-pendaftaran/{{ $item->tagihan_id }}" class="btn btn-primary"><i class="fa fa-print"></i> Cetak</a>
+                                @endforeach
                             @else
                                 <!-- Jika masih ada saldo sisa, tampilkan tombol bayar -->
                                 <a href="" class="btn btn-success" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bayar">
@@ -163,6 +167,7 @@ Pembayaran Pendaftaran
                   <div class="mb-3">
                     <label for="total" class="form-label">Total yg Dibayarkan</label>
                     <input  type="text" name="total" id="total" class="form-control">
+                    <small id="totalError" class="text-danger" style="display: none;">Pembayaran melebihi saldo sisa.</small>
                   </div>
                   <div class="mb-3">
                     <label for="tgl" class="form-label">Tanggal Pembayaran</label>
@@ -175,7 +180,7 @@ Pembayaran Pendaftaran
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-success">Selesaikan Pembayaran</button>
+            <button type="submit" class="btn btn-success" id="submitBtn">Selesaikan Pembayaran</button>
           </form>
             </div>
         </div>
@@ -184,5 +189,24 @@ Pembayaran Pendaftaran
 
 @endsection
 @push('addon-script')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const totalInput = document.getElementById('total');
+    const submitBtn = document.getElementById('submitBtn');
+    const totalError = document.getElementById('totalError');
+    const saldoSisa = {{ $saldoSisa }};
 
+    totalInput.addEventListener('input', function() {
+        const totalValue = parseFloat(totalInput.value.replace(/[^0-9.-]+/g,"")) || 0;
+
+        if (totalValue > saldoSisa) {
+            submitBtn.disabled = true;
+            totalError.style.display = 'block';
+        } else {
+            submitBtn.disabled = false;
+            totalError.style.display = 'none';
+        }
+    });
+});
+</script>
 @endpush

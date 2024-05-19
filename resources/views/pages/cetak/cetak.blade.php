@@ -101,28 +101,17 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach ($transaksi as $item)
+                    
                     <tr>
-                        <td>1</td>
-                        <td>Biaya Pendaftaran</td>
-                        <td>Rp. 500.000</td>
-                        {{-- <td>{{ number_format($biaya_pendaftaran, 0, ',', '.') }}</td> --}}
+                        <td>{{ $no++ }}</td>
+                        <td>{{ $item->keterangan }}</td>
+                        <td>Rp. {{ number_format($item->total, 0, ',', '.') }}</td>
                     </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Seragam</td>
-                        <td>Rp. 300.000</td>
-                        {{-- <td>{{ number_format($seragam, 0, ',', '.') }}</td> --}}
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Buku Paket</td>
-                        <td>Rp. 200.000</td>
-                        {{-- <td>{{ number_format($buku_paket, 0, ',', '.') }}</td> --}}
-                    </tr>
+                    @endforeach
                     <tr class="total">
                         <td colspan="2">Total</td>
-                        <td>Rp. 1.000.000</td>
-                        {{-- <td>{{ number_format($total, 0, ',', '.') }}</td> --}}
+                        <td>Rp. {{ number_format($total->total_sum, 0, ',', '.') }}</td>
                     </tr>
                 </tbody>
             </table>
