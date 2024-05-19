@@ -99,7 +99,7 @@ Pembayaran Pendaftaran
                                 <h4 class="text-success">Lunas.</h4>
                                 @foreach ($transaksi as $item)
                                     
-                                <a href="/cetak-pendaftaran/{{ $item->tagihan_id }}" class="btn btn-primary"><i class="fa fa-print"></i> Cetak</a>
+                                <a href="/cetak-nota/{{ $item->tagihan_id }}" class="btn btn-primary"><i class="fa fa-print"></i> Cetak</a>
                                 @endforeach
                             @else
                                 <!-- Jika masih ada saldo sisa, tampilkan tombol bayar -->

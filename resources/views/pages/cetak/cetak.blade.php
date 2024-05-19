@@ -70,7 +70,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>Nota Bukti Pembayaran Pendaftaran</h1>
+            <h1>Nota Bukti Pembayaran {{ $title }}</h1>
             <p>Nama Sekolah</p>
             <p>Alamat Sekolah</p>
         </div>

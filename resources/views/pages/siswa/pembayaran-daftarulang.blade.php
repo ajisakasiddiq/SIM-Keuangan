@@ -97,6 +97,10 @@ Pembayaran Daftar Ulang
                        @if ($saldoSisa == 0)
                            <!-- Jika saldo sisa sama dengan nol, tampilkan pesan atau konten sesuai kebutuhan -->
                            <h4 class="text-success">Lunas.</h4>
+                           @foreach ($total as $item)
+                                    
+                           <a href="/cetak-nota/{{ $item->tagihan_id }}" class="btn btn-primary"><i class="fa fa-print"></i> Cetak</a>
+                           @endforeach
                        @else
                            <!-- Jika masih ada saldo sisa, tampilkan tombol bayar -->
                            <a href="" class="btn btn-success" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bayar">

@@ -52,6 +52,24 @@ class PembayaranKainSeragamController extends Controller
         return view('pages.siswa.pembayaran-kainseragam', compact('no', 'total', 'siswa', 'tagihan', 'transaksi', 'cicilan', 'totalcicilan', 'trans', 'totaltransaksi'));
     }
 
+    public function cetak($id)
+    {
+        $user = Auth::user()->id;
+        $no = 1;
+        $title = 'Kain Seragam';
+        $transaksi = Transaksi::with('user')
+            ->where('tagihan_id', $id)
+            ->where('user_id', $user)
+            ->get();
+        $total = Transaksi::selectRaw('user_id, tagihan_id, SUM(total) as total_sum')
+            ->where('tagihan_id', $id) // Filter berdasarkan tagihan_id tertentu
+            ->where('user_id', $user) // Filter berdasarkan user_id tertentu
+            ->groupBy('user_id', 'tagihan_id') // Kelompokkan berdasarkan user_id dan tagihan_id
+            ->first();
+
+        return view('pages.cetak.cetak', compact('no', 'total', 'transaksi', 'title'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */

@@ -55,8 +55,9 @@ class PembayaranPendaftaranController extends Controller
     {
         $user = Auth::user()->id;
         $no = 1;
+        $title = 'Pendaftaran';
         $transaksi = Transaksi::with('user')
-            ->where('tagihan_id', '3')
+            ->where('tagihan_id', $id)
             ->where('user_id', $user)
             ->get();
         $total = Transaksi::selectRaw('user_id, tagihan_id, SUM(total) as total_sum')
@@ -65,7 +66,7 @@ class PembayaranPendaftaranController extends Controller
             ->groupBy('user_id', 'tagihan_id') // Kelompokkan berdasarkan user_id dan tagihan_id
             ->first();
 
-        return view('pages.cetak.cetak', compact('no', 'total', 'transaksi'));
+        return view('pages.cetak.cetak', compact('no', 'total', 'transaksi', 'title'));
     }
 
     /**
