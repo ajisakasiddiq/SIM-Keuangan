@@ -76,7 +76,7 @@ class RekapitulasiExport implements FromView, WithStyles
 
         // Mengatur gaya judul dan posisinya
         $sheet->mergeCells('A1:F1');
-        $sheet->setCellValue('A1', 'Rekapitulasi Pendapatan');
+        $sheet->setCellValue('A1', 'Rekapitulasi ' . $this->title);
         $sheet->getStyle('A1')->applyFromArray([
             'font' => [
                 'bold' => true,

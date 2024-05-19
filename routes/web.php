@@ -19,7 +19,7 @@ use App\Http\Controllers\SiswaController;
 */
 
 Route::get('/', function () {
-    return view('export.rekap');
+    return view('home');
 });
 
 // Route::get('/dashboard', function () {
