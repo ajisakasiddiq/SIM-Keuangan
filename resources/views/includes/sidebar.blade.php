@@ -90,12 +90,12 @@
 <div class="sidebar-heading">Laporan Keuangan</div>
 
 <li class="nav-item">
-    <a class="nav-link collapsed {{ (request()->is('data-tagihan*')) ? 'active' : ''}}" href="#" data-toggle="collapse" data-target="#rekap"
-       aria-expanded="true" aria-controls="pembayaran">
+    <a class="nav-link collapsed {{ (request()->is('Rekapitulasi-pendapatan*')) ? 'active' : ''}}" href="#" data-toggle="collapse" data-target="#rekap"
+       aria-expanded="true" aria-controls="rekap">
         <i class="fas fa-fw fa-cog"></i>
         <span>Rekapitulasi Keuangan</span>
     </a>
-    <div id="rekap" class="collapse {{ (request()->is('data-tagihan*')) ? 'show' : ''}}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+    <div id="rekap" class="collapse {{ (request()->is('Rekapitulasi-pendapatan*')) ? 'show' : ''}}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Rekapitulasi Keuangan</h6>
             <a class="collapse-item {{ (request()->is('Rekapitulasi-pendapatan*')) ? 'active' : ''}}" href="{{ route('Rekapitulasi-pendapatan.index') }}">Rekapitulasi Pendapatan</a>

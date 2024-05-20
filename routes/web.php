@@ -39,7 +39,6 @@ Route::middleware('auth', 'role:bendahara-excellent,bendahara-reguler')
         Route::resource('data-guru', 'App\Http\Controllers\GuruController');
         Route::resource('data-jenis-tagihan', 'App\Http\Controllers\JenisTagihanController');
         Route::resource('data-rekening', 'App\Http\Controllers\RekeningController');
-        Route::resource('data-rincian-tagihan', 'App\Http\Controllers\RincianTagihanController');
         Route::resource('data-transaksi', 'App\Http\Controllers\TransactionController');
         Route::resource('data-tagihan-spp', 'App\Http\Controllers\PembayaranSppController');
         Route::resource('data-tagihan-Pendaftaran', 'App\Http\Controllers\PembayaranPendaftaranController');
@@ -50,12 +49,11 @@ Route::middleware('auth', 'role:bendahara-excellent,bendahara-reguler')
         Route::resource('data-danabos', 'App\Http\Controllers\DanaBosController');
         Route::resource('data-pengeluaran', 'App\Http\Controllers\PengeluaranController');
         Route::resource('Laporan-Keuangan', 'App\Http\Controllers\LaporanKeuanganController');
-        Route::resource('Detail-Pembayaran', 'App\Http\Controllers\DetailController');
         Route::resource('Rekapitulasi-pengeluaran', 'App\Http\Controllers\Rekap\RekapitulasiPengeluaranController');
         Route::resource('Rekapitulasi-pendapatan', 'App\Http\Controllers\Rekap\RekapitulasiPendapatanController');
         Route::resource('Details', 'App\Http\Controllers\DetailsController');
         Route::get('/export-data', [LaporanKeuanganController::class, 'exportData'])->name('export.data');
-        Route::get('/export-data', [RekapitulasiPendapatanController::class, 'exportExcel'])->name('export.excel');
+        Route::get('/export-pendapatan', [RekapitulasiPendapatanController::class, 'exportExcel'])->name('export.excel');
         Route::get('/export-data', [RekapitulasiPengeluaranController::class, 'exportExcel'])->name('export.pengeluaran');
         Route::post('/data-siswa/importExcel', [SiswaController::class, 'importData'])->name('data-siswa.importData');
     });
