@@ -43,7 +43,6 @@
                 <th>Kategori</th>
                 <th>Keterangan</th>
                 <th>Tanggal Transaksi</th>
-                <th>Status</th>
                 <th>Total</th>
             </tr>
         </thead>
@@ -53,21 +52,6 @@
                     <td>{{ $item->jenistagihan->name }}</td>
                     <td>{{ $item->keterangan }}</td>
                     <td>{{ \Carbon\Carbon::parse($item->tgl_pembayaran)->format('d M Y') }}</td>
-                    <td>
-                        @switch($item->status)
-                            @case(0)
-                                <span class="badge badge-warning">Menunggu Pembayaran</span>
-                                @break
-                            @case(1)
-                                <span class="badge badge-info">Pending</span>
-                                @break
-                            @case(2)
-                                <span class="badge badge-success">Lunas</span>
-                                @break
-                            @default
-                                <span class="badge badge-danger">Undefined</span>
-                        @endswitch
-                    </td>
                     <td>Rp. {{ number_format($item->total, 0, ',', '.') }}</td>
                 </tr>
             @endforeach

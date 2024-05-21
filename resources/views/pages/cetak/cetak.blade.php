@@ -126,3 +126,10 @@
     </div>
 </body>
 </html>
+<script>
+    window.print();
+
+    window.onafterprint = function() {
+        document.body.innerHTML = '';
+    };
+</script>

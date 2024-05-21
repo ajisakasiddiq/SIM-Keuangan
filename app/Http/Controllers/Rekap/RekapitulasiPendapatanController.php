@@ -8,6 +8,7 @@ use App\Models\tagihan;
 use App\Models\Transaksi;
 use App\Models\TahunAjaran;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Exports\RekapitulasiExport;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -53,7 +54,14 @@ class RekapitulasiPendapatanController extends Controller
         $tagihan = tagihan::whereNotIn('id', ['5'])->get();
         $siswa = User::where('role', 'siswa')->get();
         $tahun = TahunAjaran::where('status', 'aktif')->get();
-        $query = Transaksi::with('jenistagihan')
+        $query = Transaksi::select(
+            'jenistagihan.name as Namatagihan',
+            'transaksi.tagihan_id',
+            DB::raw('GROUP_CONCAT(transaksi.keterangan SEPARATOR ", ") as keterangan'),
+            DB::raw('SUM(transaksi.total) as total'),
+            DB::raw('MIN(transaksi.tgl_pembayaran) as tgl_pembayaran') // Menggunakan MIN untuk tanggal pembayaran pertama
+        )
+            ->join('jenistagihan', 'jenistagihan.id', '=', 'transaksi.tagihan_id')
             ->where('jenis_transaksi', 'Pendapatan')
             ->where('jurusan', $jurusan);
 
@@ -70,8 +78,9 @@ class RekapitulasiPendapatanController extends Controller
             $query->whereNotIn('tagihan_id', ['5']);
         }
 
+        $query->groupBy('transaksi.tagihan_id');
         $data = $query->get();
-        $jumlahtotal = $query->sum('total');
+        $jumlahtotal = $data->sum('total');
 
         return view('pages.rekapitulasi.rekapitulasi-pendapatan', compact('siswa', 'tagihan', 'no', 'tahun', 'jumlahtotal', 'trans', 'data', 'totaltransaksi', 'listbulan', 'query'));
     }
@@ -84,7 +93,14 @@ class RekapitulasiPendapatanController extends Controller
         $tagihanid = $request->input('tagihan_id');
         $selectedyear = $request->input('tahun');
         $bulan = $request->input('bulan');
-        $query = Transaksi::with('jenistagihan')
+        $query = Transaksi::select(
+            'jenistagihan.name as Namatagihan',
+            'transaksi.tagihan_id',
+            DB::raw('GROUP_CONCAT(transaksi.keterangan SEPARATOR ", ") as keterangan'),
+            DB::raw('SUM(transaksi.total) as total'),
+            DB::raw('MIN(transaksi.tgl_pembayaran) as tgl_pembayaran') // Menggunakan MIN untuk tanggal pembayaran pertama
+        )
+            ->join('jenistagihan', 'jenistagihan.id', '=', 'transaksi.tagihan_id')
             ->where('jenis_transaksi', 'Pendapatan')
             ->where('jurusan', $jurusan);
 
@@ -101,8 +117,9 @@ class RekapitulasiPendapatanController extends Controller
             $query->whereNotIn('tagihan_id', ['5']);
         }
 
+        $query->groupBy('transaksi.tagihan_id');
         $data = $query->get();
-        $jumlahtotal = $query->sum('total');
+        $jumlahtotal = $data->sum('total');
         $title = 'Pengeluaran';
 
         return Excel::download(new RekapitulasiExport($data, $jumlahtotal, $title), 'rekapitulasi-pendapatan.xlsx');

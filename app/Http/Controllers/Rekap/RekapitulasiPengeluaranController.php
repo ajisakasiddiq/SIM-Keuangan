@@ -55,35 +55,14 @@ class RekapitulasiPengeluaranController extends Controller
         $tagihan = tagihan::whereNotIn('id', [1, 2, 3, 4, 5, 6])->get();
         $siswa = User::where('role', 'siswa')->get();
         $tahun = TahunAjaran::where('status', 'aktif')->get();
-        $query = Transaksi::with('jenistagihan')
-            ->where('jenis_transaksi', 'Pengeluaran')
-            ->where('jurusan', $jurusan);
-
-        if ($tagihanid) {
-            $query->where('tagihan_id', $tagihanid);
-        }
-        if ($selectedyear) {
-            $query->whereYear('tgl_pembayaran', $selectedyear);
-        }
-        if ($bulan) {
-            $query->whereMonth('tgl_pembayaran', $bulan);
-        }
-
-        $data = $query->get();
-        $jumlahtotal = $query->sum('total');
-
-        return view('pages.rekapitulasi.rekapitulasi-pengeluaran', compact('siswa', 'tagihan', 'jumlahtotal', 'no', 'tahun', 'trans', 'data', 'totaltransaksi', 'listbulan', 'query'));
-    }
-    public function exportExcel(Request $request)
-    {
-        if (Auth::user()->role == 'bendahara-excellent')
-            $jurusan = 'excellent';
-        else
-            $jurusan = 'reguler';
-        $tagihanid = $request->input('tagihan_id');
-        $selectedyear = $request->input('tahun');
-        $bulan = $request->input('bulan');
-        $query = Transaksi::with('jenistagihan')
+        $query = Transaksi::select(
+            'jenistagihan.name as Namatagihan',
+            'transaksi.tagihan_id',
+            DB::raw('GROUP_CONCAT(transaksi.keterangan SEPARATOR ", ") as keterangan'),
+            DB::raw('SUM(transaksi.total) as total'),
+            DB::raw('MIN(transaksi.tgl_pembayaran) as tgl_pembayaran') // Menggunakan MIN untuk tanggal pembayaran pertama
+        )
+            ->join('jenistagihan', 'jenistagihan.id', '=', 'transaksi.tagihan_id')
             ->where('jenis_transaksi', 'Pengeluaran')
             ->where('jurusan', $jurusan);
 
@@ -100,8 +79,48 @@ class RekapitulasiPengeluaranController extends Controller
             $query->whereNotIn('tagihan_id', ['5']);
         }
 
+        $query->groupBy('transaksi.tagihan_id');
         $data = $query->get();
-        $jumlahtotal = $query->sum('total');
+        $jumlahtotal = $data->sum('total');
+
+        return view('pages.rekapitulasi.rekapitulasi-pengeluaran', compact('siswa', 'tagihan', 'jumlahtotal', 'no', 'tahun', 'trans', 'data', 'totaltransaksi', 'listbulan', 'query'));
+    }
+    public function exportExcel(Request $request)
+    {
+        if (Auth::user()->role == 'bendahara-excellent')
+            $jurusan = 'excellent';
+        else
+            $jurusan = 'reguler';
+        $tagihanid = $request->input('tagihan_id');
+        $selectedyear = $request->input('tahun');
+        $bulan = $request->input('bulan');
+        $query = Transaksi::select(
+            'jenistagihan.name as Namatagihan',
+            'transaksi.tagihan_id',
+            DB::raw('GROUP_CONCAT(transaksi.keterangan SEPARATOR ", ") as keterangan'),
+            DB::raw('SUM(transaksi.total) as total'),
+            DB::raw('MIN(transaksi.tgl_pembayaran) as tgl_pembayaran') // Menggunakan MIN untuk tanggal pembayaran pertama
+        )
+            ->join('jenistagihan', 'jenistagihan.id', '=', 'transaksi.tagihan_id')
+            ->where('jenis_transaksi', 'Pengeluaran')
+            ->where('jurusan', $jurusan);
+
+        if ($tagihanid) {
+            $query->where('tagihan_id', $tagihanid);
+        }
+        if ($selectedyear) {
+            $query->whereYear('tgl_pembayaran', $selectedyear);
+        }
+        if ($bulan) {
+            $query->whereMonth('tgl_pembayaran', $bulan);
+        }
+        if (Auth::user()->role == 'bendahara-excellent') {
+            $query->whereNotIn('tagihan_id', ['5']);
+        }
+
+        $query->groupBy('transaksi.tagihan_id');
+        $data = $query->get();
+        $jumlahtotal = $data->sum('total');
         $title = 'Pengeluaran';
 
         return Excel::download(new RekapitulasiExport($data, $jumlahtotal, $title), 'rekapitulasi-Pengeluaran.xlsx');

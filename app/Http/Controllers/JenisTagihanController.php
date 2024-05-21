@@ -86,7 +86,7 @@ class JenisTagihanController extends Controller
         $data = $request->all();
         $item = tagihan::findOrFail($id);
         $item->update($data);
-        return redirect()->route('data-jenis-tagihann.index')->with('success', 'Data berhasil diperbarui.');
+        return redirect()->route('data-jenis-tagihan.index')->with('success', 'Data berhasil diperbarui.');
     }
 
     /**

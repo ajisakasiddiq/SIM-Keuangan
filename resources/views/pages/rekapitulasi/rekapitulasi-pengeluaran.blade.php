@@ -60,52 +60,36 @@
                                 </div>
                             </div>
                             <div class="table-responsive">
-                              <table class="table-hover scroll-horizontal-vertical w-100" id="tagihan">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Kategori</th>
-                                        <th>Keterangan</th>
-                                        <th>Tanggal Transaksi</th>
-                                        <th>status</th>
-                                        <th>Total</th>
-                                    </tr>
-                                </thead>
-                                  <tbody>
-                                      @foreach ($data as $item)
-                                    <tr>
-                                            <td>{{ $no++ }}</td>
-                                            <td>{{ $item->jenistagihan->name }}</td>
-                                            <td>{{ $item->keterangan }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($item->tgl_pembayaran)->isoFormat('D MMMM YYYY') }}</td>
-                                            <td>
-                                                @switch($item->status)
-                                                    @case(0)
-                                                        <span class="badge badge-warning">Menunggu Pembayaran</span>
-                                                        @break
-                                                    @case(1)
-                                                        <span class="badge badge-info">Pending</span>
-                                                        @break
-                                                    @case(2)
-                                                        <span class="badge badge-success">Sukses</span>
-                                                        @break
-                                                    @default
-                                                        <span class="badge badge-danger">Undefined</span>
-                                                @endswitch
-                                            </td>
-                                            <td>Rp. {{ number_format($item->total, 0, ',', '.') }}</td>
-
+                                                    <table class="table-hover scroll-horizontal-vertical w-100" id="tagihan">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Kategori</th>
+                                            <th>Keterangan</th>
+                                            <th>Tanggal Transaksi</th>
+                                            <th>Total</th>
                                         </tr>
-                                        @endforeach
-                                  </tbody>
-                                </div>                              
-                                <tfoot>
-                                    <tr>
-                                        <td colspan="5"></td>
-                                        <td>Total: Rp. {{ number_format($jumlahtotal, 0, ',', '.') }}</td>
-                                    </tr>
-                                
-                                </tfoot>
+                                    </thead>
+                                      <tbody>
+                                          @foreach ($data as $item)
+                                        <tr>
+                                                <td>{{ $no++ }}</td>
+                                                <td>{{ $item->jenistagihan->name }}</td>
+                                                <td>{{ $item->keterangan }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($item->tgl_pembayaran)->isoFormat('D MMMM YYYY') }}</td>
+                                                <td>Rp. {{ number_format($item->total, 0, ',', '.') }}</td>
+
+                                            </tr>
+                                            @endforeach
+                                      </tbody>
+                                    </div>                              
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="4"></td>
+                                            <td>Total: Rp. {{ number_format($jumlahtotal, 0, ',', '.') }}</td>
+                                        </tr>
+                                    
+                                    </tfoot>
                                 </table>
                             </div>
                         </div>
