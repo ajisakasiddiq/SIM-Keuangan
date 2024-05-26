@@ -42,7 +42,6 @@
             <tr>
                 <th>Kategori</th>
                 <th>Keterangan</th>
-                <th>Tanggal Transaksi</th>
                 <th>Total</th>
             </tr>
         </thead>
@@ -51,7 +50,6 @@
                 <tr>
                     <td>{{ $item->jenistagihan->name }}</td>
                     <td>{{ $item->keterangan }}</td>
-                    <td>{{ \Carbon\Carbon::parse($item->tgl_pembayaran)->format('d M Y') }}</td>
                     <td>Rp. {{ number_format($item->total, 0, ',', '.') }}</td>
                 </tr>
             @endforeach

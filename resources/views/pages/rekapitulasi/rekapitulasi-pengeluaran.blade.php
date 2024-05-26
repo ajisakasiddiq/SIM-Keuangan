@@ -21,14 +21,6 @@
                         <div class="card-body">
                             <div class="row mb-2">
                                 <div class="col-md-2">
-                                    <select class="form-control" name="tagihan_id" id="tagihan_id">
-                                        <option value="">Pilih Kategori</option>
-                                    @foreach ($tagihan as $item)
-                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                    @endforeach
-                                </select>
-                                </div>
-                                <div class="col-md-2">
                                     <select name="bulan" id="bulan" class="form-control">
                                         <option value="">Pilih Bulan</option>
                                         @foreach($listbulan as $key => $nama_bulan)
@@ -66,7 +58,6 @@
                                             <th>No</th>
                                             <th>Kategori</th>
                                             <th>Keterangan</th>
-                                            <th>Tanggal Transaksi</th>
                                             <th>Total</th>
                                         </tr>
                                     </thead>
@@ -76,7 +67,6 @@
                                                 <td>{{ $no++ }}</td>
                                                 <td>{{ $item->jenistagihan->name }}</td>
                                                 <td>{{ $item->keterangan }}</td>
-                                                <td>{{ \Carbon\Carbon::parse($item->tgl_pembayaran)->isoFormat('D MMMM YYYY') }}</td>
                                                 <td>Rp. {{ number_format($item->total, 0, ',', '.') }}</td>
 
                                             </tr>
@@ -85,7 +75,7 @@
                                     </div>                              
                                     <tfoot>
                                         <tr>
-                                            <td colspan="4"></td>
+                                            <td colspan="3"></td>
                                             <td>Total: Rp. {{ number_format($jumlahtotal, 0, ',', '.') }}</td>
                                         </tr>
                                     
@@ -114,7 +104,6 @@
         var urlParams = new URLSearchParams(window.location.search);
         var selectedMonth = urlParams.get('bulan');
         var selectedYear = urlParams.get('tahun');
-        var selectedTagihanId = urlParams.get('tagihan_id');
 
         // Setel nilai terpilih pada elemen <select> bulan dan tahun (jika nilai tersedia)
         var selectMonth = document.getElementById('bulan');
@@ -128,16 +117,12 @@
         if (selectedYear) {
             selectYear.value = selectedYear;
         }
-        if (selectedTagihanId) {
-            selecttagihanId.value = selectedTagihanId;
-        }
     });
 
     function handleSubmit() {
     // Dapatkan nilai yang dipilih dari elemen <select> bulan dan tahun
     var selectedMonth = document.getElementById('bulan').value;
     var selectedYear = document.getElementById('tahun').value;
-    var selectedTagihanId = document.getElementById('tagihan_id').value;
 
     // Buat URL dengan parameter yang dipilih
     var url = "{{ route('Rekapitulasi-pengeluaran.index') }}?";
@@ -146,9 +131,6 @@
     }
     if (selectedYear) {
         url += "tahun=" + selectedYear + "&";
-    }
-    if (selectedTagihanId) {
-        url += "tagihan_id=" + selectedTagihanId + "&";
     }
 
     // Hapus karakter '&' terakhir jika ada
@@ -162,7 +144,6 @@ function print() {
     // Dapatkan nilai yang dipilih dari elemen <select> bulan dan tahun
         var selectedMonth = document.getElementById('bulan').value;
     var selectedYear = document.getElementById('tahun').value;
-    var selectedTagihanId = document.getElementById('tagihan_id').value;
 
     // Buat URL dengan parameter yang dipilih
     var url = "{{ route('export.pengeluaran') }}?";
@@ -172,10 +153,6 @@ function print() {
     if (selectedYear) {
         url += "tahun=" + selectedYear + "&";
     }
-    if (selectedTagihanId) {
-        url += "tagihan_id=" + selectedTagihanId + "&";
-    }
-
     // Hapus karakter '&' terakhir jika ada
     url = url.slice(0, -1);
 

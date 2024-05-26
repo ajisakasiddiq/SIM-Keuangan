@@ -66,9 +66,6 @@ class RekapitulasiPengeluaranController extends Controller
             ->where('jenis_transaksi', 'Pengeluaran')
             ->where('jurusan', $jurusan);
 
-        if ($tagihanid) {
-            $query->where('tagihan_id', $tagihanid);
-        }
         if ($selectedyear) {
             $query->whereYear('tgl_pembayaran', $selectedyear);
         }
@@ -105,9 +102,6 @@ class RekapitulasiPengeluaranController extends Controller
             ->where('jenis_transaksi', 'Pengeluaran')
             ->where('jurusan', $jurusan);
 
-        if ($tagihanid) {
-            $query->where('tagihan_id', $tagihanid);
-        }
         if ($selectedyear) {
             $query->whereYear('tgl_pembayaran', $selectedyear);
         }

@@ -58,7 +58,6 @@
                                             <th>No</th>
                                             <th>Kategori</th>
                                             <th>Keterangan</th>
-                                            <th>Tanggal Transaksi</th>
                                             <th>Total</th>
                                         </tr>
                                     </thead>
@@ -68,7 +67,6 @@
                                                 <td>{{ $no++ }}</td>
                                                 <td>{{ $item->jenistagihan->name }}</td>
                                                 <td>{{ $item->keterangan }}</td>
-                                                <td>{{ \Carbon\Carbon::parse($item->tgl_pembayaran)->isoFormat('D MMMM YYYY') }}</td>
                                                 <td>Rp. {{ number_format($item->total, 0, ',', '.') }}</td>
 
                                             </tr>
@@ -77,7 +75,7 @@
                                     </div>                              
                                     <tfoot>
                                         <tr>
-                                            <td colspan="4"></td>
+                                            <td colspan="3"></td>
                                             <td>Total: Rp. {{ number_format($jumlahtotal, 0, ',', '.') }}</td>
                                         </tr>
                                     
