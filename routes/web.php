@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DetailsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LaporanKeuanganController;
@@ -52,6 +53,8 @@ Route::middleware('auth', 'role:bendahara-excellent,bendahara-reguler')
         Route::resource('Rekapitulasi-pengeluaran', 'App\Http\Controllers\Rekap\RekapitulasiPengeluaranController');
         Route::resource('Rekapitulasi-pendapatan', 'App\Http\Controllers\Rekap\RekapitulasiPendapatanController');
         Route::resource('Details', 'App\Http\Controllers\DetailsController');
+        Route::put('/details/update', [DetailsController::class, 'update'])->name('Detailsupdate');
+
         Route::get('/export-datalaporan', [LaporanKeuanganController::class, 'exportData'])->name('export.data');
         Route::get('/export-pendapatan', [RekapitulasiPendapatanController::class, 'exportExcel'])->name('export.excel');
         Route::get('/export-data', [RekapitulasiPengeluaranController::class, 'exportExcel'])->name('export.pengeluaran');

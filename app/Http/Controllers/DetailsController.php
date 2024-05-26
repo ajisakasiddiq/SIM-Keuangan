@@ -142,9 +142,23 @@ class DetailsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        //
+        // Validasi request
+
+        // Dapatkan data dari request
+        $user_id = $request->input('user_id');
+        $tagihan_id = $request->input('tagihan_id');
+        $status = $request->input('status');
+
+        // Update semua transaksi berdasarkan user_id dan tagihan_id
+        Transaksi::where('user_id', $user_id)
+            ->where('tagihan_id', $tagihan_id)
+            ->update(['status' => $status]);
+
+        // Redirect atau berikan respon sesuai kebutuhan
+        return redirect()->route('Details.index', ['user_id' => $user_id, 'tagihan_id' => $tagihan_id])
+            ->with('success', 'Status pembayaran telah diperbarui.');
     }
 
     /**

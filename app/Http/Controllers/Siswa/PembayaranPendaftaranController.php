@@ -91,7 +91,7 @@ class PembayaranPendaftaranController extends Controller
             return redirect()->route('Tagihan-Pendaftaran.index')->with('success', 'Data berhasil disimpan.');
         } catch (\Exception $e) {
             // Tangkap pengecualian dan tampilkan pesan kesalahan
-            dd($e); // Menampilkan informasi exception ke terminal
+            // Menampilkan informasi exception ke terminal
             return redirect()->route('Tagihan-Pendaftaran.index')->with('error', 'Terjadi kesalahan saat menyimpan data.');
         }
     }

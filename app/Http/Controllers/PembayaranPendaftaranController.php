@@ -52,7 +52,11 @@ class PembayaranPendaftaranController extends Controller
                 ->groupBy('transaksi.user_id', 'transaksi.tagihan_id', 'transaksi.status'); // Tambahkan kolom GROUP BY untuk kolom yang dipilih
             return DataTables::of($query)
                 ->addColumn('action', function ($item) {
-                    return '<a href="' . route('Details.index', ['user_id' => $item->user_id, 'tagihan_id' => $item->tagihan_id]) . '" class="btn btn-primary">Detail</a>';
+                    return '
+                    <div>
+                        <a href="' . route('Details.index', ['user_id' => $item->user_id, 'tagihan_id' => $item->tagihan_id]) . '" class="btn btn-primary">Detail</a>
+                    </div>
+                ';
                 })
 
                 ->addColumn('no', function ($item) {
