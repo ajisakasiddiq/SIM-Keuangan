@@ -34,7 +34,9 @@ class PembayaranKainSeragamController extends Controller
             return $item;
         });
         $tagihan = tagihan::get();
-        $siswa = User::where('role', 'siswa')->get();
+        $siswa = User::where('role', 'siswa')
+            ->where('jurusan', $jurusan)
+            ->get();
         $tahun = TahunAjaran::where('status', 'aktif')->get();
         if (request()->ajax()) {
             $query = Transaksi::select(

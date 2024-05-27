@@ -12,16 +12,21 @@ use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 class SiswaImport implements ToModel, WithStartRow
 {
+    protected $jurusan;
     public function startRow(): int
     {
         return 2; // Mulai dari baris kedua
     }
-
+    public function __construct($jurusan)
+    {
+        $this->jurusan = $jurusan;
+    }
     public function model(array $row)
     {
         // Konversi format tanggal dari "30/05/2024" menjadi "2024-05-30"
         // dd($row[6]);
         // $tgl_lahir = Carbon::createFromFormat('d/m/Y', $row[6])->format('Y-m-d');
+
 
         return new User([
             'name' => $row[0],
@@ -35,6 +40,7 @@ class SiswaImport implements ToModel, WithStartRow
             'kelas' => $row[8],
             'password' => '12345678',
             'role' => 'siswa',
+            'jurusan' => $this->jurusan,
         ]);
     }
 }

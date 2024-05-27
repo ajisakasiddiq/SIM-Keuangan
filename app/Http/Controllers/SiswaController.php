@@ -35,7 +35,8 @@ class SiswaController extends Controller
             return $item;
         });
         if (request()->ajax()) {
-            $query = User::where('role', 'siswa');
+            $query = User::where('role', 'siswa')
+                ->where('jurusan', $jurusan);
             return DataTables::of($query)
                 ->addColumn('action', function ($item) {
                     // $barcode = DNS1D::getBarcodeHTML($item->id, 'C128', 2, 50);
@@ -132,9 +133,14 @@ class SiswaController extends Controller
     }
     public function importData(Request $request)
     {
-        $file = $request->file('excel_file');
+        if (Auth::user()->role == 'bendahara-excellent')
+            $jurusan = 'excellent';
+        else
+            $jurusan = 'reguler';
+        $file = $request->file('file');
 
-        Excel::import(new SiswaImport, $file);
+        // Panggil import dan lewati parameter tambahan (jurusan)
+        Excel::import(new SiswaImport($jurusan), $file);
 
         return redirect()->back()->with('success', 'Data berhasil diimpor.');
     }

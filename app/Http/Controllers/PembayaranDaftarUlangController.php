@@ -35,7 +35,9 @@ class PembayaranDaftarUlangController extends Controller
         });
         $tagihan = tagihan::get();
         $tahun = TahunAjaran::where('status', 'aktif')->get();
-        $siswa = User::where('role', 'siswa')->get();
+        $siswa = User::where('role', 'siswa')
+            ->where('jurusan', $jurusan)
+            ->get();
         if (request()->ajax()) {
             $query = Transaksi::select(
                 'transaksi.user_id',

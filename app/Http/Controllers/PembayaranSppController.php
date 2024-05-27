@@ -35,7 +35,9 @@ class PembayaranSppController extends Controller
         });
         $tagihan = tagihan::get();
         $tahun = TahunAjaran::where('status', 'Aktif')->get();
-        $siswa = User::where('role', 'siswa')->get();
+        $siswa = User::where('role', 'siswa')
+            ->where('jurusan', $jurusan)
+            ->get();
         if (request()->ajax()) {
             $query = Transaksi::with('user')
                 ->where('tagihan_id', '1')
