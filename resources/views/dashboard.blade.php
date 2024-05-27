@@ -110,81 +110,15 @@
     
 </div>
 
-@elseif(Auth::user()->role == 'admin')
-<div class="row">
-
-    <!-- Earnings (Monthly) Card Example -->
-    <div class="col-xl-4 col-md-12 mb-4">
-        <div class="card border-left-primary shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                            Tagihan Berjalan</div>
-
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $tagihanberjalan }}</div>
-                {{-- <small>Pendapatan Minggu Ini (Rp. {{ number_format($pendapatan, 0, ',', '.') }})</small> --}}
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Earnings (Monthly) Card Example -->
-    <div class="col-xl-4 col-md-12 mb-4">
-        <div class="card border-left-success shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
-                            Tagihan Pending</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $tagihanpending }}</div>
-                        {{-- <small>Pengeluaran Minggu Ini (Rp. {{ number_format($pendapatan, 0, ',', '.') }})</small> --}}
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-4 col-md-12 mb-4">
-        <div class="card border-left-success shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                            Tagihan Lunas</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $tagihanlunas }}</div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row">
-
-    <!-- Area Chart -->
-    <div class="col-xl-12">
+@elseif(Auth::user()->role == 'admin-excellent')
+<div class="row justify-content-center m-12">
+    <div class="col-xl-12 col-md-10">
         <div class="card shadow mb-4">
-            <!-- Card Header - Title -->
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Selamat Datang Ajisakasiddiq</h6>
-            </div>
-            <!-- Card Body - Content -->
-            <div class="card-body custom-card-body">
-                <p>Ini adalah pesan selamat datang untuk Ajisakasiddiq.</p>
+            <div class="card-body text-center custom-card-body">
+                <h2 class="m-5">Selamat Datang di SIM-K Mts Zainul Hasan Balung</h2>
             </div>
         </div>
     </div>
-    
-    
 </div>
 @else
                 <!-- Content Row -->

@@ -271,7 +271,7 @@
                     @csrf
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Import Data</label>
-                         <input type="file" name="excel_file">
+                         <input type="file" name="excel_file" id="excel">
                          <br>
                          <small>*Max 10.000 data</small>
                     </div>
@@ -313,34 +313,12 @@
 </div>
 @endsection
 @push('addon-script')
-{{-- <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // Ambil nilai tahun_pelajaran dari parameter URL jika ada
-        const urlParams = new URLSearchParams(window.location.search);
-        const selectedYear = urlParams.get('kelas');
-
-        // Cari elemen select berdasarkan ID
-        const selectElement = document.getElementById('kelas');
-
-        // Setel nilai opsi yang dipilih berdasarkan nilai tahun_pelajaran dari URL
-        if (selectedYear) {
-            // Loop melalui opsi dalam elemen select
-            for (let i = 0; i < selectElement.options.length; i++) {
-                if (selectElement.options[i].value === selectedYear) {
-                    // Setel opsi yang dipilih sesuai dengan nilai tahun_pelajaran dari URL
-                    selectElement.options[i].selected = true;
-                    break;
-                }
-            }
-        }
-
-        // Tambahkan event listener untuk mengubah tahun pelajaran
-        selectElement.addEventListener('change', function() {
-            const selectedYear = this.value;
-
-            // Redirect ke controller action dengan tahun_pelajaran sebagai parameter
-            window.location.href = "{{ route('data-siswa.index') }}" + "?kelas=" + selectedYear;
-        });
+{{-- <script src="path/to/your/fileupload-library.js"></script>
+<script>
+    let UploadFileLsd = new FileUpload('#excel', {
+        accept: ['geojson'],
+        maxSize: 50, // Assume this is in MB
+        maxFile: 1
     });
 </script> --}}
 <script type="text/javascript">
