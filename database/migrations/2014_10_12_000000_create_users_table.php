@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('kelas')->nullable();
             $table->string('tgl_lahir')->nullable();
             $table->string('tempat_lahir')->nullable();
-            $table->enum('role', ['siswa', 'guru', 'admin', 'bendahara-excellent', 'bendahara-reguler']);
+            $table->enum('role', ['siswa', 'guru', 'admin-excellent', 'admin-reguler', 'bendahara-excellent', 'bendahara-reguler']);
             $table->enum('jk', ['L', 'P'])->nullable();
             $table->rememberToken();
             $table->timestamps();

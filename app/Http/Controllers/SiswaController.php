@@ -133,17 +133,30 @@ class SiswaController extends Controller
     }
     public function importData(Request $request)
     {
-        if (Auth::user()->role == 'bendahara-excellent')
-            $jurusan = 'excellent';
-        else
-            $jurusan = 'reguler';
-        $file = $request->file('file');
+        try {
+            if (Auth::user()->role == 'admin-excellent') {
+                $jurusan = 'excellent';
+            } else {
+                $jurusan = 'reguler';
+            }
 
-        // Panggil import dan lewati parameter tambahan (jurusan)
-        Excel::import(new SiswaImport($jurusan), $file);
+            $file = $request->file('file');
 
-        return redirect()->back()->with('success', 'Data berhasil diimpor.');
+            // Pastikan file ada sebelum mengimport
+            if ($file) {
+                // Panggil import dan lewati parameter tambahan (jurusan)
+                Excel::import(new SiswaImport($jurusan), $file);
+
+                return redirect()->back()->with('success', 'Data berhasil diimpor.');
+            } else {
+                return redirect()->back()->with('error', 'Tidak ada file yang diunggah.');
+            }
+        } catch (\Exception $e) {
+            // Tangani kesalahan
+            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
     }
+
 
     /**
      * Display the specified resource.

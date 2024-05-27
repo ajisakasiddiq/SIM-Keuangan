@@ -91,6 +91,26 @@ Pembayaran Kain Seragam
                            $totalCicilan = $totalcicilan->isNotEmpty() ? $totalcicilan->first()->total_sum : 0;
                            $saldoSisa = $totalTransaksi - $totalCicilan;
                        @endphp
+                       <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            const totalInput = document.getElementById('total');
+                            const submitBtn = document.getElementById('submitBtn');
+                            const totalError = document.getElementById('totalError');
+                            const saldoSisa = {{ $saldoSisa }};
+                        
+                            totalInput.addEventListener('input', function() {
+                                const totalValue = parseFloat(totalInput.value.replace(/[^0-9.-]+/g,"")) || 0;
+                        
+                                if (totalValue > saldoSisa) {
+                                    submitBtn.disabled = true;
+                                    totalError.style.display = 'block';
+                                } else {
+                                    submitBtn.disabled = false;
+                                    totalError.style.display = 'none';
+                                }
+                            });
+                        });
+                        </script>
                        <p>: Rp. {{ $totalCicilan }}</p>
                        <p>: Rp. {{ $saldoSisa }}</p>
                    
@@ -188,24 +208,5 @@ Pembayaran Kain Seragam
 
 @endsection
 @push('addon-script')
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const totalInput = document.getElementById('total');
-    const submitBtn = document.getElementById('submitBtn');
-    const totalError = document.getElementById('totalError');
-    const saldoSisa = {{ $saldoSisa }};
 
-    totalInput.addEventListener('input', function() {
-        const totalValue = parseFloat(totalInput.value.replace(/[^0-9.-]+/g,"")) || 0;
-
-        if (totalValue > saldoSisa) {
-            submitBtn.disabled = true;
-            totalError.style.display = 'block';
-        } else {
-            submitBtn.disabled = false;
-            totalError.style.display = 'none';
-        }
-    });
-});
-</script>
 @endpush

@@ -13,7 +13,7 @@
         <a class="nav-link {{ (request()->is('dashboard')) ? 'active' : ''}}" href="{{ route('dashboard.index') }}"><i class="fas fa-fw fa-tachometer-alt"></i><span>Dashboard</span></a>
     </li>
 
-    @if(Auth::user()->role == 'admin')
+    @if(Auth::user()->role == 'admin-excellent' || Auth::user()->role == 'admin-reguler')
     <li class="nav-item">
         <a class="nav-link {{ (request()->is('data-user')) ? 'active' : ''}}" href="{{ route('data-user.index') }}">
               <i class="fa-duotone fa-user" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
