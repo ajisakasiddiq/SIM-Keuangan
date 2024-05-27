@@ -32,7 +32,17 @@
                             <a href=""  type="button" class="btn btn-success mb-2" data-bs-toggle="modal" data-bs-target="#naik">
                                 + Naik Kelas Siswa
                             </a>
-                            
+                            <div class="row">
+                                <div class="mb-3">
+                                    <label for="kelas" class="form-label">Kelas</label>
+                                    <select class="form-control" name="kelas" id="kelas">
+                                        <option value="">Pilih Kelas</option>
+                                        <option value="VII">VII</option>
+                                        <option value="VIII">VIII</option>
+                                        <option value="IX">IX</option>
+                                    </select>
+                                </div>
+                            </div>
                             <div class="table-responsive">
                               <table class="table-hover scroll-horizontal-vertical w-100" id="siswa">
                                     <thead>
@@ -303,13 +313,48 @@
 </div>
 @endsection
 @push('addon-script')
+{{-- <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Ambil nilai tahun_pelajaran dari parameter URL jika ada
+        const urlParams = new URLSearchParams(window.location.search);
+        const selectedYear = urlParams.get('kelas');
+
+        // Cari elemen select berdasarkan ID
+        const selectElement = document.getElementById('kelas');
+
+        // Setel nilai opsi yang dipilih berdasarkan nilai tahun_pelajaran dari URL
+        if (selectedYear) {
+            // Loop melalui opsi dalam elemen select
+            for (let i = 0; i < selectElement.options.length; i++) {
+                if (selectElement.options[i].value === selectedYear) {
+                    // Setel opsi yang dipilih sesuai dengan nilai tahun_pelajaran dari URL
+                    selectElement.options[i].selected = true;
+                    break;
+                }
+            }
+        }
+
+        // Tambahkan event listener untuk mengubah tahun pelajaran
+        selectElement.addEventListener('change', function() {
+            const selectedYear = this.value;
+
+            // Redirect ke controller action dengan tahun_pelajaran sebagai parameter
+            window.location.href = "{{ route('data-siswa.index') }}" + "?kelas=" + selectedYear;
+        });
+    });
+</script> --}}
 <script type="text/javascript">
   // crud
   $(document).ready(function() {
     var table=  $('#siswa').DataTable({
           processing: true,
           serverSide: true,
-          ajax: '{{ url()->current() }}',
+          ajax: {
+            url: '{{ url()->current() }}',
+            data: function (d) {
+                d.kelas = $('#kelas').val(); // Tambahkan parameter kelas ke request
+            }
+        },
           columns: [
               {
                   data: 'no',
@@ -372,7 +417,9 @@
               },
           ]
       });
-  
+      $('#kelas').on('change', function () {
+        table.ajax.reload(); // Reload table data saat kelas diubah
+    });
   
       // Edit Task Modal
       $('#editModal').on('show.bs.modal', function(event) {

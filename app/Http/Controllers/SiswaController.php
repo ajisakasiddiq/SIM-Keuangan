@@ -17,9 +17,9 @@ class SiswaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        if (Auth::user()->role == 'bendahara-excellent')
+        if (Auth::user()->role == 'admin-excellent')
             $jurusan = 'excellent';
         else
             $jurusan = 'reguler';
@@ -35,11 +35,14 @@ class SiswaController extends Controller
             return $item;
         });
         if (request()->ajax()) {
+            $kelas = $request->input('kelas');
             $query = User::where('role', 'siswa')
                 ->where('jurusan', $jurusan);
+            if ($kelas) {
+                $query->where('kelas', $kelas);
+            }
             return DataTables::of($query)
                 ->addColumn('action', function ($item) {
-                    // $barcode = DNS1D::getBarcodeHTML($item->id, 'C128', 2, 50);
                     return '
                     <div class="btn-group">
                       <div class="dropdown">
