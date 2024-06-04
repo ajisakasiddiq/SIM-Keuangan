@@ -12,14 +12,10 @@ use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 class SiswaImport implements ToModel, WithStartRow
 {
-    protected $jurusan;
+
     public function startRow(): int
     {
         return 2; // Mulai dari baris kedua
-    }
-    public function __construct($jurusan)
-    {
-        $this->jurusan = $jurusan;
     }
     public function model(array $row)
     {
@@ -40,7 +36,6 @@ class SiswaImport implements ToModel, WithStartRow
             'kelas' => $row[8],
             'password' => '12345678',
             'role' => 'siswa',
-            'jurusan' => $this->jurusan,
         ]);
     }
 }

@@ -137,12 +137,6 @@ class SiswaController extends Controller
     public function importData(Request $request)
     {
         try {
-            // Tentukan jurusan berdasarkan peran pengguna
-            if (Auth::user()->role == 'admin-excellent') {
-                $jurusan = 'excellent';
-            } else {
-                $jurusan = 'reguler';
-            }
 
             // Ambil file dari permintaan
             $file = $request->file('file');
@@ -150,7 +144,7 @@ class SiswaController extends Controller
             // Pastikan file ada sebelum mengimport
             if ($file) {
                 // Panggil import dan lewati parameter tambahan (jurusan)
-                Excel::import(new SiswaImport($jurusan), $file);
+                Excel::import(new SiswaImport, $file);
 
                 return redirect()->back()->with('success', 'Data berhasil diimpor.');
             } else {
