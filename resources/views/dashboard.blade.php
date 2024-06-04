@@ -111,6 +111,16 @@
 </div>
 
 @elseif(Auth::user()->role == 'admin-excellent')
+<div class="row justify-content-center">
+    <div class="col-xl-12 col-md-10 mb-10">
+        <div class="card shadow mb-4">
+            <div class="card-body text-center custom-card-body">
+                <h2 class="m-5">Selamat Datang di SIM-K Mts Zainul Hasan Balung</h2>
+            </div>
+        </div>
+    </div>
+</div>
+@elseif(Auth::user()->role == 'admin-reguler')
 <div class="row justify-content-center m-12">
     <div class="col-xl-12 col-md-10">
         <div class="card shadow mb-4">

@@ -12,7 +12,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
-class SiswaController extends Controller
+class SiswaRegulerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -37,7 +37,7 @@ class SiswaController extends Controller
         if (request()->ajax()) {
             $kelas = $request->input('kelas');
             $query = User::where('role', 'siswa')
-                ->where('jurusan', 'excellent');
+                ->where('jurusan', 'reguler');
             if ($kelas) {
                 $query->where('kelas', $kelas);
             }
@@ -62,7 +62,7 @@ class SiswaController extends Controller
                         data-kelas="' . $item->kelas . '" 
                         data-jurusan="' . $item->jurusan . '" 
                         data-toggle="modal" data-target="#editModal">Edit</button>
-                          <form action="' . route('data-siswa-excellent.destroy', $item->id) . '" method="POST">
+                          <form action="' . route('data-siswa-reguler.destroy', $item->id) . '" method="POST">
                           ' . method_field('delete') . csrf_field() . '
                           <button type="submit" class="dropdown-item text-danger">Hapus</button>
                           </form>
@@ -91,7 +91,7 @@ class SiswaController extends Controller
         }
         // $no = 1;
         // $user = User::where('role', 'siswa')->get();
-        return view('pages.data-siswa', compact('trans', 'totaltransaksi'));
+        return view('pages.data-siswa-reguler', compact('trans', 'totaltransaksi'));
     }
 
     /**
@@ -116,11 +116,11 @@ class SiswaController extends Controller
 
             // Membuat user baru dan menyimpan ke database
             User::create($data);
-            return redirect()->route('data-siswa-excellent.index')->with('success', 'Data berhasil disimpan.');
+            return redirect()->route('data-siswa-reguler.index')->with('success', 'Data berhasil disimpan.');
         } catch (\Exception $e) {
             dd($e);
             // Tangkap pengecualian dan tampilkan pesan kesalahan
-            return redirect()->route('data-siswa-excellent.index')->with('error', 'Key yang anda masukkan tidak ada di saldo mon');
+            return redirect()->route('data-siswa-reguler.index')->with('error', 'Key yang anda masukkan tidak ada di saldo mon');
         }
     }
 
@@ -198,7 +198,7 @@ class SiswaController extends Controller
         $data = $request->all();
         $item = User::findOrFail($id);
         $item->update($data);
-        return redirect()->route('data-siswa-excellent.index')->with('success', 'Data berhasil diperbarui.');
+        return redirect()->route('data-siswa-reguler.index')->with('success', 'Data berhasil diperbarui.');
     }
 
     /**
@@ -209,6 +209,6 @@ class SiswaController extends Controller
         $data = User::findOrFail($id);
         $data->delete();
 
-        return redirect()->route('data-siswa-excellent.index');
+        return redirect()->route('data-siswa-reguler.index');
     }
 }

@@ -35,12 +35,54 @@ class RekeningController extends Controller
             $item->tgl_pembayaran_formatted = \Carbon\Carbon::parse($item->tgl_pembayaran)->format('F j, Y');
             return $item;
         });
+        $namaBank = [
+            "Bank Central Asia (BCA)",
+            "Bank Rakyat Indonesia (BRI)",
+            "Bank Mandiri",
+            "Bank Negara Indonesia (BNI)",
+            "Bank Tabungan Negara (BTN)",
+            "Bank CIMB Niaga",
+            "Bank Danamon",
+            "Bank Permata",
+            "Bank Panin",
+            "Bank Syariah Indonesia (BSI)",
+            "Bank Mega",
+            "Bank OCBC NISP",
+            "Bank BTPN",
+            "Bank Bukopin",
+            "Bank Maybank Indonesia",
+            "Bank Jatim",
+            "Bank Jabar Banten (BJB)",
+            "Bank DKI",
+            "Bank Sumut",
+            "Bank Sumsel Babel",
+            "Bank BPD Bali",
+            "Bank Papua",
+            "Bank Sulselbar",
+            "Bank Kalbar",
+            "Bank Kalteng",
+            "Bank Nagari",
+            "Bank Aceh Syariah",
+            "Bank Lampung",
+            "Bank SulutGo",
+            "Bank Maluku Malut",
+            "Bank NTT",
+            "Bank NTB Syariah",
+            "Bank Kaltimtara",
+            "Bank Kalsel",
+            "Bank Riau Kepri",
+            "Bank Sulteng",
+            "Bank Bengkulu",
+            "Bank BPD DIY",
+            "Bank Jateng"
+        ];
         return view('pages.data-rekening', compact(
             'tagihan',
             'no',
             'trans',
             'totaltransaksi',
-            'jurusan'
+            'jurusan',
+            'namaBank'
         ));
     }
 

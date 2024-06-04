@@ -125,6 +125,26 @@ Detail Pembayaran
                                     $totalCicilan = $totalcicilan->isNotEmpty() ? $totalcicilan->first()->total_sum : 0;
                                     $saldoSisa = $totalTransaksi - $totalCicilan;
                                 @endphp
+                                            <script>
+                                                document.addEventListener('DOMContentLoaded', function() {
+                                                    const totalInput = document.getElementById('total');
+                                                    const submitBtn = document.getElementById('submitBtn');
+                                                    const totalError = document.getElementById('totalError');
+                                                    const saldoSisa = {{ $saldoSisa }};
+                                                
+                                                    totalInput.addEventListener('input', function() {
+                                                        const totalValue = parseFloat(totalInput.value.replace(/[^0-9.-]+/g,"")) || 0;
+                                                
+                                                        if (totalValue > saldoSisa) {
+                                                            submitBtn.disabled = true;
+                                                            totalError.style.display = 'block';
+                                                        } else {
+                                                            submitBtn.disabled = false;
+                                                            totalError.style.display = 'none';
+                                                        }
+                                                    });
+                                                });
+                                                </script>
                                 <p>: Rp. {{ $totalCicilan }}</p>
                                 <p>: Rp. {{ $saldoSisa }}</p>
                                 @if ($saldoSisa == 0 )
@@ -204,6 +224,7 @@ Detail Pembayaran
                         <div class="mb-3">
                             <label for="total" class="form-label">Total yg Dibayarkan</label>
                             <input type="text" name="total" id="total" class="form-control">
+                            <small id="totalError" class="text-danger" style="display: none;">Pembayaran melebihi tagihan sisa.</small>
                         </div>
                         <div class="mb-3">
                             <label for="tgl" class="form-label">Tanggal Pembayaran</label>

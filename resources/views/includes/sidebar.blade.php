@@ -13,17 +13,26 @@
         <a class="nav-link {{ (request()->is('dashboard')) ? 'active' : ''}}" href="{{ route('dashboard.index') }}"><i class="fas fa-fw fa-tachometer-alt"></i><span>Dashboard</span></a>
     </li>
 
-    @if(Auth::user()->role == 'admin-excellent' || Auth::user()->role == 'admin-reguler')
+    @if(Auth::user()->role == 'admin')
     <li class="nav-item">
         <a class="nav-link {{ (request()->is('data-user')) ? 'active' : ''}}" href="{{ route('data-user.index') }}">
               <i class="fa-duotone fa-user" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
               <span>Data User</span></a>
       </li>
-    <li class="nav-item">
-        <a class="nav-link {{ (request()->is('data-siswa')) ? 'active' : ''}}" href="{{ route('data-siswa.index') }}">
-              <i class="fa-duotone fa-user" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
-              <span>Data Siswa</span></a>
-      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed {{ (request()->is('data-tagihan*')) ? 'active' : ''}}" href="#" data-toggle="collapse" data-target="#pembayaran"
+           aria-expanded="true" aria-controls="pembayaran">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Data Siswa</span>
+        </a>
+        <div id="pembayaran" class="collapse {{ (request()->is('data-tagihan*')) ? 'show' : ''}}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Data Siswa</h6>
+                <a class="collapse-item {{ (request()->is('data-siswa-excellent*')) ? 'active' : ''}}" href="{{ route('data-siswa-excellent.index') }}">Siswa Excellent</a>
+                <a class="collapse-item {{ (request()->is('data-siswa-reguler*')) ? 'active' : ''}}" href="{{ route('data-siswa-reguler.index') }}">Siswa Reguler</a>
+            </div>
+        </div>
+    </li>
       <li class="nav-item">
         <a class="nav-link {{ (request()->is('Tahun-Ajaran*')) ? 'active' : ''}}" href="{{ route('Tahun-Ajaran.index') }}">
               <i class="fa-duotone fa-user" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>

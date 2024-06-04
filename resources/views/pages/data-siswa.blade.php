@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-    Dashboard | Data Siswa
+    Dashboard | Data Siswa Excellent
 @endsection
 
 @section('content')
@@ -8,7 +8,7 @@
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Data Siswa</h1>
+        <h1 class="h3 mb-0 text-gray-800 m-2">Data Siswa Excellent</h1>
     </div>
 
     <!-- Content Row -->
@@ -26,9 +26,9 @@
                             <a href="" type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#adduser">
                                 + Tambah Data
                             </a>
-                            <a href=""  type="button" class="btn btn-success mb-2" data-bs-toggle="modal" data-bs-target="#import">
+                            {{-- <a href=""  type="button" class="btn btn-success mb-2" data-bs-toggle="modal" data-bs-target="#import">
                                 + Import Data Siswa
-                            </a>
+                            </a> --}}
                             <a href=""  type="button" class="btn btn-success mb-2" data-bs-toggle="modal" data-bs-target="#naik">
                                 + Naik Kelas Siswa
                             </a>
@@ -186,7 +186,7 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('data-siswa.store') }}" method="POST">
+                <form action="{{ route('data-siswa-excellent.store') }}" method="POST">
                     @csrf
                     @method('POST')
                     <div class="mb-3">
@@ -443,16 +443,16 @@
           var transaksi_id = $('#id').val();
   
           $.ajax({
-              url: '/data-siswa/' + transaksi_id,
+              url: '/data-siswa-excellent/' + transaksi_id,
               type: 'POST',
               data: formData,
               success: function(data) {
                   alert('Data Berhasil Di ubah',data);
-                  window.location.href = '/data-siswa';
+                  window.location.href = '/data-siswa-excellent';
               },
               error: function(data) {
                   alert('Error',data);
-                  window.location.href = '/data-siswa';
+                  window.location.href = '/data-siswa-excellent';
               }
           });
       }

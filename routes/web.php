@@ -60,9 +60,10 @@ Route::middleware('auth', 'role:bendahara-excellent,bendahara-reguler')
         Route::get('/export-data', [RekapitulasiPengeluaranController::class, 'exportExcel'])->name('export.pengeluaran');
         Route::post('/data-siswa/importExcel', [SiswaController::class, 'importData'])->name('data-siswa.importData');
     });
-Route::middleware('auth', 'role:admin-excellent,admin-reguler')
+Route::middleware('auth', 'role:admin')
     ->group(function () {
-        Route::resource('data-siswa', 'App\Http\Controllers\SiswaController');
+        Route::resource('data-siswa-excellent', 'App\Http\Controllers\SiswaController');
+        Route::resource('data-siswa-reguler', 'App\Http\Controllers\SiswaRegulerController');
         Route::resource('data-user', 'App\Http\Controllers\UserController');
         Route::resource('Tahun-Ajaran', 'App\Http\Controllers\TahunAjaranController');
         Route::post('/update-classes', [SiswaController::class, 'updateClasses'])->name('update.class');

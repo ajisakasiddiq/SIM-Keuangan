@@ -134,7 +134,11 @@
                     </div>
                     <div class="mb-3">
                       <label for="exampleInputEmail1" class="form-label">Nama Bank</label>
-                      <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="nama_bank"  required autocomplete="name" autofocus>
+                      <select name="nama_bank" id="nama_bank" class="form-control">
+                        @foreach($namaBank as $bank)
+                        <option value="{{ $bank }}">{{ $bank }}</option>
+                    @endforeach
+                      </select>
                     </div>
                     <div class="mb-3">
                       <label for="exampleInputEmail1" class="form-label">No Rekeningg</label>
