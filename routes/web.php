@@ -7,6 +7,7 @@ use App\Http\Controllers\LaporanKeuanganController;
 use App\Http\Controllers\Rekap\RekapitulasiPendapatanController;
 use App\Http\Controllers\Rekap\RekapitulasiPengeluaranController;
 use App\Http\Controllers\SiswaController;
+use App\Http\Controllers\SiswaRegulerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,10 +59,11 @@ Route::middleware('auth', 'role:bendahara-excellent,bendahara-reguler')
         Route::get('/export-datalaporan', [LaporanKeuanganController::class, 'exportData'])->name('export.data');
         Route::get('/export-pendapatan', [RekapitulasiPendapatanController::class, 'exportExcel'])->name('export.excel');
         Route::get('/export-data', [RekapitulasiPengeluaranController::class, 'exportExcel'])->name('export.pengeluaran');
-        Route::post('/data-siswa/importExcel', [SiswaController::class, 'importData'])->name('data-siswa.importData');
     });
 Route::middleware('auth', 'role:admin')
     ->group(function () {
+        Route::post('/data-siswa-excellent/importExcel', [SiswaController::class, 'importData'])->name('data-siswa.importData');
+        Route::post('/data-siswa-reguler/importExcel', [SiswaRegulerController::class, 'importData'])->name('data-siswa-reguler.importData');
         Route::resource('data-siswa-excellent', 'App\Http\Controllers\SiswaController');
         Route::resource('data-siswa-reguler', 'App\Http\Controllers\SiswaRegulerController');
         Route::resource('data-user', 'App\Http\Controllers\UserController');

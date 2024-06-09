@@ -65,9 +65,10 @@
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name; }}</span>
-                <img src="{{ Storage::url(Auth::user()->foto) }}"
-                    class="img-account-profile rounded-circle"
-                    style="max-width: 50px; max-height: 50px;">
+                <img src="{{ Auth::user()->foto ? Storage::url(Auth::user()->foto) : asset('img/undraw_profile_2.svg') }}"
+     class="img-account-profile rounded-circle mr-3"
+     style="max-width: 50px; max-height: 50px;">
+
             </a>
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"

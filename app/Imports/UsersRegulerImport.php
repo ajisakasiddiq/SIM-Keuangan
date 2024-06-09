@@ -11,9 +11,8 @@ use PhpOffice\PhpSpreadsheet\Shared\Date;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithStartRow;
 
-class SiswaImport implements ToModel, WithStartRow
+class UsersRegulerImport implements ToModel, WithStartRow
 {
-
     public function startRow(): int
     {
         return 2; // Mulai dari baris kedua
@@ -34,7 +33,7 @@ class SiswaImport implements ToModel, WithStartRow
             'kelas' => $row[8],
             'password' => bcrypt('12345678'),
             'role' => 'siswa',
-            'jurusan' => 'excellent',
+            'jurusan' => 'reguler',
         ]);
     }
 }

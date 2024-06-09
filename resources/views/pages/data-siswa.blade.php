@@ -26,15 +26,14 @@
                             <a href="" type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#adduser">
                                 + Tambah Data
                             </a>
-                            {{-- <a href=""  type="button" class="btn btn-success mb-2" data-bs-toggle="modal" data-bs-target="#import">
+                            <a href=""  type="button" class="btn btn-success mb-2" data-bs-toggle="modal" data-bs-target="#import">
                                 + Import Data Siswa
-                            </a> --}}
+                            </a>
                             <a href=""  type="button" class="btn btn-success mb-2" data-bs-toggle="modal" data-bs-target="#naik">
                                 + Naik Kelas Siswa
                             </a>
                             <div class="row">
                                 <div class="mb-3">
-                                    <label for="kelas" class="form-label">Kelas</label>
                                     <select class="form-control" name="kelas" id="kelas">
                                         <option value="">Pilih Kelas</option>
                                         <option value="VII">VII</option>
@@ -271,7 +270,7 @@
                     @csrf
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Import Data</label>
-                         <input type="file" name="excel_file" id="excel">
+                         <input type="file" name="excel_file">
                          <br>
                          <small>*Max 10.000 data</small>
                     </div>

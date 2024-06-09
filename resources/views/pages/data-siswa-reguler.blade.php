@@ -26,9 +26,9 @@ Dashboard | Data Siswa Reguler
                         <a href="" type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#adduser">
                             + Tambah Data
                         </a>
-                        {{-- <a href=""  type="button" class="btn btn-success mb-2" data-bs-toggle="modal" data-bs-target="#import">
+                        <a href=""  type="button" class="btn btn-success mb-2" data-bs-toggle="modal" data-bs-target="#import">
                                 + Import Data Siswa
-                            </a> --}}
+                            </a>
                         <a href="" type="button" class="btn btn-success mb-2" data-bs-toggle="modal" data-bs-target="#naik">
                             + Naik Kelas Siswa
                         </a>
@@ -247,7 +247,7 @@ Dashboard | Data Siswa Reguler
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('data-siswa.importData') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('data-siswa-reguler.importData') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Import Data</label>

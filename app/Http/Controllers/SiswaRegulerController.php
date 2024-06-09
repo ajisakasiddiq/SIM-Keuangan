@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Transaksi;
 use App\Imports\SiswaImport;
+use App\Imports\UsersRegulerImport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -136,34 +137,14 @@ class SiswaRegulerController extends Controller
     }
     public function importData(Request $request)
     {
-        try {
-            // Ambil file dari permintaan
-            $file = $request->file('file');
 
-            // Pastikan file ada sebelum mengimport
-            if ($file) {
-                // Panggil import dan lewati parameter tambahan (jurusan)
-                Excel::import(new SiswaImport, $file);
+        $file = $request->file('excel_file');
+        // dd($file);
+        Excel::import(new UsersRegulerImport, $file);
 
-                return redirect()->back()->with('success', 'Data berhasil diimpor.');
-            } else {
-                return redirect()->back()->with('error', 'Tidak ada file yang diunggah.');
-            }
-        } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
-            $failures = $e->failures();
-            foreach ($failures as $failure) {
-                // Lakukan sesuatu dengan kegagalan validasi
-                $failure->row(); // baris yang gagal
-                $failure->attribute(); // atribut yang gagal
-                $failure->errors(); // kesalahan
-                $failure->values(); // Nilai dari baris yang gagal
-            }
-            return redirect()->back()->with('error', 'Kesalahan validasi terjadi.');
-        } catch (\Exception $e) {
-            // Tangani kesalahan
-            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
-        }
+        return redirect()->back()->with('success', 'Data berhasil diimpor.');
     }
+
 
 
 
