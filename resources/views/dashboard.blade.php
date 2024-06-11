@@ -98,17 +98,81 @@
         <div class="card shadow mb-4">
             <!-- Card Header - Title -->
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Selamat Datang Ajisakasiddiq</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Selamat Datang {{ Auth::user()->name }}</h6>
             </div>
             <!-- Card Body - Content -->
             <div class="card-body custom-card-body">
-                <p>Ini adalah pesan selamat datang untuk Ajisakasiddiq.</p>
+                <p>Ini adalah pesan selamat datang untuk {{ Auth::user()->name }}.</p>
             </div>
         </div>
     </div>
     
     
 </div>
+
+@elseif(Auth::user()->role == 'admin')
+<div class="row">
+
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-6 col-md-12 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                            Jumlah Siswa Excellent</div>
+
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $siswaexcellent }}</div>
+                {{-- <small>Pendapatan Minggu Ini (Rp. {{ number_format($pendapatan, 0, ',', '.') }})</small> --}}
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-6 col-md-12 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                            Jumlah Siswa Reguler</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $siswareguler }}</div>
+                        {{-- <small>Pengeluaran Minggu Ini (Rp. {{ number_format($pendapatan, 0, ',', '.') }})</small> --}}
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<!-- Content Row -->
+
+{{-- <div class="row"> --}}
+
+    <!-- Area Chart -->
+    <div class="col-xl-12">
+        <div class="card shadow mb-4">
+            <!-- Card Header - Title -->
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Selamat Datang {{ Auth::user()->name }}</h6>
+            </div>
+            <!-- Card Body - Content -->
+            <div class="card-body custom-card-body">
+                <p>Ini adalah pesan selamat datang untuk {{ Auth::user()->name }}.</p>
+            </div>
+        </div>
+    </div>
+    
+    
+{{-- </div> --}}
 
 @elseif(Auth::user()->role == 'admin-excellent')
 <div class="row justify-content-center">

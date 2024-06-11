@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -77,8 +78,11 @@ class DashboardController extends Controller
             ->where('jurusan', $jurusan)
             ->sum('total');
 
-
-        return view('dashboard', compact('pengeluaran', 'pengeluaranbulan', 'pendapatanbulan', 'pendapatan', 'totalpending', 'total', 'pendapatanBulanan', 'trans', 'totaltransaksi', 'tagihanberjalan', 'tagihanpending', 'tagihanlunas'));
+        $siswaexcellent = User::where('role', 'siswa')
+            ->where('jurusan', 'excellent')->get()->count();
+        $siswareguler = User::where('role', 'siswa')
+            ->where('jurusan', 'reguler')->get()->count();
+        return view('dashboard', compact('siswaexcellent', 'siswareguler', 'pengeluaran', 'pengeluaranbulan', 'pendapatanbulan', 'pendapatan', 'totalpending', 'total', 'pendapatanBulanan', 'trans', 'totaltransaksi', 'tagihanberjalan', 'tagihanpending', 'tagihanlunas'));
         // $pendapatan akan berisi nilai total pendapatan berdasarkan jenis_transaksi dan jurusan
 
     }
