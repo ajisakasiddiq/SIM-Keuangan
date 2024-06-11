@@ -82,6 +82,15 @@ Tagihan SPP
                                                               <input type="hidden" name="tagihan_id" value="{{ $item->tagihan_id }}" id="tagihan_id">
                                                               <input type="hidden" name="status" value="1" id="tagihan_id">
                                                               <div class="mb-3">
+                                                                Informasi Pembayaran
+                                                                <ul>
+                                                                    @foreach ($rekening as $item)
+                                                                        
+                                                                    <li>({{ $item->nama_bank }}) {{ $item->atas_nama }}- {{ $item->norek }}</li>
+                                                                    @endforeach
+                                                                </ul>
+                                                              </div>
+                                                              <div class="mb-3">
                                                                 <label for="keterangan" class="form-label">Bukti Pembayaran</label>
                                                                 <input type="file" name="bukti_transaksi" id="bukti_transaksi" class="form-control-file">
                                                               </div>

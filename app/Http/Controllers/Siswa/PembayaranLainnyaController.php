@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Siswa;
 
 use App\Models\User;
 use App\Models\tagihan;
+use App\Models\Rekening;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -30,7 +31,9 @@ class PembayaranLainnyaController extends Controller
             ->where('tagihan_id', '6')
             ->where('user_id', $user)
             ->get();
-        return view('pages.siswa.pembayaran-lainnya', compact('siswa', 'tagihan', 'transaksi', 'trans', 'totaltransaksi'));
+        $userjurusan = Auth::user()->jurusan;
+        $rekening = Rekening::where('jurusan', $userjurusan)->get();
+        return view('pages.siswa.pembayaran-lainnya', compact('siswa', 'tagihan', 'transaksi', 'trans', 'totaltransaksi', 'rekening'));
     }
 
     /**

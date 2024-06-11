@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Siswa;
 use App\Models\User;
 use App\Models\Cicilan;
 use App\Models\tagihan;
+use App\Models\Rekening;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -48,8 +49,9 @@ class PembayaranDaftarUlangController extends Controller
         $cicilan = Cicilan::where('tagihan_id', '2')
             ->where('user_id', $user)
             ->get();
-
-        return view('pages.siswa.pembayaran-daftarulang', compact('no', 'total', 'siswa', 'tagihan', 'transaksi', 'cicilan', 'totalcicilan', 'trans', 'totaltransaksi'));
+        $userjurusan = Auth::user()->jurusan;
+        $rekening = Rekening::where('jurusan', $userjurusan)->get();
+        return view('pages.siswa.pembayaran-daftarulang', compact('no', 'total', 'siswa', 'tagihan', 'transaksi', 'cicilan', 'totalcicilan', 'trans', 'totaltransaksi', 'rekening'));
     }
 
     /**

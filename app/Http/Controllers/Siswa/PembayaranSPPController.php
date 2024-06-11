@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Siswa;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\tagihan;
+use App\Models\Rekening;
 use App\Models\Transaksi;
 use App\Models\TahunAjaran;
 use Illuminate\Http\Request;
@@ -40,7 +41,9 @@ class PembayaranSPPController extends Controller
             ->where('tahunajar', $tahunajar)
             ->where('user_id', $user)
             ->get();
-        return view('pages.siswa.pembayaran-spp', compact('siswa', 'tagihan', 'transaksi', 'tahun', 'trans', 'totaltransaksi'));
+        $userjurusan = Auth::user()->jurusan;
+        $rekening = Rekening::where('jurusan', $userjurusan)->get();
+        return view('pages.siswa.pembayaran-spp', compact('siswa', 'tagihan', 'transaksi', 'tahun', 'trans', 'totaltransaksi', 'rekening'));
     }
 
     public function cetak($id)

@@ -184,6 +184,15 @@ Pembayaran Kain Seragam
                   <input type="hidden" name="tagihan_id" value="4" id="tagihan_id">
                   <input type="hidden" name="user_id" value="{{ Auth::user()->id }}" id="user_id">
                   <div class="mb-3">
+                    Informasi Pembayaran
+                    <ul>
+                        @foreach ($rekening as $item)
+                            
+                        <li>({{ $item->nama_bank }}) {{ $item->atas_nama }}- {{ $item->norek }}</li>
+                        @endforeach
+                    </ul>
+                  </div>
+                  <div class="mb-3">
                     <label for="total" class="form-label">Total yg Dibayarkan</label>
                     <input  type="text" name="total" id="total" class="form-control">
                     <small id="totalError" class="text-danger" style="display: none;">Pembayaran melebihi saldo sisa.</small>

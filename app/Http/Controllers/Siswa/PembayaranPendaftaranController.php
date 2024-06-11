@@ -8,6 +8,7 @@ use App\Models\Transaksi;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Cicilan;
+use App\Models\Rekening;
 use Illuminate\Support\Facades\Auth;
 
 class PembayaranPendaftaranController extends Controller
@@ -18,6 +19,7 @@ class PembayaranPendaftaranController extends Controller
     public function index()
     {
         $user = Auth::user()->id;
+        $userjurusan = Auth::user()->jurusan;
         $no = 1;
         $tagihan = tagihan::get();
         $trans = Transaksi::with(['user', 'jenistagihan'])
@@ -48,8 +50,9 @@ class PembayaranPendaftaranController extends Controller
         $cicilan = Cicilan::where('tagihan_id', '3')
             ->where('user_id', $user)
             ->get();
+        $rekening = Rekening::where('jurusan', $userjurusan)->get();
 
-        return view('pages.siswa.pembayaran-pendaftaran', compact('no', 'total', 'siswa', 'tagihan', 'transaksi', 'cicilan', 'totalcicilan', 'trans', 'totaltransaksi'));
+        return view('pages.siswa.pembayaran-pendaftaran', compact('no', 'total', 'siswa', 'tagihan', 'transaksi', 'cicilan', 'totalcicilan', 'trans', 'totaltransaksi', 'rekening'));
     }
     public function cetak($id)
     {
