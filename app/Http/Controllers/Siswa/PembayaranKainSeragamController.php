@@ -90,7 +90,8 @@ class PembayaranKainSeragamController extends Controller
             $data = $request->all();
             $data['bukti_pembayaran'] = $request->file('bukti_pembayaran')->store('assets/bukti_transaksi', 'public');
             $cicilan = Cicilan::create($data);
-            $this->updateTransaksiStatus($cicilan);
+            $tgl = $request['tgl'];
+            $this->updateTransaksiStatus($cicilan, $tgl);
             return redirect()->route('Tagihan-KainSeragam.index')->with('success', 'Data berhasil disimpan.');
         } catch (\Exception $e) {
             // Tangkap pengecualian dan tampilkan pesan kesalahan
@@ -98,7 +99,7 @@ class PembayaranKainSeragamController extends Controller
             return redirect()->route('Tagihan-KainSeragam.index')->with('error', 'Terjadi kesalahan saat menyimpan data.');
         }
     }
-    private function updateTransaksiStatus($cicilan)
+    private function updateTransaksiStatus($cicilan, $tgl)
     {
         $tagihanId = $cicilan->tagihan_id;
         $userId = $cicilan->user_id;
@@ -118,7 +119,7 @@ class PembayaranKainSeragamController extends Controller
             // Update status transaksi menjadi 'LUNAS'
             Transaksi::where('tagihan_id', $tagihanId)
                 ->where('user_id', $userId)
-                ->update(['status' => '1']);
+                ->update(['status' => '1', 'tgl_pembayaran' => $tgl]);
         }
     }
     /**

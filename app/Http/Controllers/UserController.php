@@ -55,7 +55,7 @@ class UserController extends Controller
                         data-jk="' . $item->jk . '" 
                         data-kelas="' . $item->kelas . '" 
                         data-toggle="modal" data-target="#editModal">Edit</button>
-                          <form action="' . route('data-siswa.destroy', $item->id) . '" method="POST">
+                          <form action="' . route('data-user.destroy', $item->id) . '" method="POST">
                           ' . method_field('delete') . csrf_field() . '
                           <button type="submit" class="dropdown-item text-danger">Hapus</button>
                           </form>

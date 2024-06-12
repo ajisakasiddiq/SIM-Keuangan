@@ -89,7 +89,8 @@ class DetailsController extends Controller
             $cicilan = Cicilan::create($data);
             $user_id = $data['user_id'];
             $tagihan_id = $data['tagihan_id'];
-            $this->updateTransaksiStatus($cicilan);
+            $tgl = $request['tgl'];
+            $this->updateTransaksiStatus($cicilan, $tgl);
             // Redirect dengan menyertakan user_id dan tagihan_id sebagai parameter
             return redirect()->route('Details.index', compact('user_id', 'tagihan_id'))
                 ->with('success', 'Data berhasil disimpan.');
@@ -100,7 +101,7 @@ class DetailsController extends Controller
         }
     }
 
-    private function updateTransaksiStatus($cicilan)
+    private function updateTransaksiStatus($cicilan, $tgl)
     {
         $tagihanId = $cicilan->tagihan_id;
         $userId = $cicilan->user_id;
@@ -120,7 +121,7 @@ class DetailsController extends Controller
             // Update status transaksi menjadi 'LUNAS'
             Transaksi::where('tagihan_id', $tagihanId)
                 ->where('user_id', $userId)
-                ->update(['status' => '2']);
+                ->update(['status' => '2', 'tgl_pembayaran' => $tgl]);
         }
     }
     /**

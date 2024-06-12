@@ -223,21 +223,21 @@ Detail Pembayaran
                         <input type="hidden" name="user_id" value="{{ $user_id }}" id="user_id">
                         <div class="mb-3">
                             <label for="total" class="form-label">Total yg Dibayarkan</label>
-                            <input type="text" name="total" id="total" class="form-control">
+                            <input  type="text" name="total" id="total" class="form-control">
                             <small id="totalError" class="text-danger" style="display: none;">Pembayaran melebihi tagihan sisa.</small>
-                        </div>
-                        <div class="mb-3">
+                          </div>
+                          <div class="mb-3">
                             <label for="tgl" class="form-label">Tanggal Pembayaran</label>
-                            <input type="date" name="tgl" id="tgl" class="form-control">
-                        </div>
-                        <div class="mb-3">
+                            <input  type="date" name="tgl" id="tgl" class="form-control">
+                          </div>
+                          <div class="mb-3">
                             <label for="bukti_pembayaran" class="form-label">Bukti Pembayaran</label>
                             <input type="file" name="bukti_pembayaran" id="bukti_pembayaran" class="form-control-file">
-                        </div>
-                </div>
-                <div class="modal-footer">
+                          </div>
+                  </div>
+                  <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-success">Selesaikan Pembayaran</button>
+                    <button type="submit" class="btn btn-success" id="submitBtn">Selesaikan Pembayaran</button>
                     </form>
                 </div>
             </div>

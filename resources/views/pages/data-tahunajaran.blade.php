@@ -45,16 +45,19 @@
                                             <td>{{ $data->tahunakhir }}</td>
                                             <td>{{ $data->status }}</td>
                                             <td>
+                                              <div class="btn-group">
                                                 <div class="dropdown">
-                                                    <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                     Aksi
-                                                    </button>
-                                                    <ul class="dropdown-menu">
-                                                    <li><a data-bs-toggle="modal" data-bs-target="#editUser{{ $data->id }}" class="dropdown-item">Edit</a></li>
-                                                    <li><a data-bs-toggle="modal" data-bs-target="#deletedata{{$data->id}}" class="dropdown-item text-danger">Hapus</a></li>
-                
-                                                    </ul>
+                                                  <button class="btn btn-primary dropdown-toggle mr-1 mb-1" type="button" data-toggle="dropdown">Aksi</button>
+                                                  <div class="dropdown-menu">
+                                                  <button class="dropdown-item" data-toggle="modal" data-target="#editUser{{ $data->id }}">Edit</button>
+                                                    <form action="{{ route('Tahun-Ajaran.destroy', $data->id) }}" method="POST">
+                                                    @csrf 
+                                                    @method('DELETE')
+                                                    <button type="submit" class="dropdown-item text-danger">Hapus</button>
+                                                    </form>
                                                   </div>
+                                                </div>
+                                              </div>
                                             </td>
                                         </tr>
                                         
