@@ -39,7 +39,10 @@ class PembayaranLainnyaController extends Controller
         if (request()->ajax()) {
             $query = Transaksi::with('user')
                 ->where('tagihan_id', '6')
-                ->where('jurusan', $jurusan);
+                ->where('jurusan', $jurusan)
+                ->whereDoesntHave('user', function ($query) {
+                    $query->whereIn('role', ['bendahara-excellent', 'bendahara-reguler']);
+                });
             return DataTables::of($query)
                 ->addColumn('action', function ($item) {
                     // $barcode = DNS1D::getBarcodeHTML($item->id, 'C128', 2, 50);

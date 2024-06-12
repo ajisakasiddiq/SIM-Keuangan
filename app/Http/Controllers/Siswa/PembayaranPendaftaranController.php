@@ -37,6 +37,11 @@ class PembayaranPendaftaranController extends Controller
             ->where('tagihan_id', '3')
             ->where('user_id', $user)
             ->get();
+        $transaksi2 = Transaksi::with('user')
+            ->where('tagihan_id', '3')
+            ->where('user_id', $user)
+            ->limit(1)
+            ->get();
         $total = Transaksi::selectRaw('user_id, tagihan_id, SUM(total) as total_sum')
             ->where('tagihan_id', '3') // Filter berdasarkan tagihan_id tertentu
             ->where('user_id', $user) // Filter berdasarkan user_id tertentu
@@ -52,7 +57,7 @@ class PembayaranPendaftaranController extends Controller
             ->get();
         $rekening = Rekening::where('jurusan', $userjurusan)->get();
 
-        return view('pages.siswa.pembayaran-pendaftaran', compact('no', 'total', 'siswa', 'tagihan', 'transaksi', 'cicilan', 'totalcicilan', 'trans', 'totaltransaksi', 'rekening'));
+        return view('pages.siswa.pembayaran-pendaftaran', compact('no', 'transaksi2', 'total', 'siswa', 'tagihan', 'transaksi', 'cicilan', 'totalcicilan', 'trans', 'totaltransaksi', 'rekening'));
     }
     public function cetak($id)
     {

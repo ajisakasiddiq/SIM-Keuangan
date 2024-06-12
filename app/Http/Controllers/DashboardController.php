@@ -13,7 +13,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $tanggalHariIni = Carbon::today()->format('Y-m-d');
+        $tanggalHariIni = Carbon::now()->timezone('Asia/Jakarta')->format('Y-m-d');
         // dd($tanggalHariIni);
         if (Auth::user()->role == 'bendahara-excellent')
             $jurusan = 'excellent';

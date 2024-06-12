@@ -117,7 +117,7 @@ Pembayaran Pendaftaran
                             @if ($saldoSisa == 0)
                                 <!-- Jika saldo sisa sama dengan nol, tampilkan pesan atau konten sesuai kebutuhan -->
                                 <h4 class="text-success">Lunas.</h4>
-                                @foreach ($transaksi as $item)
+                                @foreach ($transaksi2 as $item)
                                     
                                 <a href="/cetak-nota/{{ $item->tagihan_id }}" class="btn btn-primary"><i class="fa fa-print"></i> Cetak</a>
                                 @endforeach
