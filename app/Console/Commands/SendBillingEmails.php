@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use Carbon\Carbon;
 use App\Models\Transaksi;
 use App\Mail\BillingEmail;
 use Illuminate\Console\Command;
@@ -19,10 +20,10 @@ class SendBillingEmails extends Command
 
     public function handle()
     {
-        // Ambil transaksi yang tanggal akhirnya hari ini
+        $today = Carbon::now()->timezone('Asia/Jakarta')->toDateString();
         $transaksis = Transaksi::with('user', 'jenistagihan')
             ->where('status', '0')
-            ->whereDate('date_akhir', now()->toDateString())
+            ->whereDate('date_akhir', $today)
             ->get();
 
         // Kelompokkan transaksi berdasarkan tagihan_id
