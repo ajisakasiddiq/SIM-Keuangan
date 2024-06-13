@@ -34,8 +34,8 @@ Route::get('/', function () {
 //     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 // });
 
-Route::resource('dashboard', 'App\Http\Controllers\DashboardController');
-Route::resource('profile', 'App\Http\Controllers\ProfileController');
+Route::resource('dashboard', 'App\Http\Controllers\DashboardController')->middleware('auth');
+Route::resource('profile', 'App\Http\Controllers\ProfileController')->middleware('auth');
 Route::middleware('auth', 'role:bendahara-excellent,bendahara-reguler')
     ->group(function () {
         Route::resource('data-guru', 'App\Http\Controllers\GuruController');
