@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('keterangan')->nullable();
             $table->date('date_awal')->nullable();
             $table->date('date_akhir')->nullable();
-            $table->string('total')->nullable();
+            $table->bigInteger('total')->nullable();
             $table->enum('jenis_transaksi', ['Pendapatan', 'Pengeluaran'])->nullable();
             $table->string('bukti_transaksi')->nullable();
             $table->enum('metode', ['cash', 'cicil'])->nullable();

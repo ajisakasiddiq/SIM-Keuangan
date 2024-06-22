@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('tagihan_id');
             $table->foreign('tagihan_id')->references('id')->on('jenistagihan')->onDelete('cascade');
             $table->string('tgl')->nullable();
-            $table->string('total')->nullable();
+            $table->bigInteger('total')->nullable();
             $table->timestamps();
         });
     }

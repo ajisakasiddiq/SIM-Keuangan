@@ -57,7 +57,7 @@ class PendapatanController extends Controller
                         data-status="' . $item->status . '" 
                         data-Pendapatan="' . $item->Pendapatan . '" 
                         data-toggle="modal" data-target="#editModal">Edit</button>
-                          <form action="' . route('data-tagihan-spp.destroy', $item->id) . '" method="POST">
+                          <form action="' . route('data-pendapatan.destroy', $item->id) . '" method="POST">
                           ' . method_field('delete') . csrf_field() . '
                           <button type="submit" class="dropdown-item text-danger">Hapus</button>
                           </form>
