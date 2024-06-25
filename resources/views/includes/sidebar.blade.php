@@ -17,7 +17,7 @@
     <li class="nav-item">
         <a class="nav-link {{ (request()->is('data-user')) ? 'active' : ''}}" href="{{ route('data-user.index') }}">
               <i class="fa-duotone fa-user" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
-              <span>Data User</span></a>
+              <span>Data Bendahara</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link collapsed {{ (request()->is('data-tagihan*')) ? 'active' : ''}}" href="#" data-toggle="collapse" data-target="#pembayaran"
