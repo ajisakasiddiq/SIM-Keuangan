@@ -66,24 +66,7 @@ Dashboard | Data Siswa Reguler
                                 <tbody>
                                 </tbody>
                         </div>
-                        <tfoot>
-                            <tr>
-                                <th>No</th>
-                                <th>Foto</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>nisn</th>
-                                <th>NIK</th>
-                                <th>No HP</th>
-                                <th>Alamat</th>
-                                <th>Tempat Lahir</th>
-                                <th>Tanggal Lahir</th>
-                                <th>Jenis Kelamin</th>
-                                <th>Kelas</th>
-                                <th>Tipe Kelas</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </tfoot>
+                      
                         </table>
                     </div>
                 </div>

@@ -42,16 +42,7 @@
                                       <tbody>
                                       </tbody>
                                     </div>                              
-                                    <tfoot>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>bukti_transaksi</th>
-                                            <th>Keterangan</th>
-                                            <th>Tanggal Transaksi</th>
-                                            <th>Total</th>
-                                            <th>Aksi</th>
-                                        </tr>
-                                    </tfoot>
+                            
                                 </table>
                             </div>
                         </div>

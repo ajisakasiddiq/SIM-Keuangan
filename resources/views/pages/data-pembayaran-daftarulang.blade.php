@@ -42,16 +42,7 @@
                                       <tbody>
                                       </tbody>
                                     </div>                              
-                                    <tfoot>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Nama Siswa</th>
-                                            <th>Kelas Siswa</th>
-                                            <th>Total</th>
-                                            <th>status</th>
-                                            <th>Aksi</th>
-                                        </tr>
-                                    </tfoot>
+                                  
                                 </table>
                             </div>
                         </div>

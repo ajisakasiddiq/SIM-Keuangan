@@ -50,20 +50,7 @@
                                       <tbody>
                                       </tbody>
                                     </div>                              
-                                    <tfoot>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Nama Siswa</th>
-                                            <th>Kelas Siswa</th>
-                                            <th>bukti_transaksi</th>
-                                            <th>date_awal</th>
-                                            <th>date_akhir</th>
-                                            <th>Total</th>
-                                            <th>keterangan</th>
-                                            <th>status</th>
-                                            <th>Aksi</th>
-                                        </tr>
-                                    </tfoot>
+                                   
                                 </table>
                             </div>
                         </div>

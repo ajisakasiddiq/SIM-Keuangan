@@ -42,16 +42,7 @@
                                       <tbody>
                                       </tbody>
                                     </div>                              
-                                    <tfoot>
-                                        <tr>
-                                          <th>No</th>
-                                          <th>Foto</th>
-                                          <th>Name</th>
-                                          <th>Email</th>
-                                          <th>role</th>
-                                            <th>Aksi</th>
-                                        </tr>
-                                    </tfoot>
+                                
                                 </table>
                             </div>
                         </div>

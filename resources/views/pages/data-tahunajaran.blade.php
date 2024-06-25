@@ -129,15 +129,7 @@
 
 @endforeach 
                                     </tbody>
-                                    <tfoot>
-                                        <tr>
-                                          <th>No</th>
-                                          <th>Tahun Awal</th>
-                                          <th>Tahun Akhir</th>
-                                          <th>Status</th>
-                                          <th>Aksi</th>
-                                        </tr>
-                                    </tfoot>
+                               
                                 </table>
                             </div>
                         </div>
