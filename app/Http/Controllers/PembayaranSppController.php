@@ -44,13 +44,8 @@ class PembayaranSppController extends Controller
                 ->where('jurusan', $jurusan);
             return DataTables::of($query)
                 ->addColumn('action', function ($item) {
-                    // $barcode = DNS1D::getBarcodeHTML($item->id, 'C128', 2, 50);
-                    return '
-                    <div class="btn-group">
-                      <div class="dropdown">
-                        <button class="btn btn-primary dropdown-toggle mr-1 mb-1" type="button" data-toggle="dropdown">Aksi</button>
-                        <div class="dropdown-menu">
-                        <button class="dropdown-item" 
+                    $editButton = '
+                    <button class="dropdown-item" 
                         data-id="' . $item->id . '" 
                         data-tagihan_id="' . $item->tagihan_id . '" 
                         data-user_id="' . $item->user_id . '" 
@@ -62,24 +57,40 @@ class PembayaranSppController extends Controller
                         data-status="' . $item->status . '" 
                         data-jurusan="' . $item->jurusan . '" 
                         data-Pendapatan="' . $item->Pendapatan . '" 
-                        data-toggle="modal" data-target="#editModal">Edit</button>
-                          <form action="' . route('data-tagihan-spp.destroy', $item->id) . '" method="POST">
-                          ' . method_field('delete') . csrf_field() . '
-                          <button type="submit" class="dropdown-item text-danger">Hapus</button>
-                          </form>
+                        data-toggle="modal" data-target="#editModal">Edit</button>';
+
+                    $deleteForm = '
+                    <form action="' . route('data-tagihan-spp.destroy', $item->id) . '" method="POST">
+                        ' . method_field('delete') . csrf_field() . '
+                        <button type="submit" class="dropdown-item text-danger">Hapus</button>
+                    </form>';
+
+                    $lunasButton = '';
+                    if ($item->status != 2) {
+                        $lunasButton = '
+                        <form action="' . route('data-tagihan-spp.update', $item->id) . '" method="POST" class="d-inline">
+                            ' . method_field('PUT')  . csrf_field() . '
+                            <input type="hidden" name="id" value="' . $item->id . '">
+                            <input type="hidden" name="user_id" value="' . $item->user_id . '">
+                            <input type="hidden" name="tagihan_id" value="' . $item->tagihan_id . '">
+                            <input type="hidden" name="status" value="2">
+                            <button type="submit" class="btn btn-success">Lunas</button>
+                        </form>';
+                    }
+
+                    return '
+                    <div class="btn-group">
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle mr-1 mb-1" type="button" data-toggle="dropdown">Aksi</button>
+                            <div class="dropdown-menu">
+                                ' . $editButton . '
+                                ' . $deleteForm . '
+                            </div>
                         </div>
-                      </div>
-                      <form action="' . route('data-tagihan-spp.update', $item->id) . '" method="POST" class="d-inline">
-                ' . method_field('PUT')  . csrf_field() . '
-                <input type="hidden" name="id" value="' . $item->id . '">
-                <input type="hidden" name="user_id" value="' . $item->user_id . '">
-                <input type="hidden" name="tagihan_id" value="' . $item->tagihan_id . '">
-                <input type="hidden" name="status" value="2">
-                <button type="submit" class="btn btn-success">Lunas</button>
-            </form>
-                    </div>
-                    ';
+                        ' . $lunasButton . '
+                    </div>';
                 })
+
                 ->addColumn('no', function ($item) {
                     static $counter = 1;
                     return $counter++;

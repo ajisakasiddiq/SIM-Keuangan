@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Cicilan;
 use App\Models\tagihan;
@@ -92,6 +93,7 @@ class DetailsController extends Controller
             // Simpan data ke database
             $data = $request->all();
             $data['bukti_pembayaran'] = $request->file('bukti_pembayaran')->store('assets/bukti_transaksi', 'public');
+            $data['tgl'] = Carbon::now();
             $cicilan = Cicilan::create($data);
             $user_id = $data['user_id'];
             $tagihan_id = $data['tagihan_id'];
