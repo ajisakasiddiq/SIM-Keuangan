@@ -153,7 +153,7 @@
                     
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Jumlah</label>
-                        <input type="text" name="total" class="form-control" id="total"
+                        <input type="number" name="total" class="form-control" id="total"
                             aria-describedby="emailHelp">
                         <input type="hidden" name="status" class="form-control" id="status"
                             aria-describedby="emailHelp" value="2">

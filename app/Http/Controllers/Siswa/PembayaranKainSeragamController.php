@@ -100,9 +100,8 @@ class PembayaranKainSeragamController extends Controller
             // Simpan data ke database
             $data = $request->all();
             $data['bukti_pembayaran'] = $request->file('bukti_pembayaran')->store('assets/bukti_transaksi', 'public');
-            $data['tgl'] = Carbon::now();
+            $tgl = $data['tgl'] = Carbon::now();
             $cicilan = Cicilan::create($data);
-            $tgl = $request['tgl'];
             $this->updateTransaksiStatus($cicilan, $tgl);
             return redirect()->route('Tagihan-KainSeragam.index')->with('success', 'Data berhasil disimpan.');
         } catch (\Exception $e) {

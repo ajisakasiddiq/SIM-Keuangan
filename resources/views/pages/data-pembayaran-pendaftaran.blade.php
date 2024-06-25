@@ -224,7 +224,7 @@ $(document).ready(function() {
             <div class="col-md-6">
                 <div class="mb-3">
                     <label for="total${inputIndex}" class="form-label">Nominal</label>
-                    <input type="text" class="form-control" name="total[]" id="total${inputIndex}">
+                    <input type="number" class="form-control" name="total[]" id="total${inputIndex}">
                 </div>
             </div>
             `;

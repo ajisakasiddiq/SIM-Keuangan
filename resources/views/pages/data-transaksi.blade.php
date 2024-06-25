@@ -79,14 +79,14 @@
                             </div>
                             <br>
                             <div class="table-responsive">
-                              <table class="table-bordered text-center scroll-horizontal-vertical w-100">
+                              <table class="table-bordered scroll-horizontal-vertical w-100">
                                     <thead>
-                                        <tr>
+                                        <tr class="text-center">
                                             <th rowspan="2">No</th>
                                             <th rowspan="2">Name</th>
                                             <th colspan="2">Total</th> 
                                         </tr>
-                                        <tr>
+                                        <tr class="text-center">
                                            
                                             <th class="bg-success text-light">Pemasukan</th> <!-- Warna hijau untuk Pemasukan -->
                                             <th class="bg-danger text-light">Pengeluaran</th> 
@@ -95,32 +95,32 @@
                                       <tbody>
                                           @foreach($transactions as $data)
                                         <tr>
-                                            <td>{{ $no++ }}</td>
+                                            <td class="text-center">{{ $no++ }}</td>
                                             <td>{{ $data->nama_tagihan }}</td>
                                             @if($data->jenis_transaksi == 'Pendapatan')
-                                            <td >Rp. {{ number_format($data->jumlah, 0, ',', '.') }}</td>
-                                            <td >-</td> 
+                                            <td class="text-center" >Rp. {{ number_format($data->jumlah, 0, ',', '.') }}</td>
+                                            <td class="text-center" >-</td> 
                                              <!-- Warna hijau untuk Pemasukan -->
                                              @elseif($data->jenis_transaksi == 'Pengeluaran')
-                                             <td >-</td>
-                                            <td >Rp. {{ number_format($data->jumlah, 0, ',', '.') }}</td> 
+                                             <td class="text-center">-</td>
+                                            <td class="text-center">Rp. {{ number_format($data->jumlah, 0, ',', '.') }}</td> 
                                             @endif
                                             @endforeach
                                         </tr>
                                         <tr>
-                                            <td colspan="2">Total</td>
-                                            <td >Rp. {{ number_format($totalsaldo, 0, ',', '.') }}</td>
-                                            <td >Rp. {{ number_format($totalpengeluaran, 0, ',', '.') }}</td>
+                                            <td class="text-center" colspan="2">Total</td>
+                                            <td class="text-center" >Rp. {{ number_format($totalsaldo, 0, ',', '.') }}</td>
+                                            <td class="text-center">Rp. {{ number_format($totalpengeluaran, 0, ',', '.') }}</td>
                                         </tr>
                                         <tr>
                                             @if($bulan == NULL And $tahun == NULL)
 
-                                            <td colspan="2">Jumlah Saldo</td>
+                                            <td class="text-center" colspan="2">Jumlah Saldo</td>
                                             @else
-                                            <td colspan="2">Jumlah Saldo {{ Carbon::createFromFormat('m', $bulan)->translatedFormat('F') }}
+                                            <td class="text-center" colspan="2">Jumlah Saldo {{ Carbon::createFromFormat('m', $bulan)->translatedFormat('F') }}
                                                 {{ $tahun }}</td>
                                                 @endif
-                                                <td colspan="2">Rp. {{ number_format($totalsaldo - $totalpengeluaran, 0, ',', '.') }}</td>
+                                                <td class="text-center" colspan="2">Rp. {{ number_format($totalsaldo - $totalpengeluaran, 0, ',', '.') }}</td>
                                         </tr>
                                       </tbody>
                                       

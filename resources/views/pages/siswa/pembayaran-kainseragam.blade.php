@@ -194,7 +194,7 @@ Pembayaran Kain Seragam
                   </div>
                   <div class="mb-3">
                     <label for="total" class="form-label">Total yg Dibayarkan</label>
-                    <input  type="text" name="total" id="total" class="form-control">
+                    <input  type="number" name="total" id="total" class="form-control">
                     <small id="totalError" class="text-danger" style="display: none;">Pembayaran melebihi saldo sisa.</small>
                   </div>
                   <div class="mb-3">

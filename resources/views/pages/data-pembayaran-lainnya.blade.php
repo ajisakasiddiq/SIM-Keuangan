@@ -46,20 +46,6 @@
                                       <tbody>
                                       </tbody>
                                     </div>                              
-                                    <tfoot>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Nama Siswa</th>
-                                            <th>Kelas Siswa</th>
-                                            <th>bukti_transaksi</th>
-                                            <th>date_awal</th>
-                                            <th>date_akhir</th>
-                                            <th>Total</th>
-                                            <th>keterangan</th>
-                                            <th>status</th>
-                                            <th>Aksi</th>
-                                        </tr>
-                                    </tfoot>
                                 </table>
                             </div>
                         </div>
@@ -176,7 +162,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Total</label>
-                        <input type="text" name="total" class="form-control" id="total"
+                        <input type="number" name="total" class="form-control" id="total"
                             aria-describedby="emailHelp">
                         <input type="hidden" name="status" class="form-control" id="status"
                             aria-describedby="emailHelp" value="0">
