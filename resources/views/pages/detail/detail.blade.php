@@ -223,7 +223,7 @@ Detail Pembayaran
                         <input type="hidden" name="user_id" value="{{ $user_id }}" id="user_id">
                         <div class="mb-3">
                             <label for="total" class="form-label">Total yg Dibayarkan</label>
-                            <input  type="text" name="total" id="total" class="form-control">
+                            <input  type="number" name="total" id="total" class="form-control">
                             <small id="totalError" class="text-danger" style="display: none;">Pembayaran melebihi tagihan sisa.</small>
                           </div>
                           <div class="mb-3">

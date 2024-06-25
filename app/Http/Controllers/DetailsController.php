@@ -83,6 +83,12 @@ class DetailsController extends Controller
     public function store(Request $request)
     {
         try {
+            $request->validate([
+                'total' => 'required|numeric|min:0',
+                'bukti_pembayaran' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048',
+                'tgl' => 'required',
+                // Tambahkan validasi lainnya jika perlu
+            ]);
             // Simpan data ke database
             $data = $request->all();
             $data['bukti_pembayaran'] = $request->file('bukti_pembayaran')->store('assets/bukti_transaksi', 'public');
@@ -95,8 +101,10 @@ class DetailsController extends Controller
             return redirect()->route('Details.index', compact('user_id', 'tagihan_id'))
                 ->with('success', 'Data berhasil disimpan.');
         } catch (\Exception $e) {
-            // Tangkap pengecualian dan tampilkan pesan kesalahan
-            dd($e); // Menampilkan informasi exception ke terminal
+            $data = $request->all();
+            $user_id = $data['user_id'];
+            $tagihan_id = $data['tagihan_id'];
+            $tgl = $request['tgl'];
             return redirect()->route('Details.index', compact('user_id', 'tagihan_id'))->with('error', 'Terjadi kesalahan saat menyimpan data.');
         }
     }

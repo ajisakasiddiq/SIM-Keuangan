@@ -86,6 +86,12 @@ class PembayaranKainSeragamController extends Controller
     public function store(Request $request)
     {
         try {
+            $request->validate([
+                'total' => 'required|numeric|min:0',
+                'bukti_pembayaran' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048',
+                'tgl' => 'required',
+                // Tambahkan validasi lainnya jika perlu
+            ]);
             // Simpan data ke database
             $data = $request->all();
             $data['bukti_pembayaran'] = $request->file('bukti_pembayaran')->store('assets/bukti_transaksi', 'public');
@@ -94,8 +100,6 @@ class PembayaranKainSeragamController extends Controller
             $this->updateTransaksiStatus($cicilan, $tgl);
             return redirect()->route('Tagihan-KainSeragam.index')->with('success', 'Data berhasil disimpan.');
         } catch (\Exception $e) {
-            // Tangkap pengecualian dan tampilkan pesan kesalahan
-            dd($e); // Menampilkan informasi exception ke terminal
             return redirect()->route('Tagihan-KainSeragam.index')->with('error', 'Terjadi kesalahan saat menyimpan data.');
         }
     }
