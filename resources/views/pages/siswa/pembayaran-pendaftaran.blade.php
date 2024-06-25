@@ -198,10 +198,10 @@ Pembayaran Pendaftaran
                     <input  type="text" name="total" id="total" class="form-control">
                     <small id="totalError" class="text-danger" style="display: none;">Pembayaran melebihi tagihan sisa.</small>
                   </div>
-                  <div class="mb-3">
+                  {{-- <div class="mb-3">
                     <label for="tgl" class="form-label">Tanggal Pembayaran</label>
                     <input  type="date" name="tgl" id="tgl" class="form-control">
-                  </div>
+                  </div> --}}
                   <div class="mb-3">
                     <label for="bukti_pembayaran" class="form-label">Bukti Pembayaran</label>
                     <input type="file" name="bukti_pembayaran" id="bukti_pembayaran" class="form-control-file">

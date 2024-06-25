@@ -15,22 +15,22 @@ class KategoriTagihanSeeder extends Seeder
     public function run(): void
     {
         tagihan::create([
-            'name' => 'SPP'
+            'name' => '1.1. SPP'
         ]);
         tagihan::create([
-            'name' => 'Daftar Ulang'
+            'name' => '1.2. Daftar Ulang'
         ]);
         tagihan::create([
-            'name' => 'Pendaftaran'
+            'name' => '1.3. Pendaftaran'
         ]);
         tagihan::create([
-            'name' => 'Kain Seragam'
+            'name' => '1.4. Kain Seragam'
         ]);
         tagihan::create([
-            'name' => 'Dana Bos'
+            'name' => '1.5. Dana Bos'
         ]);
         tagihan::create([
-            'name' => 'Lainnya'
+            'name' => '1.6. Lainnya'
         ]);
     }
 }

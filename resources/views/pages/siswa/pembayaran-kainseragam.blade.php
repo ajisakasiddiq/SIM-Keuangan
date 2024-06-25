@@ -117,7 +117,7 @@ Pembayaran Kain Seragam
                        @if ($saldoSisa == 0)
                            <!-- Jika saldo sisa sama dengan nol, tampilkan pesan atau konten sesuai kebutuhan -->
                            <h4 class="text-success">Lunas.</h4>
-                           @foreach ($total as $data)
+                           @foreach ($transaksi2 as $data)
                                
                            <a href="/cetak-nota/{{ $data->tagihan_id }}" class="btn btn-primary"><i class="fa fa-print"></i> Cetak</a>
                            @endforeach
@@ -196,10 +196,6 @@ Pembayaran Kain Seragam
                     <label for="total" class="form-label">Total yg Dibayarkan</label>
                     <input  type="text" name="total" id="total" class="form-control">
                     <small id="totalError" class="text-danger" style="display: none;">Pembayaran melebihi saldo sisa.</small>
-                  </div>
-                  <div class="mb-3">
-                    <label for="tgl" class="form-label">Tanggal Pembayaran</label>
-                    <input  type="date" name="tgl" id="tgl" class="form-control">
                   </div>
                   <div class="mb-3">
                     <label for="bukti_pembayaran" class="form-label">Bukti Pembayaran</label>

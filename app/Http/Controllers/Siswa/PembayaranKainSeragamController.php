@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Siswa;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Cicilan;
 use App\Models\tagihan;
@@ -41,6 +42,12 @@ class PembayaranKainSeragamController extends Controller
             ->where('user_id', $user) // Filter berdasarkan user_id tertentu
             ->groupBy('user_id', 'tagihan_id') // Kelompokkan berdasarkan user_id dan tagihan_id
             ->get();
+        $transaksi2 = Transaksi::with('user')
+            ->where('tagihan_id', '4')
+            ->where('status', '2')
+            ->where('user_id', $user)
+            ->limit(1)
+            ->get();
         $totalcicilan = Cicilan::selectRaw('user_id, tagihan_id, SUM(total) as total_sum')
             ->where('tagihan_id', '4') // Filter berdasarkan tagihan_id tertentu
             ->where('user_id', $user) // Filter berdasarkan user_id tertentu
@@ -51,7 +58,7 @@ class PembayaranKainSeragamController extends Controller
             ->get();
         $userjurusan = Auth::user()->jurusan;
         $rekening = Rekening::where('jurusan', $userjurusan)->get();
-        return view('pages.siswa.pembayaran-kainseragam', compact('no', 'total', 'siswa', 'tagihan', 'transaksi', 'cicilan', 'totalcicilan', 'trans', 'totaltransaksi', 'rekening'));
+        return view('pages.siswa.pembayaran-kainseragam', compact('no', 'total', 'transaksi2', 'siswa', 'tagihan', 'transaksi', 'cicilan', 'totalcicilan', 'trans', 'totaltransaksi', 'rekening'));
     }
 
     public function cetak($id)
@@ -89,12 +96,11 @@ class PembayaranKainSeragamController extends Controller
             $request->validate([
                 'total' => 'required|numeric|min:0',
                 'bukti_pembayaran' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048',
-                'tgl' => 'required',
-                // Tambahkan validasi lainnya jika perlu
             ]);
             // Simpan data ke database
             $data = $request->all();
             $data['bukti_pembayaran'] = $request->file('bukti_pembayaran')->store('assets/bukti_transaksi', 'public');
+            $data['tgl'] = Carbon::now();
             $cicilan = Cicilan::create($data);
             $tgl = $request['tgl'];
             $this->updateTransaksiStatus($cicilan, $tgl);

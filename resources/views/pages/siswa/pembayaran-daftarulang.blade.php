@@ -20,7 +20,7 @@ Pembayaran Daftar Ulang
                     <div class="card">
                         <div class="row ml-2 mt-2">
                             <div class="col-md-6">
-                                <h5>Rincian Pembayaran Daftar Ulang</h5>
+                                <h5>Pembayaran Daftar Ulang</h5>
                             </div>
                         </div>
                         <div class="table-responsive m-5">
@@ -33,12 +33,12 @@ Pembayaran Daftar Ulang
                                       </tr>
                                   </thead>
                                     <tbody>
-                                        @if ($transaksi->isEmpty())
+                                        @if($transaksi->isEmpty())
                                         <tr>
                                             <td colspan="3" class="text-center">Tidak ada tagihan.</td>
                                         </tr>
-                                      
-                                    @else
+                                       
+                                        @else
                                         @foreach ($transaksi as $item)
                                         <tr>
                                             <td>{{ $no++ }}</td>
@@ -117,9 +117,9 @@ Pembayaran Daftar Ulang
                        @if ($saldoSisa == 0)
                            <!-- Jika saldo sisa sama dengan nol, tampilkan pesan atau konten sesuai kebutuhan -->
                            <h4 class="text-success">Lunas.</h4>
-                           @foreach ($total as $item)
-                                    
-                           <a href="/cetak-nota/{{ $item->tagihan_id }}" class="btn btn-primary"><i class="fa fa-print"></i> Cetak</a>
+                           @foreach ($transaksi2 as $data)
+                               
+                           <a href="/cetak-nota/{{ $data->tagihan_id }}" class="btn btn-primary"><i class="fa fa-print"></i> Cetak</a>
                            @endforeach
                        @else
                            <!-- Jika masih ada saldo sisa, tampilkan tombol bayar -->
@@ -128,7 +128,7 @@ Pembayaran Daftar Ulang
                            </a>
                            @endif
                            @endforeach  
-                           @endif                 
+                           @endif 
                         </div>
                     </div>
                 </div>
@@ -144,12 +144,12 @@ Pembayaran Daftar Ulang
                                       </tr>
                                   </thead>
                                     <tbody>
-                                        @if ($cicilan->isEmpty())
+                                        @if($cicilan->isEmpty())
                                         <tr>
-                                            <td colspan="3" class="text-center">Anda belum melakukan pembayaran.</td>
+                                            <td colspan="3" class="text-center">Tidak ada pembayaran.</td>
                                         </tr>
-                                      
-                                    @else
+                                       
+                                        @else
                                         @foreach ($cicilan as $item)
                                         <tr>
                                             <td>{{ $no++ }}</td>
@@ -158,7 +158,6 @@ Pembayaran Daftar Ulang
                                         </tr>
                                     @endforeach
                                     @endif
-                                    
                                     </tbody>
                                   </div>                              
                            
@@ -199,17 +198,13 @@ Pembayaran Daftar Ulang
                     <small id="totalError" class="text-danger" style="display: none;">Pembayaran melebihi saldo sisa.</small>
                   </div>
                   <div class="mb-3">
-                    <label for="tgl" class="form-label">Tanggal Pembayaran</label>
-                    <input  type="date" name="tgl" id="tgl" class="form-control">
-                  </div>
-                  <div class="mb-3">
                     <label for="bukti_pembayaran" class="form-label">Bukti Pembayaran</label>
                     <input type="file" name="bukti_pembayaran" id="bukti_pembayaran" class="form-control-file">
                   </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-success">Selesaikan Pembayaran</button>
+            <button type="submit" class="btn btn-success" id="submitBtn">Selesaikan Pembayaran</button>
           </form>
             </div>
         </div>

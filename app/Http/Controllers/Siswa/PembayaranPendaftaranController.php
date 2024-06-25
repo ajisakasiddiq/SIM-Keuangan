@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Cicilan;
 use App\Models\Rekening;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class PembayaranPendaftaranController extends Controller
 {
@@ -39,6 +40,7 @@ class PembayaranPendaftaranController extends Controller
             ->get();
         $transaksi2 = Transaksi::with('user')
             ->where('tagihan_id', '3')
+            ->where('status', '2')
             ->where('user_id', $user)
             ->limit(1)
             ->get();
@@ -94,12 +96,11 @@ class PembayaranPendaftaranController extends Controller
             $request->validate([
                 'total' => 'required|numeric|min:0',
                 'bukti_pembayaran' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048',
-                'tgl' => 'required',
-                // Tambahkan validasi lainnya jika perlu
             ]);
             // Simpan data ke database
             $data = $request->all();
             $data['bukti_pembayaran'] = $request->file('bukti_pembayaran')->store('assets/bukti_transaksi', 'public');
+            $data['tgl'] = Carbon::now();
             $cicilan = Cicilan::create($data);
             $tgl = $request['tgl'];
             $this->updateTransaksiStatus($cicilan, $tgl);
