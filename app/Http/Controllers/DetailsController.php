@@ -105,7 +105,6 @@ class DetailsController extends Controller
             $user_id = $data['user_id'];
             $tagihan_id = $data['tagihan_id'];
             $tgl = $request['tgl'];
-            dd($e);
             return redirect()->route('Details.index', compact('user_id', 'tagihan_id'))->with('error', 'Terjadi kesalahan saat menyimpan data.');
         }
     }
