@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Transaksi;
 use App\Exports\DataExport;
-use App\Exports\LaporanExport;
 use Illuminate\Http\Request;
+use App\Exports\LaporanExport;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
@@ -79,6 +80,7 @@ class LaporanKeuanganController extends Controller
 
     public function exportData(Request $request)
     {
+        Carbon::setLocale('id');
         $bulan = $request->query('bulan'); // Ambil nilai bulan dari query string
         $tahun = $request->query('tahun');
         if (Auth::user()->role == 'bendahara-excellent')
@@ -111,7 +113,7 @@ class LaporanKeuanganController extends Controller
             ->sum('total');
         // dd($bulan);
         // Panggil class ekspor (ganti dengan nama class export yang sesuai)
-        $namaFile = 'laporanKeuangan_' . $tahun . '_' . $bulan . '.xlsx';
+        $namaFile = 'laporanKeuangan_' . $tahun . '_' . Carbon::createFromFormat('m', $bulan)->translatedFormat('F') . '.xlsx';
         return Excel::download(new LaporanExport($transactions, $totalsaldo, $bulan, $tahun, $totalpengeluaran), $namaFile);
     }
 }
