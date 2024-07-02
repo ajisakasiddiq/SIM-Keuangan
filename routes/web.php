@@ -68,6 +68,7 @@ Route::middleware('auth', 'role:admin')
         Route::resource('data-siswa-reguler', 'App\Http\Controllers\SiswaRegulerController');
         Route::resource('data-user', 'App\Http\Controllers\UserController');
         Route::resource('Tahun-Ajaran', 'App\Http\Controllers\TahunAjaranController');
+        Route::resource('Profile-Web', 'App\Http\Controllers\Admin\ProfileWebController');
         Route::post('/update-classes', [SiswaController::class, 'updateClasses'])->name('update.class');
     });
 Route::middleware('auth', 'role:siswa')->group(function () {

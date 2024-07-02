@@ -15,6 +15,11 @@
 
     @if(Auth::user()->role == 'admin')
     <li class="nav-item">
+        <a class="nav-link {{ (request()->is('data-user')) ? 'active' : ''}}" href="{{ route('Profile-Web.index') }}">
+              <i class="fa-duotone fa-user" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
+              <span>Profile Website</span></a>
+      </li>
+    <li class="nav-item">
         <a class="nav-link {{ (request()->is('data-user')) ? 'active' : ''}}" href="{{ route('data-user.index') }}">
               <i class="fa-duotone fa-user" style="--fa-primary-color: #0b64fe; --fa-secondary-color: #0b64fe;"></i>
               <span>Data Bendahara</span></a>

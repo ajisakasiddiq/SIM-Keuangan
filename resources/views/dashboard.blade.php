@@ -37,9 +37,16 @@
         <div class="card shadow mb-4">
              <!-- Logo and School Name -->
     <div class="col-xl-12 col-md-12 mb-4 mt-4 text-center">
-        <img src="img/logo.png" alt="Logo MTS Zainul Hasan" style="width: 550px; height: 550px;">
-        <h1 class="mt-3 font-weight-bold">MTS Zainul Hasan Balung</h1>
-        <p>Jl. Alamat Sekolah No.123, Kota, Provinsi</p>
+        @foreach ($profile as $item)
+            
+        @if($item->foto == NULL)
+                  <img class="img-account-profile rounded-circle mb-2" src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+                  @else
+        <img  src="{{ Storage::url($item->foto) }}" alt="Logo MTS Zainul Hasan" style="width: 550px; height: 550px;">
+                  @endif
+        <h1 class="mt-3 font-weight-bold">{{ $item->name }}</h1>
+        <p>{{ $item->alamat }}</p>
+        @endforeach
     </div>
         </div>
     </div>
