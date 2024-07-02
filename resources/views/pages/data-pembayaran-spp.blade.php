@@ -230,7 +230,7 @@
                             <select class="form-control" name="user_id" id="user_id">
                                 <option value="">Pilih Siswa</option>
                                 @foreach ($siswa as $item)
-                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                <option value="{{ $item->id }}">{{ $item->name }}({{ $item->nisn }})</option>
                                 @endforeach
                             </select>
                         </div>
