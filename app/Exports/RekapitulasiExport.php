@@ -2,6 +2,7 @@
 
 namespace App\Exports;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\WithStyles;
@@ -12,12 +13,16 @@ class RekapitulasiExport implements FromView, WithStyles
     protected $data;
     protected $jumlahtotal;
     protected $title;
+    protected $bulan;
+    protected $tahun;
 
-    public function __construct($data, $jumlahtotal, $title)
+    public function __construct($data, $jumlahtotal, $title, $bulan, $tahun)
     {
         $this->data = $data;
         $this->jumlahtotal = $jumlahtotal;
         $this->title = $title;
+        $this->bulan = $bulan;
+        $this->tahun = $tahun;
     }
 
     public function view(): View
@@ -26,21 +31,21 @@ class RekapitulasiExport implements FromView, WithStyles
             'data' => $this->data,
             'jumlahtotal' => $this->jumlahtotal,
             'title' => $this->title,
+            'bulan' => $this->bulan,
+            'tahun' => $this->tahun,
         ]);
     }
 
     public function styles(Worksheet $sheet)
     {
         // Mengatur lebar kolom agar sesuai dengan konten
-        $sheet->getColumnDimension('A')->setWidth(15);
+        $sheet->getColumnDimension('A')->setWidth(5);
         $sheet->getColumnDimension('B')->setWidth(25);
         $sheet->getColumnDimension('C')->setWidth(20);
         $sheet->getColumnDimension('D')->setWidth(20);
-        $sheet->getColumnDimension('E')->setWidth(20);
-        $sheet->getColumnDimension('F')->setWidth(20);
 
         // Mengatur header
-        $sheet->getStyle('A1:F1')->applyFromArray([
+        $sheet->getStyle('A2:D2')->applyFromArray([
             'font' => [
                 'bold' => true,
                 'color' => ['rgb' => '000000']
@@ -62,7 +67,7 @@ class RekapitulasiExport implements FromView, WithStyles
 
         // Mengatur isi tabel
         $highestRow = $sheet->getHighestRow();
-        $sheet->getStyle("A2:F$highestRow")->applyFromArray([
+        $sheet->getStyle("A3:F$highestRow")->applyFromArray([
             'alignment' => [
                 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER
             ],
@@ -75,8 +80,14 @@ class RekapitulasiExport implements FromView, WithStyles
         ]);
 
         // Mengatur gaya judul dan posisinya
-        $sheet->mergeCells('A1:F1');
-        $sheet->setCellValue('A1', 'Rekapitulasi ' . $this->title);
+        $sheet->mergeCells('A1:D1');
+
+        $titleText = 'Rekapitulasi ' . $this->title;
+        if ($this->bulan && $this->tahun) {
+            $titleText .= ' Bulan ' . Carbon::createFromFormat('m', $this->bulan)->translatedFormat('F') . ' Tahun ' . $this->tahun;
+        }
+
+        $sheet->setCellValue('A1', $titleText);
         $sheet->getStyle('A1')->applyFromArray([
             'font' => [
                 'bold' => true,

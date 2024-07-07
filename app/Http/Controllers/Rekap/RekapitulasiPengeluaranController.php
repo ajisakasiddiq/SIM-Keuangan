@@ -13,6 +13,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\Facades\DataTables;
+use Carbon\Carbon;
 
 class RekapitulasiPengeluaranController extends Controller
 {
@@ -84,12 +85,13 @@ class RekapitulasiPengeluaranController extends Controller
     }
     public function exportExcel(Request $request)
     {
+        Carbon::setLocale('id');
         if (Auth::user()->role == 'bendahara-excellent')
             $jurusan = 'excellent';
         else
             $jurusan = 'reguler';
         $tagihanid = $request->input('tagihan_id');
-        $selectedyear = $request->input('tahun');
+        $tahun = $request->input('tahun');
         $bulan = $request->input('bulan');
         $query = Transaksi::select(
             'jenistagihan.name as Namatagihan',
@@ -102,8 +104,8 @@ class RekapitulasiPengeluaranController extends Controller
             ->where('jenis_transaksi', 'Pengeluaran')
             ->where('jurusan', $jurusan);
 
-        if ($selectedyear) {
-            $query->whereYear('tgl_pembayaran', $selectedyear);
+        if ($tahun) {
+            $query->whereYear('tgl_pembayaran', $tahun);
         }
         if ($bulan) {
             $query->whereMonth('tgl_pembayaran', $bulan);
@@ -117,6 +119,14 @@ class RekapitulasiPengeluaranController extends Controller
         $jumlahtotal = $data->sum('total');
         $title = 'Pengeluaran';
 
-        return Excel::download(new RekapitulasiExport($data, $jumlahtotal, $title), 'rekapitulasi-Pengeluaran.xlsx');
+        // Buat nama file berdasarkan ketersediaan bulan dan tahun
+        if ($tahun && $bulan) {
+            $namaFile = 'Rekapitulasi-Pengeluaran_' . $tahun . '_' . Carbon::createFromFormat('m', $bulan)->translatedFormat('F') . '.xlsx';
+        } elseif ($tahun) {
+            $namaFile = 'Rekapitulasi-Pengeluaran_' . $tahun . '.xlsx';
+        } else {
+            $namaFile = 'Rekapitulasi-Pengeluaran.xlsx';
+        }
+        return Excel::download(new RekapitulasiExport($data, $jumlahtotal, $title, $bulan, $tahun), $namaFile);
     }
 }

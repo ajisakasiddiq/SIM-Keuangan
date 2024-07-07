@@ -86,12 +86,13 @@ class RekapitulasiPendapatanController extends Controller
     }
     public function exportExcel(Request $request)
     {
+        Carbon::setLocale('id');
         if (Auth::user()->role == 'bendahara-excellent')
             $jurusan = 'excellent';
         else
             $jurusan = 'reguler';
         $tagihanid = $request->input('tagihan_id');
-        $selectedyear = $request->input('tahun');
+        $tahun = $request->input('tahun');
         $bulan = $request->input('bulan');
         $query = Transaksi::select(
             'jenistagihan.name as Namatagihan',
@@ -107,8 +108,8 @@ class RekapitulasiPendapatanController extends Controller
         if ($tagihanid) {
             $query->where('tagihan_id', $tagihanid);
         }
-        if ($selectedyear) {
-            $query->whereYear('tgl_pembayaran', $selectedyear);
+        if ($tahun) {
+            $query->whereYear('tgl_pembayaran', $tahun);
         }
         if ($bulan) {
             $query->whereMonth('tgl_pembayaran', $bulan);
@@ -120,8 +121,16 @@ class RekapitulasiPendapatanController extends Controller
         $query->groupBy('transaksi.tagihan_id');
         $data = $query->get();
         $jumlahtotal = $data->sum('total');
-        $title = 'Pengeluaran';
+        $title = 'Pendapatan';
 
-        return Excel::download(new RekapitulasiExport($data, $jumlahtotal, $title), 'rekapitulasi-pendapatan.xlsx');
+        // Buat nama file berdasarkan ketersediaan bulan dan tahun
+        if ($tahun && $bulan) {
+            $namaFile = 'Rekapitulasi-Pendapatan_' . $tahun . '_' . Carbon::createFromFormat('m', $bulan)->translatedFormat('F') . '.xlsx';
+        } elseif ($tahun) {
+            $namaFile = 'Rekapitulasi-Pendapatan_' . $tahun . '.xlsx';
+        } else {
+            $namaFile = 'Rekapitulasi-Pendapatan.xlsx';
+        }
+        return Excel::download(new RekapitulasiExport($data, $jumlahtotal, $title, $bulan, $tahun), $namaFile);
     }
 }

@@ -40,6 +40,7 @@
     <table class="table-bordered">
         <thead>
             <tr>
+                <th>No</th>
                 <th>Kategori</th>
                 <th>Keterangan</th>
                 <th>Total</th>
@@ -48,6 +49,7 @@
         <tbody>
             @foreach ($data as $item)
                 <tr>
+                    <td>{{ $loop->iteration }}</td>
                     <td>{{ $item->jenistagihan->name }}</td>
                     <td>{{ $item->keterangan }}</td>
                     <td>Rp. {{ number_format($item->total, 0, ',', '.') }}</td>
