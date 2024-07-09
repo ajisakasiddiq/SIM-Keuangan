@@ -22,9 +22,9 @@
                 <h6 class="dropdown-header">
                     Notifikasi Pembayaran / Tagihan
                 </h6>
+                @if($trans->isEmpty())
                 <a class="dropdown-item d-flex align-items-center" href="#">
                  
-                    @if($trans->isEmpty())
                     <div>
                         <span class="font-weight-bold">Tidak Ada Pembayaran Terbaru</span>
                     </div>
@@ -44,9 +44,9 @@
                         <span class="font-weight-bold">{{ $item->user->name }} Melakukan Pembayaran {{ $item->jenistagihan->name }}</span>
                         @endif
                     </div>
-                    @endforeach
-                    @endif
                 </a>
+                @endforeach
+                @endif
                 {{-- <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a> --}}
             </div>
         </li>

@@ -35,7 +35,10 @@ class LaporanKeuanganController extends Controller
         });
         $no = 1;
         $transactions = Transaksi::select(
-            DB::raw('CASE WHEN transaksi.tagihan_id = 6 THEN transaksi.keterangan ELSE jenistagihan.name END AS nama_tagihan'),
+            DB::raw('CASE 
+            WHEN transaksi.tagihan_id = 6 THEN CONCAT(jenistagihan.name, " (", transaksi.keterangan, ")") 
+            ELSE jenistagihan.name 
+         END AS nama_tagihan'),
             'transaksi.tagihan_id',
             'transaksi.jenis_transaksi',
             DB::raw('SUM(transaksi.total) AS jumlah')
@@ -89,7 +92,10 @@ class LaporanKeuanganController extends Controller
             $jurusan = 'reguler';
         // Contoh query untuk mengambil data yang ingin diekspor
         $transactions = Transaksi::select(
-            DB::raw('CASE WHEN transaksi.tagihan_id = 6 THEN transaksi.keterangan ELSE jenistagihan.name END AS nama_tagihan'),
+            DB::raw('CASE 
+            WHEN transaksi.tagihan_id = 6 THEN CONCAT(jenistagihan.name, " (", transaksi.keterangan, ")") 
+            ELSE jenistagihan.name 
+         END AS nama_tagihan'),
             'transaksi.tagihan_id',
             'transaksi.jenis_transaksi',
             DB::raw('SUM(transaksi.total) AS jumlah')
