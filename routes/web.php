@@ -21,7 +21,7 @@ use App\Http\Controllers\SiswaRegulerController;
 */
 
 Route::get('/', function () {
-    return view('home');
+    return redirect('/dashboard');
 });
 
 // Route::get('/dashboard', function () {
